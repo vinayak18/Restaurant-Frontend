@@ -1,0 +1,103 @@
+<div *ngIf="orders.length===0" class="text-center mt-5 mb-5 pb-5">
+  <a class="" [routerLink]="['menu']"><img src="../assets/img/empty-cart.jpeg" alt="" width="20%"></a>
+  <h4><b>You don't have any orders yet</b></h4>
+  <p><i>Add something to make me happy :)</i></p>
+  <button type="submit" class="btn" [routerLink]="['menu']" style="background-color: #ffb633;">Explore
+    Menu</button>
+</div>
+<div *ngIf="orders.length!=0" class="container">
+  <div *ngIf="ongoingOrdersList.length!=0" class="mb-2">
+    <h5 style="color: #ffb633;" class="mt-2 border border-warning p-2 mb-3">
+      <b>Ongoing Orders</b>
+    </h5>
+    <div class="card mb-3"
+      *ngFor="let order of ongoingOrdersList | paginate: { id: 'page1', itemsPerPage: orderPerPage, currentPage: pageNo_ongoing }">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-sm-8">
+              <h6>Order Id: #{{order.orderId}}</h6>
+            </div>
+            <div class="col-sm-4">
+              <h6 class="float-right" style="color: #ffb633; font-weight: bold;">{{order.status}}</h6>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="" *ngFor="let item of order.orderDetails">
+            {{item.quantity}} X {{item.name}}
+          </div>
+          <div class="row mt-2">
+            <div class="col-sm-8">
+              <h6>{{order.dateOfOrder}}</h6>
+            </div>
+            <div class="col-sm-4">
+              <h6 class="float-right" style="color: #ffb633; font-weight: bold;">Rs. {{order.netAmount}}</h6>
+            </div>
+          </div>
+
+        </li>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-sm-8">
+              <span *ngFor="let rate of rating" (click)="setRating(rate)">
+                *
+              </span>
+            </div>
+            <div class="col-sm-4">
+              <button type="submit" class="btn float-right" [routerLink]="['details',order.orderId]"
+                style="background-color: #ffb633;">Order
+                Details</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <!--Including the pagination control.-->
+    <div class="text-right" *ngIf="ongoingOrdersList.length>4">
+      <pagination-controls id='page1' (pageChange)="pageNo_ongoing = $event"></pagination-controls>
+    </div>
+  </div>
+  <div *ngIf="pastOrdersList.length!=0" class="mb-2">
+    <h5 style="color: #ffb633;" class="mt-2 border border-warning p-2 mb-3">
+      <b>Past Orders</b>
+    </h5>
+    <div class="card mb-3"
+      *ngFor="let order of pastOrdersList | paginate: { id: 'page2', itemsPerPage: orderPerPage, currentPage: pageNo_past }">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-sm-8">
+              <h6>Order Id: {{order.orderId}}</h6>
+            </div>
+            <div class="col-sm-4">
+              <h6 class="float-right" style="color: #ffb633; font-weight: bold;">{{order.status}}</h6>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <div class="" *ngFor="let item of order.orderDetails">
+            {{item.quantity}} X {{item.name}}
+          </div>
+          <div class="row mt-2">
+            <div class="col-sm-8">
+              <h6>{{order.dateOfOrder}}</h6>
+            </div>
+            <div class="col-sm-4">
+              <h6 class="float-right" style="color: #ffb633; font-weight: bold;">Rs. {{order.netAmount}}</h6>
+            </div>
+          </div>
+
+        </li>
+        <li class="list-group-item"><button type="submit" class="btn float-right" [routerLink]="['menu']"
+            style="background-color: #ffb633;">Order Details</button></li>
+      </ul>
+    </div>
+    <!--Including the pagination control.-->
+    <div class="text-right" *ngIf="pastOrdersList.length>4">
+      <pagination-controls id="page2" (pageChange)="pageNo_past = $event">
+      </pagination-controls>
+    </div>
+  </div>
+
+</div>

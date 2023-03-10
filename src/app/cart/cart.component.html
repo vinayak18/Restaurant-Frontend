@@ -1,0 +1,8 @@
+<div *ngIf="cartItems.length===0" class="text-center mt-5 pt-5 mb-5 pb-5">
+  <a class="" [routerLink]="['menu']"><img src="../assets/img/cart.png" alt="" width="10%"></a>
+  <h4 class="mt-4"><b>Your cart is empty</b></h4>
+  <p><i>Looks like you havn't added anything to your cart yet</i></p>
+  <button type="submit" class="btn" [routerLink]="['menu']" style="background-color: #ffb633;">Explore
+    Menu</button>
+</div>
+<div *ngIf="cartItems.length!=0" class=""></div>

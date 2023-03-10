@@ -1,0 +1,74 @@
+<nav class="navbar navbar-expand-lg navbar-light">
+
+  <a class="logo1 navbar-brand mr-auto" [routerLink]="['home']"><img src="../assets/img/logo.png" alt="" height="50px"
+      width="100px"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto ml-auto">
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['home']">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['about']">About</a>
+      </li>
+      <li class="nav-item dropdown">
+        <!-- <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Speacial Dishes
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Momo</a>
+          <a class="dropdown-item" href="#">Pizza</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">more...</a>
+        </div> -->
+        <a class="nav-link" [routerLink]="['special-dishes']">Speacial Dishes</a>
+      </li>
+    </ul>
+
+    <a class="logo2 navbar-nav mr-auto" href="#"><img src="../assets/img/logo.png" alt="" height="50px"
+        width="100px"></a>
+
+    <!-- <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+      </form> -->
+    <ul class="navbar-nav mr-auto my-2 my-lg-0 ">
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['menu']">Menu <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['cart']">Cart</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['order']">Orders</a>
+      </li>
+
+    </ul>
+    <div class="navbar-nav user-info">
+      <div *ngIf="isLoggedIn" class="">
+        <a class="btn btn-sm" [routerLink]="['login']" role="button"
+          style="background-color: #ffb633; color: black;">Login/Register</a>
+      </div>
+      <div *ngIf="!isLoggedIn" class="dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Hi Vinayak!
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">My Account</a>
+          <a class="dropdown-item" href="#">Payments</a>
+        </div>
+        <!-- <button mat-button [matMenuTriggerFor]="beforeMenu">Hi Vinayak</button>
+        <mat-menu #beforeMenu="matMenu" [overlapTrigger]="true" xPosition="before" class="before-menu">
+          <button mat-menu-item>My Account</button>
+          <button mat-menu-item>Payments & Refunds</button>
+        </mat-menu> -->
+      </div>
+    </div>
+  </div>
+</nav>

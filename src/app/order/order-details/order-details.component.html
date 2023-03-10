@@ -1,0 +1,102 @@
+<div class="container mb-2">
+  <h5 style="color: #ffb633;" class="mt-2 border border-warning p-2 mb-3">
+    <b>Order Details</b>
+  </h5>
+  <div class="card mb-3">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-sm-8">
+            <h6>Order Id: #{{order.orderId}}</h6>
+          </div>
+          <div class="col-sm-4">
+            <h6 class="float-right" style="color: #ffb633; font-weight: bold;">{{order.status}}</h6>
+          </div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="" *ngIf="breakfastList.length!==0">
+          <h6>BREAKFAST</h6>
+          <div class="" *ngFor="let item of breakfastList">
+            <div class="row mt-2">
+              <div class="col-sm-8">
+                <span class="font-weight=bold">{{item.quantity}} X {{item.name}}</span>
+              </div>
+              <div class="col-sm-4">
+                <h6 class="float-right" style="color: black; font-weight: bold;">Rs. {{item.quantity * item.price}}
+                </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-2" *ngIf="lunchList.length!==0">
+          <hr>
+          <h6>LUNCH</h6>
+          <div class="" *ngFor="let item of lunchList">
+            <div class="row mt-2">
+              <div class="col-sm-8">
+                <span class="font-weight=bold">{{item.quantity}} X {{item.name}}</span>
+              </div>
+              <div class="col-sm-4">
+                <h6 class="float-right" style="color: black; font-weight: bold;">Rs. {{item.quantity * item.price}}
+                </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-2" *ngIf="dinnerList.length!==0">
+          <hr>
+          <h6>DINNER</h6>
+          <div class="" *ngFor="let item of dinnerList">
+            <div class="row mt-2">
+              <div class="col-sm-8">
+                <span class="font-weight=bold">{{item.quantity}} X {{item.name}}</span>
+              </div>
+              <div class="col-sm-4">
+                <h6 class="float-right" style="color: black; font-weight: bold;">Rs. {{item.quantity * item.price}}
+                </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-2" *ngIf="specialDishList.length!==0">
+          <hr>
+          <h6>SPEACIAL DISH</h6>
+          <div class="" *ngFor="let item of specialDishList">
+            <div class="row mt-2">
+              <div class="col-sm-8">
+                <span class="font-weight=bold">{{item.quantity}} X {{item.name}}</span>
+              </div>
+              <div class="col-sm-4">
+                <h6 class="float-right" style="color: black; font-weight: bold;">Rs. {{item.quantity * item.price}}
+                </h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <div class="row mt-2">
+          <div class="col-sm-8">
+            <h6>Total</h6>
+          </div>
+          <div class="col-sm-4">
+            <h6 class="float-right" style="color: #ffb633; font-weight: bold;">Rs. {{order.netAmount}}</h6>
+          </div>
+        </div>
+
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-sm-8 mt-2">
+            <h6>{{order.dateOfOrder}}</h6>
+          </div>
+          <div class="col-sm-4">
+            <button type="submit" class="btn float-right" [routerLink]="['details',order.orderId]"
+              style="background-color: #ffb633;">Print Invoice</button>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
