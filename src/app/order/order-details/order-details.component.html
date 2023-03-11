@@ -20,11 +20,11 @@
           <div class="" *ngFor="let item of breakfastList">
             <div class="row mt-2">
               <div class="col-sm-8">
-                <span class="font-weight=bold">{{item.quantity}} X {{item.name}}</span>
+                <span>{{item.quantity}} X {{item.name}}</span>
               </div>
               <div class="col-sm-4">
-                <h6 class="float-right" style="color: black; font-weight: bold;">Rs. {{item.quantity * item.price}}
-                </h6>
+                <span class="float-right">Rs. {{item.quantity * item.price}}
+                </span>
               </div>
             </div>
           </div>
@@ -36,11 +36,11 @@
           <div class="" *ngFor="let item of lunchList">
             <div class="row mt-2">
               <div class="col-sm-8">
-                <span class="font-weight=bold">{{item.quantity}} X {{item.name}}</span>
+                <span>{{item.quantity}} X {{item.name}}</span>
               </div>
               <div class="col-sm-4">
-                <h6 class="float-right" style="color: black; font-weight: bold;">Rs. {{item.quantity * item.price}}
-                </h6>
+                <span class="float-right">Rs. {{item.quantity * item.price}}
+                </span>
               </div>
             </div>
           </div>
@@ -51,11 +51,11 @@
           <div class="" *ngFor="let item of dinnerList">
             <div class="row mt-2">
               <div class="col-sm-8">
-                <span class="font-weight=bold">{{item.quantity}} X {{item.name}}</span>
+                <span>{{item.quantity}} X {{item.name}}</span>
               </div>
               <div class="col-sm-4">
-                <h6 class="float-right" style="color: black; font-weight: bold;">Rs. {{item.quantity * item.price}}
-                </h6>
+                <span class="float-right">Rs. {{item.quantity * item.price}}
+                </span>
               </div>
             </div>
           </div>
@@ -66,19 +66,52 @@
           <div class="" *ngFor="let item of specialDishList">
             <div class="row mt-2">
               <div class="col-sm-8">
-                <span class="font-weight=bold">{{item.quantity}} X {{item.name}}</span>
+                <span>{{item.quantity}} X {{item.name}}</span>
               </div>
               <div class="col-sm-4">
-                <h6 class="float-right" style="color: black; font-weight: bold;">Rs. {{item.quantity * item.price}}
-                </h6>
+                <span class="float-right">Rs. {{item.quantity * item.price}}
+                </span>
               </div>
             </div>
+          </div>
+        </div>
+        <hr style="border-top: 2px dashed;">
+        <div class="row mt-2">
+          <div class="col-sm-8">
+            <h6>Item Total</h6>
+          </div>
+          <div class="col-sm-4">
+            <h6 class="float-right">Rs. {{order.actualAmount}}</h6>
+          </div>
+        </div>
+        <div class="row mt-2" *ngIf="null!=order.couponCode">
+          <div class="col-sm-8">
+            <span>Discount ({{order.couponCode}})</span>
+          </div>
+          <div class="col-sm-4">
+            <span class="float-right">- Rs. {{discountAmount}}</span>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-sm-8">
+            <span>Tax Amount</span>
+          </div>
+          <div class="col-sm-4">
+            <span class="float-right">Rs. {{(order.actualAmount-discountAmount)*(order.taxRate/100)}}</span>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-sm-8">
+            <span>Delivery Fee</span>
+          </div>
+          <div class="col-sm-4">
+            <span class="float-right">Rs. {{order.deliveryFee}}</span>
           </div>
         </div>
         <hr>
         <div class="row mt-2">
           <div class="col-sm-8">
-            <h6>Total</h6>
+            <h6>Net Total</h6>
           </div>
           <div class="col-sm-4">
             <h6 class="float-right" style="color: #ffb633; font-weight: bold;">Rs. {{order.netAmount}}</h6>
@@ -92,7 +125,7 @@
             <h6>{{order.dateOfOrder}}</h6>
           </div>
           <div class="col-sm-4">
-            <button type="submit" class="btn float-right" [routerLink]="['details',order.orderId]"
+            <button type="submit" class="btn float-right"
               style="background-color: #ffb633;">Print Invoice</button>
           </div>
         </div>

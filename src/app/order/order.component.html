@@ -41,7 +41,7 @@
           <div class="row">
             <div class="col-sm-8">
               <span *ngFor="let rate of rating" (click)="setRating(rate)">
-                *
+                <mat-icon>star_border</mat-icon>
               </span>
             </div>
             <div class="col-sm-4">
@@ -89,8 +89,20 @@
           </div>
 
         </li>
-        <li class="list-group-item"><button type="submit" class="btn float-right" [routerLink]="['menu']"
-            style="background-color: #ffb633;">Order Details</button></li>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-sm-8">
+              <span *ngFor="let rate of rating" (click)="setRating(rate)">
+                <mat-icon>star_border</mat-icon>
+              </span>
+            </div>
+            <div class="col-sm-4">
+              <button type="submit" class="btn float-right" [routerLink]="['details',order.orderId]"
+                style="background-color: #ffb633;">Order
+                Details</button>
+            </div>
+          </div>
+      </li>
       </ul>
     </div>
     <!--Including the pagination control.-->

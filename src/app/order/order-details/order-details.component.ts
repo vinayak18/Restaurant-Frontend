@@ -67,15 +67,16 @@ export class OrderDetailsComponent implements OnInit {
         live: true,
       },
     ],
-    actualAmount: 1.0,
-    taxRate: 18,
+    actualAmount: 1600.0,
+    taxRate: 5,
     deliveryFee: 25,
-    couponCode: 'First100',
-    netAmount: 1000.0,
+    couponCode: 'FIRST100',
+    netAmount: 1537.0,
     status: status.ACCEPTED,
     payment: 'UPI',
     rating: 5,
   };
+  discountAmount: number = 160.0;
   constructor(private activeRoute: ActivatedRoute) {
     this.orderId = this.activeRoute.snapshot.params['orderId'];
     console.log(this.orderId);
