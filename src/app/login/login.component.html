@@ -17,7 +17,7 @@
     </div>
   </div>
   <div class="login-section">
-    <div class="form-box login" *ngIf="switch">
+    <div class="form-box login" @myInsertRemoveTrigger *ngIf="switch">
       <form [formGroup]="loginForm" (ngSubmit)="validateUser()">
         <h2>Sign In</h2>
         <div class="input-box">
@@ -44,7 +44,7 @@
         </div>
       </form>
     </div>
-    <div class="form-box register" *ngIf="!switch">
+    <div class="form-box register" @myInsertRemoveTrigger *ngIf="!switch">
       <form action="">
 
         <h2>Sign Up</h2>
@@ -67,7 +67,7 @@
         <div class="remember-password">
           <label for=""><input type="checkbox">I agree with this statment</label>
         </div>
-        <button class="btn" (click)="validateUser()">Login In</button>
+        <button class="btn">Register</button>
         <div class="create-account">
           <p>Already Have An Account? <a href="#" class="login-link" (click)="toggle()">Sign In</a></p>
         </div>

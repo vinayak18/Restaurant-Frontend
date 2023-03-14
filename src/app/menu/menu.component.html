@@ -12,92 +12,122 @@
       <hr>
       <div class="row">
         <div class="col-lg-12 menu-wrap">
-          <div class="heading-menu">
-            <h3 class="text-left mb-5">Breakfast</h3>
-          </div>
-          <div class="menus d-flex align-items-center">
-            <div class="menu-img rounded-circle">
-              <img class="img-fluid" src="../../assets/img/breakfast-1.jpg" alt="">
+          <div class="heading-menu" (click)="toggleFlag(0)">
+            <div class="row">
+              <div class="col-sm-8 smallScreen">
+                <h3 class="text-left mb-3">Breakfast</h3>
+              </div>
+              <div class="col-sm-4 smallScreen text-right float-right pr-3">
+                <mat-icon>{{showOrHideFlag[0]?'keyboard_arrow_up':'keyboard_arrow_down'}}</mat-icon>
+              </div>
             </div>
-            <div class="text-wrap">
-              <div class="row align-items-start">
-                <div class="col-sm-12 col-md-6">
-                  <h4>Egg Sandwich</h4>
-                  <p>Meat Ball, Mie</p>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                  <div class="row text-right float-right">
-                    <div class="col-sm-6 col-md-8">
-                      <button class="plusminus" (click)="handleMinus()">-</button>
-                      <input type="text" class="num" value="0" [(ngModel)]="value" />
-                      <button class="plusminus" (click)="handlePlus()">+</button>
-                    </div>
-                    <div class="col-sm-6 col-md-4">
-                      <h4 class="text-muted menu-price">₹ 30</h4>
-                    </div>
+          </div>
+          <div @myInsertRemoveTrigger *ngIf="showOrHideFlag[0]">
+            <div class="menus d-flex align-items-center" *ngFor="let item of breakfastList">
+              <div class="menu-img rounded-circle">
+                <img class="img-fluid" [src]="item.img_url" alt="">
+              </div>
+              <div class="text-wrap">
+                <div class="row align-items-start">
+                  <div class="col-sm-6 col-md-4 wrap-word">
+                    <h4>{{item.name}}</h4>
+                    <p>{{item.desc}}</p>
+                  </div>
+                  <div class="col-sm-6 col-md-3 center">
+                    <button class="plusminus" [disabled]="item.quantity==1" (click)="handleMinus(item)">-</button>
+                    <input type="text" class="num" value="0" [(ngModel)]="item.quantity" />
+                    <button class="plusminus" (click)="handlePlus(item)">+</button>
+                  </div>
+                  <div class="col-sm-6 col-md-2 center mtop">
+                    <h4 class="text-muted menu-price">₹ {{item.price}}</h4>
+                  </div>
+                  <div class="col-sm-6 col-md-2 center mtop">
+                    <button type="submit" class="btn float-left" style="background-color: #ffb633;">Add to Cart</button>
                   </div>
                 </div>
-                <div class="col-sm-12 col-md-12">
-                  <button type="submit" class="btn float-left" style="background-color: #ffb633;">Add to Cart</button>
-                </div>
               </div>
-
             </div>
           </div>
+          <hr *ngIf="!showOrHideFlag[0]" style="border: 1 px solid black;">
+        </div>
+        <div class="col-lg-12 menu-wrap">
+          <div class="heading-menu" (click)="toggleFlag(1)">
+            <div class="row">
+              <div class="col-sm-8 smallScreen">
+                <h3 class="text-left mb-3">Lunch</h3>
+              </div>
+              <div class="col-sm-4 smallScreen text-right float-right pr-3">
+                <mat-icon>{{showOrHideFlag[1]?'keyboard_arrow_up':'keyboard_arrow_down'}}</mat-icon>
+              </div>
+            </div>
+          </div>
+          <div @myInsertRemoveTrigger *ngIf="showOrHideFlag[1]">
+            <div class="menus d-flex align-items-center" *ngFor="let item of lunchList">
+              <div class="menu-img rounded-circle">
+                <img class="img-fluid" [src]="item.img_url" alt="">
+              </div>
+              <div class="text-wrap">
+                <div class="row align-items-start">
+                  <div class="col-sm-6 col-md-4 wrap-word">
+                    <h4>{{item.name}}</h4>
+                    <p>{{item.desc}}</p>
+                  </div>
+                  <div class="col-sm-6 col-md-3 center">
+                    <button class="plusminus" [disabled]="item.quantity==1" (click)="handleMinus(item)">-</button>
+                    <input type="text" class="num" value="0" [(ngModel)]="item.quantity" />
+                    <button class="plusminus" (click)="handlePlus(item)">+</button>
+                  </div>
+                  <div class="col-sm-6 col-md-2 center mtop">
+                    <h4 class="text-muted menu-price">₹ {{item.price}}</h4>
+                  </div>
+                  <div class="col-sm-6 col-md-2 center mtop">
+                    <button type="submit" class="btn float-left" style="background-color: #ffb633;">Add to Cart</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr *ngIf="!showOrHideFlag[1]" style="border: 1 px solid black;">
         </div>
 
         <div class="col-lg-12 menu-wrap">
-          <div class="heading-menu">
-            <h3 class="text-left mb-5">Lunch</h3>
-          </div>
-          <div class="menus d-flex align-items-center">
-            <div class="menu-img rounded-circle">
-              <img class="img-fluid" src="../../assets/img/breakfast-1.jpg" alt="">
+          <div class="heading-menu" (click)="toggleFlag(2)">
+            <div class="row">
+              <div class="col-sm-8 smallScreen">
+                <h3 class="text-left mb-3">Dinner</h3>
+              </div>
+              <div class="col-sm-4 smallScreen text-right float-right pr-3">
+                <mat-icon>{{showOrHideFlag[2]?'keyboard_arrow_up':'keyboard_arrow_down'}}</mat-icon>
+              </div>
             </div>
-            <div class="text-wrap">
-              <div class="row align-items-start">
-                <div class="col-6">
-                  <h4>Egg Sandwich</h4>
-                </div>
-                <div class="col-4 text-right">
-                  <button class="plusminus" (click)="handleMinus()">-</button>
-                  <input type="text" class="num" value="0" [(ngModel)]="value" />
-                  <button class="plusminus" (click)="handlePlus()">+</button>
-                </div>
-                <div class="col-2">
-                  <h4 class="text-muted menu-price">₹ 30</h4>
+          </div>
+          <div @myInsertRemoveTrigger *ngIf="showOrHideFlag[2]">
+            <div class="menus d-flex align-items-center" *ngFor="let item of dinnerList">
+              <div class="menu-img rounded-circle">
+                <img class="img-fluid" [src]="item.img_url" alt="">
+              </div>
+              <div class="text-wrap">
+                <div class="row align-items-start">
+                  <div class="col-sm-6 col-md-4 wrap-word">
+                    <h4>{{item.name}}</h4>
+                    <p>{{item.desc}}</p>
+                  </div>
+                  <div class="col-sm-6 col-md-3 center">
+                    <button class="plusminus" [disabled]="item.quantity==1" (click)="handleMinus(item)">-</button>
+                    <input type="text" class="num" value="0" [(ngModel)]="item.quantity" />
+                    <button class="plusminus" (click)="handlePlus(item)">+</button>
+                  </div>
+                  <div class="col-sm-6 col-md-2 center mtop">
+                    <h4 class="text-muted menu-price">₹ {{item.price}}</h4>
+                  </div>
+                  <div class="col-sm-6 col-md-2 center mtop">
+                    <button type="submit" class="btn float-left" style="background-color: #ffb633;">Add to Cart</button>
+                  </div>
                 </div>
               </div>
-              <p>Meat Ball, Mie</p>
             </div>
           </div>
-        </div>
-
-        <div class="col-lg-12 menu-wrap">
-          <div class="heading-menu">
-            <h3 class="text-left mb-5">Dinner</h3>
-          </div>
-          <div class="menus d-flex align-items-center">
-            <div class="menu-img rounded-circle">
-              <img class="img-fluid" src="../../assets/img/breakfast-1.jpg" alt="">
-            </div>
-            <div class="text-wrap">
-              <div class="row align-items-start">
-                <div class="col-6">
-                  <h4>Egg Sandwich</h4>
-                </div>
-                <div class="col-4 text-right">
-                  <button class="plusminus" (click)="handleMinus()">-</button>
-                  <input type="text" class="num" value="0" [(ngModel)]="value" />
-                  <button class="plusminus" (click)="handlePlus()">+</button>
-                </div>
-                <div class="col-2">
-                  <h4 class="text-muted menu-price">₹ 30</h4>
-                </div>
-              </div>
-              <p>Meat Ball, Mie</p>
-            </div>
-          </div>
+          <hr *ngIf="!showOrHideFlag[2]" style="border: 1 px solid black;">
         </div>
       </div>
     </div>

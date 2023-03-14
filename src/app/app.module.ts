@@ -38,6 +38,7 @@ import { OrderDetailsComponent } from './order/order-details/order-details.compo
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule, 
     HttpClientModule,
     AppRoutingModule,
     RouterModule,

@@ -83,21 +83,9 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    for (let item of this.order.orderDetails) {
-      switch (item.type) {
-        case foodType.BREAKFAST:
-          this.breakfastList.push(item);
-          break;
-        case foodType.LUNCH:
-          this.lunchList.push(item);
-          break;
-        case foodType.DINNER:
-          this.dinnerList.push(item);
-          break;
-        case foodType.SPEACIAL_DISH:
-          this.specialDishList.push(item);
-          break;
-      }
-    }
+    this.breakfastList = this.order.orderDetails.filter((value)=> value.type === foodType.BREAKFAST);
+    this.lunchList = this.order.orderDetails.filter((value)=> value.type === foodType.LUNCH);
+    this.dinnerList = this.order.orderDetails.filter((value)=> value.type === foodType.DINNER);
+    this.specialDishList = this.order.orderDetails.filter((value)=> value.type === foodType.SPEACIAL_DISH);
   }
 }
