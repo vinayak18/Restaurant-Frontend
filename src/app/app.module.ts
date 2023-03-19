@@ -21,6 +21,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { OrderDetailsComponent } from './order/order-details/order-details.component';
+import { NgbCarouselModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TeamComponent } from './team/team.component';
+import { ReviewComponent } from './review/review.component';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { ProductDetailsComponent } from './menu/product-details/product-details.component';
 
 @NgModule({
   declarations: [
@@ -35,10 +40,14 @@ import { OrderDetailsComponent } from './order/order-details/order-details.compo
     MenuComponent,
     LoginComponent,
     OrderDetailsComponent,
+    TeamComponent,
+    ReviewComponent,
+    FeedbackComponent,
+    ProductDetailsComponent,
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule, 
+    BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
     RouterModule,
@@ -49,6 +58,8 @@ import { OrderDetailsComponent } from './order/order-details/order-details.compo
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
+    NgbModule,
+    NgbCarouselModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

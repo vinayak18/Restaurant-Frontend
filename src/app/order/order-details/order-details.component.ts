@@ -28,7 +28,13 @@ export class OrderDetailsComponent implements OnInit {
         desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
         price: 200,
         quantity: 2,
-        img_url: '',
+        avgRating: 4.5,
+        img_url: [
+          '../../assets/img/breakfast-1.jpg',
+          '../../assets/img/hero-1.jpg',
+          '../../assets/img/hero-2.jpg',
+          '../../assets/img/hero-3.jpg',
+        ],
         type: foodType.SPEACIAL_DISH,
         catagory: 'VEG',
         live: true,
@@ -39,7 +45,13 @@ export class OrderDetailsComponent implements OnInit {
         desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
         price: 200,
         quantity: 2,
-        img_url: '',
+        avgRating: 4.5,
+        img_url: [
+          '../../assets/img/breakfast-1.jpg',
+          '../../assets/img/hero-1.jpg',
+          '../../assets/img/hero-2.jpg',
+          '../../assets/img/hero-3.jpg',
+        ],
         type: foodType.SPEACIAL_DISH,
         catagory: 'VEG',
         live: true,
@@ -50,7 +62,13 @@ export class OrderDetailsComponent implements OnInit {
         desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
         price: 200,
         quantity: 2,
-        img_url: '',
+        avgRating: 4.5,
+        img_url: [
+          '../../assets/img/breakfast-1.jpg',
+          '../../assets/img/hero-1.jpg',
+          '../../assets/img/hero-2.jpg',
+          '../../assets/img/hero-3.jpg',
+        ],
         type: foodType.LUNCH,
         catagory: 'VEG',
         live: true,
@@ -61,7 +79,13 @@ export class OrderDetailsComponent implements OnInit {
         desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
         price: 200,
         quantity: 2,
-        img_url: '',
+        avgRating: 4.5,
+        img_url: [
+          '../../assets/img/breakfast-1.jpg',
+          '../../assets/img/hero-1.jpg',
+          '../../assets/img/hero-2.jpg',
+          '../../assets/img/hero-3.jpg',
+        ],
         type: foodType.BREAKFAST,
         catagory: 'VEG',
         live: true,
@@ -83,9 +107,17 @@ export class OrderDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.breakfastList = this.order.orderDetails.filter((value)=> value.type === foodType.BREAKFAST);
-    this.lunchList = this.order.orderDetails.filter((value)=> value.type === foodType.LUNCH);
-    this.dinnerList = this.order.orderDetails.filter((value)=> value.type === foodType.DINNER);
-    this.specialDishList = this.order.orderDetails.filter((value)=> value.type === foodType.SPEACIAL_DISH);
+    this.breakfastList = this.order.orderDetails.filter(
+      (value) => value.type === foodType.BREAKFAST
+    );
+    this.lunchList = this.order.orderDetails.filter(
+      (value) => value.type === foodType.LUNCH
+    );
+    this.dinnerList = this.order.orderDetails.filter(
+      (value) => value.type === foodType.DINNER
+    );
+    this.specialDishList = this.order.orderDetails.filter(
+      (value) => value.type === foodType.SPEACIAL_DISH
+    );
   }
 }

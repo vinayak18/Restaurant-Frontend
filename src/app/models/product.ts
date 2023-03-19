@@ -6,7 +6,8 @@ export class product {
   desc: string;
   price: number;
   quantity: number;
-  img_url: string;
+  avgRating: number;
+  img_url: string[];
   type: foodType;
   catagory: string;
   live: boolean;
@@ -16,7 +17,8 @@ export class product {
     $desc: string,
     $price: number,
     $quantity: number,
-    $img_url: string,
+    $avgRating: number,
+    $img_url: string[],
     $type: foodType,
     $catagory: string,
     $live: boolean
@@ -26,6 +28,7 @@ export class product {
     this.desc = $desc;
     this.price = $price;
     this.quantity = $quantity;
+    this.avgRating = $avgRating;
     this.img_url = $img_url;
     this.type = $type;
     this.catagory = $catagory;
