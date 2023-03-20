@@ -2,7 +2,7 @@
   <a class="" [routerLink]="['menu']"><img src="../assets/img/empty-cart.jpeg" alt="" width="20%"></a>
   <h4><b>You don't have any orders yet</b></h4>
   <p><i>Add something to make me happy :)</i></p>
-  <button type="submit" class="btn" [routerLink]="['menu']" style="background-color: #ffb633;">Explore
+  <button type="submit" class="btn" [routerLink]="['/menu']" style="background-color: #ffb633;">Explore
     Menu</button>
 </div>
 <div *ngIf="orders.length!=0" class="container">
@@ -45,7 +45,7 @@
               </span>
             </div>
             <div class="col-sm-4">
-              <button type="submit" class="btn float-right" [routerLink]="['details',order.orderId]"
+              <button type="submit" class="btn float-right" [routerLink]="['/order/details',order.orderId]"
                 style="background-color: #ffb633;">Order
                 Details</button>
             </div>
@@ -97,7 +97,7 @@
               </span>
             </div>
             <div class="col-sm-4">
-              <button type="submit" class="btn float-right" [routerLink]="['details',order.orderId]"
+              <button type="submit" class="btn float-right" [routerLink]="['/order/details',order.orderId]"
                 style="background-color: #ffb633;">Order
                 Details</button>
             </div>

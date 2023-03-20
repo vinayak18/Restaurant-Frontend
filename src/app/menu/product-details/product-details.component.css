@@ -31,9 +31,18 @@ h6 {
   opacity: 1;
   border: 1px solid black;
 }
+
+.plusminus:disabled {
+  opacity: 0.7;
+}
+
 .num {
   border: none;
   font-size: 20px;
   text-align: center;
   width: 45%;
+}
+
+.underline:hover {
+  text-decoration-color: #ffb633;
 }

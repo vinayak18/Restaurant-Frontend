@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { foodType } from '../models/foodType';
-import { order } from '../models/order';
-import { status } from '../models/status';
+import { Component } from '@angular/core';
+import { foodType } from '../../models/foodType';
+import { order } from '../../models/order';
+import { status } from '../../models/status';
 
 @Component({
-  selector: 'app-order',
-  templateUrl: './order.component.html',
-  styleUrls: ['./order.component.css'],
+  selector: 'app-past-order',
+  templateUrl: './past-order.component.html',
+  styleUrls: ['./past-order.component.css']
 })
-export class OrderComponent implements OnInit {
+export class PastOrderComponent {
   pageNo_ongoing: number = 1;
   pageNo_past: number = 1;
   orderPerPage: number = 4;

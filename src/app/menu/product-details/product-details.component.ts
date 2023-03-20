@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { foodType } from 'src/app/models/foodType';
 import { product } from 'src/app/models/product';
+import { review } from 'src/app/models/review';
 
 @Component({
   selector: 'app-product-details',
@@ -81,6 +82,30 @@ export class ProductDetailsComponent implements OnInit {
     catagory: 'VEG',
     live: true,
   };
+  productReview: review = {
+    reviewId: 1,
+    pId: 1,
+    totalRating: 9,
+    noOfRating: 2,
+    userReview: [
+      {
+        userId: "vin123",
+        name: 'Vinayak Saraf',
+        img_url: '../../assets/img/chef-1',
+        userRating: 4,
+        dateOfReview: '3-21-2023',
+        review: 'Great food!'
+      },
+      {
+        userId: "smn345",
+        name: 'Sumon Dey',
+        img_url: '../../assets/img/chef-2',
+        userRating: 5,
+        dateOfReview: '3-21-2023',
+        review: 'Supperrr!'
+      }
+    ]
+  }
   constructor(private activeRoute: ActivatedRoute) {
     this.productId = this.activeRoute.snapshot.params['productId'];
     console.log(this.productId);

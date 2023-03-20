@@ -18,6 +18,10 @@
   }
 }
 
+.dropdown-item:hover {
+  background-color: #ffb633;
+}
+
 /* .before-menu {
   width: 100px !important;
   min-width: unset !important;

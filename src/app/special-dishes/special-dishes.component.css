@@ -23,3 +23,18 @@
 .btn-warning {
   background-color: #ffb633;
 }
+
+#page ::ng-deep .ngx-pagination .current {
+  background: #ffb633 !important;
+  color: black !important;
+}
+
+.route {
+  text-decoration: none;
+  color: #ffb633;
+}
+
+.route:hover {
+  text-decoration: underline;
+  text-decoration-color: #ffb633;
+}

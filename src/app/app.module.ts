@@ -26,6 +26,8 @@ import { TeamComponent } from './team/team.component';
 import { ReviewComponent } from './review/review.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { ProductDetailsComponent } from './menu/product-details/product-details.component';
+import { ActiveOrderComponent } from './order/active-order/active-order.component';
+import { PastOrderComponent } from './order/past-order/past-order.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { ProductDetailsComponent } from './menu/product-details/product-details.
     ReviewComponent,
     FeedbackComponent,
     ProductDetailsComponent,
+    ActiveOrderComponent,
+    PastOrderComponent,
   ],
   imports: [
     BrowserModule,

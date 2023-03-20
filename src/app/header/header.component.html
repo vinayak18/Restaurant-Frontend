@@ -44,8 +44,16 @@
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['cart']">Cart</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['order']">Orders</a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Orders
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" [routerLink]="['order/active']">Active Orders</a>
+          <a class="dropdown-item" [routerLink]="['order/past']">Past Orders</a>
+        </div>
+        <!-- <a class="nav-link" [routerLink]="['order']">Orders</a> -->
       </li>
 
     </ul>
