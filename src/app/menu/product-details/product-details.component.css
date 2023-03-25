@@ -8,18 +8,26 @@ h6 {
   .review-left {
     padding-left: 1.5em;
   }
+  .review-username {
+    padding-left: 40px;
+  }
 }
 @media (min-width: 767.5px) {
   .m-left {
     margin-left: 30px;
   }
 }
-
+.review-img {
+  border-radius: 50%;
+}
 .img-fluid {
   height: 100%;
   width: 100%;
 }
-
+#page ::ng-deep .ngx-pagination .current {
+  background: #ffb633 !important;
+  color: black !important;
+}
 .plusminus {
   height: 30px;
   width: 30px;

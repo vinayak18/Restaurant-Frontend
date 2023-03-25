@@ -64,8 +64,61 @@
       <div class="col-12 heading-section review-left">
         <span class="subheading" style="color: #ffb633;">
           <b>Reviews ({{productReview.noOfRating}})</b>
+          <button type="submit" class="btn float-right" style="background-color: #ffb633;" (click)="reviewSection()">Add
+            Review</button>
           <hr style="border: 1px solid #ffb633">
         </span>
+      </div>
+      <div class="col-12 mb-3" *ngIf="reviewFlag">
+        <div class="card p-3" style="background-color: #F7F7F7;">
+          <form method="post" name="contact-us" (ngSubmit)="addReview()">
+            <div class="row">
+              <div class="col-md-12 form-group">
+                <select class="form-control" id="rating" name="rating" [(ngModel)]="reviewForm.userRating" required>
+                  <option selected disabled hidden [value]="0">Rating</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </div>
+
+              <div class="col-md-12 form-group">
+                <textarea class="form-control" id="message" name="message" rows="6" placeholder="Your Message ..."
+                  [(ngModel)]="reviewForm.review"></textarea>
+              </div>
+              <div class="col-md-12">
+                <button type="submit" class="btn" style="background-color: #ffb633;">Post</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="card mb-2"
+          *ngFor="let review of productReview.userReview | paginate: { id: 'page', itemsPerPage: reviewPerPage, currentPage: pageNo }">
+          <div class="card-header">
+            <div class="row">
+              <div class="col-1 text-right">
+                <img class="review-img" [src]="review.img_url" alt="" height="50px" width="50px">
+              </div>
+              <div class="col-8 mt-2 font-weight-bold review-username">
+                {{review.name}}
+              </div>
+              <div class="col-3 mt-2 text-right font-weight-bold text-success">
+                {{review.userRating}} &#9733;
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          </div>
+        </div>
+        <div class="text-right mt-4">
+          <pagination-controls id="page" (pageChange)="pageNo = $event">
+          </pagination-controls>
+        </div>
       </div>
     </div>
   </div>

@@ -1,3 +1,4 @@
+import { customerInfo } from './customerInfo';
 import { product } from './product';
 import { status } from './status';
 
@@ -11,6 +12,8 @@ export class order {
   deliveryFee: number;
   couponCode: string;
   netAmount: number;
+  deliveryType: string;
+  customerInfo: customerInfo;
   status: status;
   payment: string;
   rating: number;
@@ -24,6 +27,8 @@ export class order {
     $deliveryFee: number,
     $couponCode: string,
     $netAmount: number,
+    $deliveryType: string,
+    $customerInfo: customerInfo,
     $status: status,
     $payment: string,
     $rating: number
@@ -37,6 +42,8 @@ export class order {
     this.deliveryFee = $deliveryFee;
     this.couponCode = $couponCode;
     this.netAmount = $netAmount;
+    this.deliveryType = $deliveryType;
+    this.customerInfo = $customerInfo;
     this.status = $status;
     this.payment = $payment;
     this.rating = $rating;

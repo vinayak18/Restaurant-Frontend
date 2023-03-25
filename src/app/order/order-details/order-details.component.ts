@@ -96,6 +96,8 @@ export class OrderDetailsComponent implements OnInit {
     deliveryFee: 25,
     couponCode: 'FIRST100',
     netAmount: 1537.0,
+    deliveryType: 'Delivery',
+    customerInfo: null,
     status: status.ACCEPTED,
     payment: 'UPI',
     rating: 5,

@@ -22,7 +22,7 @@
         <h2>Sign In</h2>
         <div class="input-box">
           <span class="icon"><i class='bx bxs-envelope'></i></span>
-          <input type="email" formControlName="email" required>
+          <input type="text" formControlName="email" required>
           <label>Email</label>
         </div>
         <div class="input-box">
@@ -45,29 +45,38 @@
       </form>
     </div>
     <div class="form-box register" @myInsertRemoveTrigger *ngIf="!switch">
-      <form action="">
+      <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
 
         <h2>Sign Up</h2>
 
         <div class="input-box">
           <span class="icon"><i class='bx bxs-user'></i></span>
           <input type="text" required>
-          <label>Username</label>
+          <label>Name</label>
         </div>
         <div class="input-box">
           <span class="icon"><i class='bx bxs-envelope'></i></span>
-          <input type="email" required>
+          <input type="text" formControlName="email" required>
           <label>Email</label>
         </div>
         <div class="input-box">
+          <span class="icon"><i class='bx bxs-user'></i></span>
+          <input type="number" required>
+          <label>Phone No.</label>
+        </div>
+        <div class="input-box">
           <span class="icon"><i class='bx bxs-lock-alt'></i></span>
-          <input type="password" required>
+          <input type="password" formControlName="password" required>
+          <div class="form-error-messages" id="error-no-password"
+            *ngIf="registerForm.controls['password'].hasError('required') && registerForm.controls['password'].dirty">
+            password invalid!
+          </div>
           <label>Password</label>
         </div>
         <div class="remember-password">
           <label for=""><input type="checkbox">I agree with this statment</label>
         </div>
-        <button class="btn">Register</button>
+        <button class="btn" [disabled]="registerForm.invalid">Register</button>
         <div class="create-account">
           <p>Already Have An Account? <a href="#" class="login-link" (click)="toggle()">Sign In</a></p>
         </div>

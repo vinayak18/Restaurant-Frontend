@@ -5,7 +5,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { OrderComponent } from './order/order.component';
 import { CartComponent } from './cart/cart.component';
 import { SpecialDishesComponent } from './special-dishes/special-dishes.component';
 import { HeaderComponent } from './header/header.component';
@@ -28,12 +27,15 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { ProductDetailsComponent } from './menu/product-details/product-details.component';
 import { ActiveOrderComponent } from './order/active-order/active-order.component';
 import { PastOrderComponent } from './order/past-order/past-order.component';
+import { CheckoutComponent } from './cart/checkout/checkout.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    OrderComponent,
     CartComponent,
     SpecialDishesComponent,
     HeaderComponent,
@@ -48,6 +50,7 @@ import { PastOrderComponent } from './order/past-order/past-order.component';
     ProductDetailsComponent,
     ActiveOrderComponent,
     PastOrderComponent,
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +59,9 @@ import { PastOrderComponent } from './order/past-order/past-order.component';
     AppRoutingModule,
     RouterModule,
     MatMenuModule,
+    MatStepperModule,
+    MatFormFieldModule,
+    MatInputModule,
     MatIconModule,
     BrowserAnimationsModule,
     IonicModule,
