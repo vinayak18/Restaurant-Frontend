@@ -1,7 +1,7 @@
 export class address {
   streetAddress: string;
   flatNo: string;
-  landMark: string;
+  landmark: string;
   pincode: number;
   state: string;
   city: string;
@@ -9,14 +9,14 @@ export class address {
   constructor(
     $streetAddress: string,
     $flatNo: string,
-    $landMark: string,
+    $landmark: string,
     $pincode: number,
     $state: string,
     $city: string
   ) {
     this.streetAddress = $streetAddress;
     this.flatNo = $flatNo;
-    this.landMark = $landMark;
+    this.landmark = $landmark;
     this.pincode = $pincode;
     this.state = $state;
     this.city = $city;

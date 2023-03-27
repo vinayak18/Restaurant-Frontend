@@ -56,9 +56,43 @@ h6 {
 #radiosymbol {
   position: relative;
   top: 22px;
+  /* accent-color: #ffb633; */
+  border:2px solid white;
+  box-shadow:0 0 0 1px black;
+  appearance:none;
+  border-radius:50%;
+  width:12px;
+  height:12px;
+  background-color:#fff;
+  transition:all ease-in 0.2s;
+}
+
+#radiosymbol:checked{
+  background-color:#ffb633;
+  box-shadow:0 0 0 1px #ffb633;
 }
 
 .head1,
 .head2 {
   padding-left: 8%;
+}
+
+::ng-deep .mat-step-header .mat-step-icon-selected, ::ng-deep .mat-step-header .mat-step-icon-state-done, ::ng-deep .mat-step-header .mat-step-icon-state-edit {
+    background-color: #ffb633!important;
+}
+
+::ng-deep.mat-form-field.mat-focused .mat-form-field-ripple{
+    background-color: #ffb633;
+}
+
+::ng-deep .mat-form-field-label {
+    color: rgba(0,0,0,.6)!important;
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+    color: #ffb633!important;
+}
+
+::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+    color: red!important;
 }
