@@ -9,6 +9,7 @@ import { status } from 'src/app/models/status';
 import { foodType } from 'src/app/models/foodType';
 import { address } from 'src/app/models/address';
 import { customerInfo } from 'src/app/models/customerInfo';
+import { product } from 'src/app/models/product';
 
 /**
  * @title Stepper responsive
@@ -19,6 +20,11 @@ import { customerInfo } from 'src/app/models/customerInfo';
   styleUrls: ['./checkout.component.css'],
 })
 export class CheckoutComponent implements OnInit {
+  discountAmount: number = 0;
+  breakfastList: product[] = [];
+  lunchList: product[] = [];
+  dinnerList: product[] = [];
+  specialDishList: product[] = [];
   deliverySwitch: boolean = true;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -125,10 +131,13 @@ export class CheckoutComponent implements OnInit {
           live: true,
         },
       ],
-      actualAmount: 1600.0,
-      taxRate: 5,
+      actualAmount: 0,
+      tax: 0,
       deliveryFee: 0,
-      couponCode: null,
+      coupon: {
+        couponCode: 'DEFAULT0',
+        discountAmount: 0,
+      },
       netAmount: 0,
       deliveryType: null,
       customerInfo: null,
@@ -136,6 +145,18 @@ export class CheckoutComponent implements OnInit {
       payment: 'UPI',
       rating: 5,
     };
+    this.breakfastList = this.orderSummary.orderDetails.filter(
+      (value) => value.type === foodType.BREAKFAST
+    );
+    this.lunchList = this.orderSummary.orderDetails.filter(
+      (value) => value.type === foodType.LUNCH
+    );
+    this.dinnerList = this.orderSummary.orderDetails.filter(
+      (value) => value.type === foodType.DINNER
+    );
+    this.specialDishList = this.orderSummary.orderDetails.filter(
+      (value) => value.type === foodType.SPEACIAL_DISH
+    );
   }
   toggleDeliverySwitch(deliveryType: string) {
     if (deliveryType === 'Pick-Up') {
@@ -156,6 +177,17 @@ export class CheckoutComponent implements OnInit {
     this.orderSummary.customerInfo = personalInfo;
     console.log(this.orderSummary);
   }
+  setDefaultAddress() {
+    let defaultAddress = new address(
+      '207, Bangur Avenue',
+      '',
+      'Akash Sutra Lane',
+      700055,
+      'West Bengal',
+      'Kolkata'
+    );
+    return defaultAddress;
+  }
   updateAddress() {
     if (this.secondFormGroup.valid) {
       this.deliverySwitch = false;
@@ -171,6 +203,8 @@ export class CheckoutComponent implements OnInit {
         this.secondFormGroup.value.state,
         this.secondFormGroup.value.city
       );
+    } else {
+      deliveryAddress = this.setDefaultAddress();
     }
     this.orderSummary.customerInfo.deliveryAddress = deliveryAddress;
     console.log(this.orderSummary);
@@ -183,9 +217,41 @@ export class CheckoutComponent implements OnInit {
       this.updatePersonalInfo();
     } else if (event.selectedIndex == 2) {
       this.updateAddress();
+      this.getTotalAmount();
     }
     if (event.selectedIndex != 1 && this.secondFormGroup.valid) {
       this.deliverySwitch = false;
     }
+  }
+  getTotalAmount() {
+    let totalAmount = 0;
+    for (let product of this.orderSummary.orderDetails) {
+      totalAmount = totalAmount + product.price * product.quantity;
+    }
+    this.orderSummary.actualAmount = totalAmount;
+    this.calculateTax();
+  }
+  calculateTax() {
+    let tax =
+      (this.orderSummary.actualAmount -
+        this.orderSummary.coupon.discountAmount) *
+      0.05;
+    this.orderSummary.tax = tax;
+    this.setNetTotal();
+  }
+  setNetTotal() {
+    this.orderSummary.netAmount =
+      this.orderSummary.actualAmount -
+      this.orderSummary.coupon.discountAmount +
+      this.orderSummary.tax +
+      this.orderSummary.deliveryFee;
+  }
+  validateCouponCode(code: string) {
+    alert(code);
+    this.orderSummary.coupon = {
+      couponCode: code,
+      discountAmount: 160,
+    };
+    this.calculateTax();
   }
 }

@@ -16,4 +16,24 @@ export class customerInfo {
     this.phoneNo = $phoneNo;
     this.deliveryAddress = $deliveryAddress;
   }
+
+  getAddress(): string {
+    if (this.deliveryAddress === null) return '';
+    return (
+      (this.deliveryAddress.flatNo === ''
+        ? ''
+        : this.deliveryAddress.flatNo + ', ') +
+      this.deliveryAddress.streetAddress +
+      ', ' +
+      (this.deliveryAddress.landmark === ''
+        ? ''
+        : this.deliveryAddress.landmark + ', ') +
+      this.deliveryAddress.city +
+      ' - ' +
+      this.deliveryAddress.pincode +
+      ', ' +
+      this.deliveryAddress.state +
+      '.'
+    );
+  }
 }
