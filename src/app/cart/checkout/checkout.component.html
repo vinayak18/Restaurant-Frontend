@@ -1,5 +1,6 @@
-<mat-stepper class="example-stepper container" [orientation]="(stepperOrientation | async)!" [linear]="true"
+<mat-stepper class="example-stepper container" [orientation]="(stepperOrientation | async)!"
   (selectionChange)="selectionChange($event)" #stepper>
+  <!-- [linear]="true" -->
   <mat-step [stepControl]="firstFormGroup" label="Personal Details">
     <form [formGroup]="firstFormGroup" class="mt-2">
       <div class="row text-center">
@@ -103,247 +104,256 @@
     </form>
   </mat-step>
   <mat-step label="Order Summary">
-      <div class="container mb-2">
-        <h5 style="color: #ffb633;" class="mt-2 border border-warning p-2 mb-3">
-          <b>Order Summary</b>
-        </h5>
-        <div class="mb-3 ml-3 mr-3">
-          <ul class="list-group list-group-flush">
-            <div class="row">
-              <div class="col-sm-12 col-md-5 vr">
-                <li class="list-group-item">
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <h6>Customer Details</h6>
-                    </div>
+    <div class="container mb-2">
+      <h5 style="color: #ffb633;" class="mt-2 border border-warning p-2 mb-3">
+        <b>Order Summary</b>
+      </h5>
+      <div class="mb-3 ml-3 mr-3">
+        <ul class="list-group list-group-flush">
+          <div class="row">
+            <div class="col-sm-12 col-md-5 vr">
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <h6>Customer Details</h6>
                   </div>
-                </li>
-                <li class="list-group-item">
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="">
                   <div class="">
-                    <div class="">
-                      <div class="row mt-2">
-                        <div class="col-sm-4">
-                          <span>Name</span>
-                        </div>
-                        <div class="col-sm-8 text-right">
-                          <span class="break-word">{{orderSummary.customerInfo?.name}}
-                          </span>
-                        </div>
+                    <div class="row mt-2">
+                      <div class="col-sm-4">
+                        <span>Name</span>
+                      </div>
+                      <div class="col-sm-8 text-right">
+                        <span class="break-word">{{orderSummary.customerInfo?.name}}
+                        </span>
                       </div>
                     </div>
                   </div>
+                </div>
 
-                  <div class="mt-2">
-                    <hr>
-                    <div class="">
-                      <div class="row mt-2">
-                        <div class="col-sm-4">
-                          <span>Email</span>
-                        </div>
-                        <div class="col-sm-8 text-right">
-                          <span class="break-word">{{orderSummary.customerInfo?.email}}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mt-2">
-                    <hr>
-                    <div class="">
-                      <div class="row mt-2">
-                        <div class="col-sm-4">
-                          <span>Phone No.</span>
-                        </div>
-                        <div class="col-sm-8 text-right">
-                          <span class="break-word">{{orderSummary.customerInfo?.phoneNo}}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mt-2">
-                    <hr>
-                    <div class="">
-                      <div class="row mt-2">
-                        <div class="col-sm-4">
-                          <span>Delivery Type</span>
-                        </div>
-                        <div class="col-sm-8">
-                          <span class="float-right font-color font-weight-bold">{{orderSummary.deliveryType}}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mt-2">
-                    <hr>
-                    <div class="">
-                      <div class="row mt-2">
-                        <div class="col-sm-4">
-                          <span>{{orderSummary.deliveryType}} Address</span>
-                        </div>
-                        <div class="col-sm-8">
-                          <span class="float-right">{{orderSummary.customerInfo?.getAddress()}}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </div>
-              <div class="col-sm-12 col-md-7 vr">
-                <li class="list-group-item">
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <h6>Order Details</h6>
-                    </div>
-                  </div>
-                </li>
-                <li class="list-group-item">
-                  <div class="" *ngIf="breakfastList.length!==0">
-                    <h6>BREAKFAST</h6>
-                    <div class="" *ngFor="let item of breakfastList">
-                      <div class="row mt-2">
-                        <div class="col-sm-8">
-                          <span>{{item.quantity}} X {{item.name}}</span>
-                        </div>
-                        <div class="col-sm-4">
-                          <span class="float-right">₹ {{item.quantity * item.price}}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="mt-2" *ngIf="lunchList.length!==0">
-                    <hr>
-                    <h6>LUNCH</h6>
-                    <div class="" *ngFor="let item of lunchList">
-                      <div class="row mt-2">
-                        <div class="col-sm-8">
-                          <span>{{item.quantity}} X {{item.name}}</span>
-                        </div>
-                        <div class="col-sm-4">
-                          <span class="float-right">₹ {{item.quantity * item.price}}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mt-2" *ngIf="dinnerList.length!==0">
-                    <hr>
-                    <h6>DINNER</h6>
-                    <div class="" *ngFor="let item of dinnerList">
-                      <div class="row mt-2">
-                        <div class="col-sm-8">
-                          <span>{{item.quantity}} X {{item.name}}</span>
-                        </div>
-                        <div class="col-sm-4">
-                          <span class="float-right">₹ {{item.quantity * item.price}}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mt-2" *ngIf="specialDishList.length!==0">
-                    <hr>
-                    <h6>SPEACIAL DISH</h6>
-                    <div class="" *ngFor="let item of specialDishList">
-                      <div class="row mt-2">
-                        <div class="col-sm-8">
-                          <span>{{item.quantity}} X {{item.name}}</span>
-                        </div>
-                        <div class="col-sm-4">
-                          <span class="float-right">₹ {{item.quantity * item.price}}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-12 vr">
-                <li class="list-group-item">
-                  <div class="row mt-2">
-                    <div class="col-sm-8">
-                      <h6>Item Total</h6>
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="float-right">₹ {{orderSummary.actualAmount}}</h6>
-                    </div>
-                  </div>
-                  <div class="row mt-2">
-                    <div class="col-sm-12">
-                      <span>Coupon Code</span>
-                      <input type="text" class="coupon-input-box ml-2" name="couponTxt" #couponTxt><button
-                        class="btn btn-warning btn-sm ml-2" type="submit" name="submit"
-                        (click)="validateCouponCode(couponTxt.value)">Apply</button>
-                    </div>
-                  </div>
-                  <div class="row mt-2" *ngIf="null!=orderSummary.coupon && 'DEFAULT0'!=orderSummary.coupon.couponCode">
-                    <div class="col-sm-8">
-                      <span>Discount ({{orderSummary.coupon.couponCode}})</span>
-                    </div>
-                    <div class="col-sm-4">
-                      <span class="float-right">- ₹ {{orderSummary.coupon.discountAmount}}</span>
-                    </div>
-                  </div>
-                  <div class="row mt-2">
-                    <div class="col-sm-8">
-                      <span>Tax Amount</span>
-                    </div>
-                    <div class="col-sm-4">
-                      <span class="float-right">₹
-                        {{orderSummary.tax}}</span>
-                    </div>
-                  </div>
-                  <div class="row mt-2">
-                    <div class="col-sm-8">
-                      <span>Delivery Fee</span>
-                    </div>
-                    <div class="col-sm-4">
-                      <span class="float-right">₹ {{orderSummary.deliveryFee}}</span>
-                    </div>
-                  </div>
+                <div class="mt-2">
                   <hr>
-                  <div class="row mt-2">
-                    <div class="col-sm-8">
-                      <h6>Net Total</h6>
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="float-right" style="color: #ffb633; font-weight: bold;">₹ {{orderSummary.netAmount}}
-                      </h6>
+                  <div class="">
+                    <div class="row mt-2">
+                      <div class="col-sm-4">
+                        <span>Email</span>
+                      </div>
+                      <div class="col-sm-8 text-right">
+                        <span class="break-word">{{orderSummary.customerInfo?.email}}
+                        </span>
+                      </div>
                     </div>
                   </div>
-
-                </li>
-              </div>
+                </div>
+                <div class="mt-2">
+                  <hr>
+                  <div class="">
+                    <div class="row mt-2">
+                      <div class="col-sm-4">
+                        <span>Phone No.</span>
+                      </div>
+                      <div class="col-sm-8 text-right">
+                        <span class="break-word">{{orderSummary.customerInfo?.phoneNo}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-2">
+                  <hr>
+                  <div class="">
+                    <div class="row mt-2">
+                      <div class="col-sm-4">
+                        <span>Delivery Type</span>
+                      </div>
+                      <div class="col-sm-8">
+                        <span class="float-right font-color font-weight-bold">{{orderSummary.deliveryType}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-2">
+                  <hr>
+                  <div class="">
+                    <div class="row mt-2">
+                      <div class="col-sm-4">
+                        <span>{{orderSummary.deliveryType}} Address</span>
+                      </div>
+                      <div class="col-sm-8">
+                        <span class="float-right">{{orderSummary.customerInfo?.getAddress()}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
             </div>
-          </ul>
-        </div>
+            <div class="col-sm-12 col-md-7 vr">
+              <li class="list-group-item">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <h6>Order Details</h6>
+                  </div>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="" *ngIf="breakfastList.length!==0">
+                  <h6>BREAKFAST</h6>
+                  <div class="" *ngFor="let item of breakfastList">
+                    <div class="row mt-2">
+                      <div class="col-sm-8">
+                        <span>{{item.quantity}} X {{item.name}}</span>
+                      </div>
+                      <div class="col-sm-4">
+                        <span class="float-right">₹ {{item.quantity * item.price}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-        <div class="col-12">
-          <button mat-button matStepperPrevious class="btn btn-warning float-left">Back</button>
-          <button mat-button class="btn btn-warning float-right" (click)="placeOrder(stepper)">Make Payment</button>
-        </div>
+                <div class="mt-2" *ngIf="lunchList.length!==0">
+                  <hr>
+                  <h6>LUNCH</h6>
+                  <div class="" *ngFor="let item of lunchList">
+                    <div class="row mt-2">
+                      <div class="col-sm-8">
+                        <span>{{item.quantity}} X {{item.name}}</span>
+                      </div>
+                      <div class="col-sm-4">
+                        <span class="float-right">₹ {{item.quantity * item.price}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-2" *ngIf="dinnerList.length!==0">
+                  <hr>
+                  <h6>DINNER</h6>
+                  <div class="" *ngFor="let item of dinnerList">
+                    <div class="row mt-2">
+                      <div class="col-sm-8">
+                        <span>{{item.quantity}} X {{item.name}}</span>
+                      </div>
+                      <div class="col-sm-4">
+                        <span class="float-right">₹ {{item.quantity * item.price}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-2" *ngIf="specialDishList.length!==0">
+                  <hr>
+                  <h6>SPEACIAL DISH</h6>
+                  <div class="" *ngFor="let item of specialDishList">
+                    <div class="row mt-2">
+                      <div class="col-sm-8">
+                        <span>{{item.quantity}} X {{item.name}}</span>
+                      </div>
+                      <div class="col-sm-4">
+                        <span class="float-right">₹ {{item.quantity * item.price}}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12 vr">
+              <li class="list-group-item">
+                <div class="row mt-2">
+                  <div class="col-sm-8">
+                    <h6>Item Total</h6>
+                  </div>
+                  <div class="col-sm-4">
+                    <h6 class="float-right">₹ {{orderSummary.actualAmount}}</h6>
+                  </div>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-sm-12">
+                    <span>Coupon Code</span>
+                    <input type="text" class="coupon-input-box ml-2" name="couponTxt" #couponTxt><button
+                      class="btn btn-warning btn-sm ml-2" type="submit" name="submit"
+                      (click)="validateCouponCode(couponTxt.value)">Apply</button>
+                  </div>
+                </div>
+                <div class="row mt-2" *ngIf="null!=orderSummary.coupon && 'DEFAULT0'!=orderSummary.coupon.couponCode">
+                  <div class="col-sm-8">
+                    <span>Discount ({{orderSummary.coupon.couponCode}})</span>
+                  </div>
+                  <div class="col-sm-4">
+                    <span class="float-right">- ₹ {{orderSummary.coupon.discountAmount}}</span>
+                  </div>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-sm-8">
+                    <span>Tax Amount</span>
+                  </div>
+                  <div class="col-sm-4">
+                    <span class="float-right">₹
+                      {{orderSummary.tax}}</span>
+                  </div>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-sm-8">
+                    <span>Delivery Fee</span>
+                  </div>
+                  <div class="col-sm-4">
+                    <span class="float-right">₹ {{orderSummary.deliveryFee}}</span>
+                  </div>
+                </div>
+                <hr>
+                <div class="row mt-2">
+                  <div class="col-sm-8">
+                    <h6>Net Total</h6>
+                  </div>
+                  <div class="col-sm-4">
+                    <h6 class="float-right" style="color: #ffb633; font-weight: bold;">₹ {{orderSummary.netAmount}}
+                    </h6>
+                  </div>
+                </div>
+
+              </li>
+            </div>
+          </div>
+        </ul>
       </div>
-  </mat-step>
-  <mat-step label="Order Placed">
-    <div class="text-center confirm">
-      <div>Thank you for your order
-      <div>
-        Order Confirmation
-        <div>
-          Order Id: {{orderSummary.orderId}}
-        </div>
-        <div>
-          Date: {{orderSummary.dateOfOrder}}
-        </div>
-        <button mat-button class="btn btn-warning">Continue Shopping</button>
+
+      <div class="col-12">
+        <button mat-button matStepperPrevious class="btn btn-warning float-left">Back</button>
+        <button mat-button class="btn btn-warning float-right" (click)="placeOrder(stepper)">Make Payment</button>
       </div>
     </div>
+  </mat-step>
+  <mat-step label="Order Placed">
+    <div class="text-center p-4 ml-5 mr-5 mb-5 mt-2" style="border: 1px solid #ffb633;">
+      <div>
+        <div class="row">
+          <h1 class="col-12 thank-you">Thank you for your order</h1>
+          <div class="col-12 text-center">
+            <i class="material-icons md-36">check_circle</i>
+            <h5 class="">Order Confirmed!</h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <b>Order Id:</b> {{orderSummary.orderId}}
+          </div>
+          <div class="col-sm-12 col-md-6">
+            <b>Date:</b> {{orderSummary.dateOfOrder}}
+          </div>
+          <div class="col-12 text-center mt-3">
+            <button mat-button class="btn btn-warning" [routerLink]="['/menu']">Continue Shopping <i
+                class="fa fa-angle-right"></i></button>
+          </div>
+        </div>
+      </div>
     </div>
   </mat-step>
 </mat-stepper>

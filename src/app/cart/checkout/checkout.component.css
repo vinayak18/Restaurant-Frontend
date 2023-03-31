@@ -128,20 +128,33 @@ h6,
   border: 1px solid #ffb633 !important;
   border-radius: 5px;
 }
+.material-icons.md-36 {
+  font-size: 36px;
+  color: #ffb633;
+}
 .card {
   border: 1px solid gray !important;
 }
-
-.break-word{
+.thank-you {
+  font-family: "Josefin Sans", sans-serif;
+  font-weight: 400;
+  color: #ffb633;
+}
+.break-word {
   width: 100%;
   word-wrap: break-word;
 }
-
-.confirm{
-  height: 400px; 
-  width: 100%;
+.confirm-ts {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: lightgray;
+}
+.confirm {
+  height: 100px;
+  width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ffb633;
+  border-radius: 20px;
 }
