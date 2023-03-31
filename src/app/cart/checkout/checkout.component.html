@@ -1,5 +1,5 @@
 <mat-stepper class="example-stepper container" [orientation]="(stepperOrientation | async)!" [linear]="true"
-  (selectionChange)="selectionChange($event)">
+  (selectionChange)="selectionChange($event)" #stepper>
   <mat-step [stepControl]="firstFormGroup" label="Personal Details">
     <form [formGroup]="firstFormGroup" class="mt-2">
       <div class="row text-center">
@@ -102,8 +102,7 @@
 
     </form>
   </mat-step>
-  <mat-step [stepControl]="thirdFormGroup" label="Order Summary">
-    <form [formGroup]="thirdFormGroup">
+  <mat-step label="Order Summary">
       <div class="container mb-2">
         <h5 style="color: #ffb633;" class="mt-2 border border-warning p-2 mb-3">
           <b>Order Summary</b>
@@ -123,11 +122,11 @@
                   <div class="">
                     <div class="">
                       <div class="row mt-2">
-                        <div class="col-sm-8">
+                        <div class="col-sm-4">
                           <span>Name</span>
                         </div>
-                        <div class="col-sm-4">
-                          <span class="float-right">{{orderSummary.customerInfo?.name}}
+                        <div class="col-sm-8 text-right">
+                          <span class="break-word">{{orderSummary.customerInfo?.name}}
                           </span>
                         </div>
                       </div>
@@ -138,11 +137,11 @@
                     <hr>
                     <div class="">
                       <div class="row mt-2">
-                        <div class="col-sm-8">
+                        <div class="col-sm-4">
                           <span>Email</span>
                         </div>
-                        <div class="col-sm-4">
-                          <span class="float-right">{{orderSummary.customerInfo?.email}}
+                        <div class="col-sm-8 text-right">
+                          <span class="break-word">{{orderSummary.customerInfo?.email}}
                           </span>
                         </div>
                       </div>
@@ -152,11 +151,11 @@
                     <hr>
                     <div class="">
                       <div class="row mt-2">
-                        <div class="col-sm-8">
+                        <div class="col-sm-4">
                           <span>Phone No.</span>
                         </div>
-                        <div class="col-sm-4">
-                          <span class="float-right">{{orderSummary.customerInfo?.phoneNo}}
+                        <div class="col-sm-8 text-right">
+                          <span class="break-word">{{orderSummary.customerInfo?.phoneNo}}
                           </span>
                         </div>
                       </div>
@@ -326,17 +325,25 @@
         </div>
 
         <div class="col-12">
-          <button mat-button matStepperPrevious class="btn btn-warning float-left ml-5">Back</button>
-          <button mat-button matStepperNext class="btn btn-warning float-right mr-5">Next</button>
+          <button mat-button matStepperPrevious class="btn btn-warning float-left">Back</button>
+          <button mat-button class="btn btn-warning float-right" (click)="placeOrder(stepper)">Make Payment</button>
         </div>
       </div>
-    </form>
   </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Payment</ng-template>
-    <p>You are now done.</p>
-    <div>
-      <button mat-button matStepperPrevious class="btn btn-warning">Back</button>
+  <mat-step label="Order Placed">
+    <div class="text-center confirm">
+      <div>Thank you for your order
+      <div>
+        Order Confirmation
+        <div>
+          Order Id: {{orderSummary.orderId}}
+        </div>
+        <div>
+          Date: {{orderSummary.dateOfOrder}}
+        </div>
+        <button mat-button class="btn btn-warning">Continue Shopping</button>
+      </div>
+    </div>
     </div>
   </mat-step>
 </mat-stepper>

@@ -131,3 +131,17 @@ h6,
 .card {
   border: 1px solid gray !important;
 }
+
+.break-word{
+  width: 100%;
+  word-wrap: break-word;
+}
+
+.confirm{
+  height: 400px; 
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: lightgray;
+}

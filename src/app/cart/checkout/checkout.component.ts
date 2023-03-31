@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { StepperOrientation } from '@angular/material/stepper';
+import { StepperOrientation, MatStepper } from '@angular/material/stepper';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { order } from 'src/app/models/order';
@@ -58,9 +58,9 @@ export class CheckoutComponent implements OnInit {
       pincode: ['', Validators.required],
     });
     this.orderSummary = {
-      orderId: '12342',
-      userId: '#1',
-      dateOfOrder: 'October 16, 2:57 PM',
+      orderId: null,
+      userId: null,
+      dateOfOrder: null,
       orderDetails: [
         {
           pId: 1,
@@ -253,5 +253,10 @@ export class CheckoutComponent implements OnInit {
       discountAmount: 160,
     };
     this.calculateTax();
+  }
+  placeOrder(stepper: MatStepper){
+    this.orderSummary.orderId = '12345';
+    this.orderSummary.dateOfOrder = 'October 16, 2:57 PM';
+    stepper.next();
   }
 }
