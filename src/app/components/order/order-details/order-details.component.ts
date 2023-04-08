@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { foodType } from 'src/app/models/foodType';
-import { order } from 'src/app/models/order';
-import { product } from 'src/app/models/product';
-import { status } from 'src/app/models/status';
+import { foodType } from 'src/app/components/models/foodType';
+import { order } from 'src/app/components/models/order';
+import { product } from 'src/app/components/models/product';
+import { status } from 'src/app/components/models/status';
 
 @Component({
   selector: 'app-order-details',

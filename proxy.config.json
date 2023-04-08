@@ -1,0 +1,9 @@
+{
+  "/productserviceurl/*": {
+    "target": "http://localhost:8082",
+    "secure": false,
+    "pathRewrite": { "^/productserviceurl": "" },
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}

@@ -1,17 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AboutComponent } from './about/about.component';
-import { CartComponent } from './cart/cart.component';
-import { CheckoutComponent } from './cart/checkout/checkout.component';
-import { HeaderComponent } from './header/header.component';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { MenuComponent } from './menu/menu.component';
-import { ProductDetailsComponent } from './menu/product-details/product-details.component';
-import { ActiveOrderComponent } from './order/active-order/active-order.component';
-import { OrderDetailsComponent } from './order/order-details/order-details.component';
-import { PastOrderComponent } from './order/past-order/past-order.component';
-import { SpecialDishesComponent } from './special-dishes/special-dishes.component';
+import { AboutComponent } from './components/about/about.component';
+import { CartComponent } from './components/cart/cart.component';
+import { CheckoutComponent } from './components/cart/checkout/checkout.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
+import { MenuComponent } from './components/menu/menu.component';
+import { ProductDetailsComponent } from './components/menu/product-details/product-details.component';
+import { ActiveOrderComponent } from './components/order/active-order/active-order.component';
+import { OrderDetailsComponent } from './components/order/order-details/order-details.component';
+import { PastOrderComponent } from './components/order/past-order/past-order.component';
+import { SpecialDishesComponent } from './components/special-dishes/special-dishes.component';
 
 const routes: Routes = [
   {

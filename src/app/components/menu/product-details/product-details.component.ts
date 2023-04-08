@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { foodType } from 'src/app/models/foodType';
-import { product } from 'src/app/models/product';
-import { review } from 'src/app/models/review';
-import { userReview } from 'src/app/models/userReview';
+import { foodType } from 'src/app/components/models/foodType';
+import { product } from 'src/app/components/models/product';
+import { review } from 'src/app/components/models/review';
+import { userReview } from 'src/app/components/models/userReview';
 
 @Component({
   selector: 'app-product-details',

@@ -4,12 +4,12 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { StepperOrientation, MatStepper } from '@angular/material/stepper';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { order } from 'src/app/models/order';
-import { status } from 'src/app/models/status';
-import { foodType } from 'src/app/models/foodType';
-import { address } from 'src/app/models/address';
-import { customerInfo } from 'src/app/models/customerInfo';
-import { product } from 'src/app/models/product';
+import { order } from 'src/app/components/models/order';
+import { status } from 'src/app/components/models/status';
+import { foodType } from 'src/app/components/models/foodType';
+import { address } from 'src/app/components/models/address';
+import { customerInfo } from 'src/app/components/models/customerInfo';
+import { product } from 'src/app/components/models/product';
 
 /**
  * @title Stepper responsive
@@ -20,6 +20,7 @@ import { product } from 'src/app/models/product';
   styleUrls: ['./checkout.component.css'],
 })
 export class CheckoutComponent implements OnInit {
+  editable = true;
   discountAmount: number = 0;
   breakfastList: product[] = [];
   lunchList: product[] = [];
@@ -254,9 +255,10 @@ export class CheckoutComponent implements OnInit {
     };
     this.calculateTax();
   }
-  placeOrder(stepper: MatStepper){
+  placeOrder(stepper: MatStepper) {
     this.orderSummary.orderId = '12345';
     this.orderSummary.dateOfOrder = 'October 16, 2:57 PM';
     stepper.next();
+    this.editable = false;
   }
 }

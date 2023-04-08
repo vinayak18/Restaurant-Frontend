@@ -10,7 +10,7 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { loginCredentials } from '../models/loginCredentials';
-import { AuthService } from '../services/auth/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 const left = [
   query(':enter, :leave', style({ position: 'fixed', width: '100%' }), {
     optional: true,

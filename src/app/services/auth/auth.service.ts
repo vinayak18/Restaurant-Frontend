@@ -1,8 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { urls } from 'src/app/models/apiUrls';
-import { loginCredentials } from 'src/app/models/loginCredentials';
+import { loginCredentials } from 'src/app/components/models/loginCredentials';
 import { EncryptDecryptService } from './encrypt-decrypt.service';
 import { catchError } from 'rxjs/operators';
 
