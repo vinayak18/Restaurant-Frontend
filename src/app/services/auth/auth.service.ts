@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { loginCredentials } from 'src/app/components/models/loginCredentials';
 import { EncryptDecryptService } from './encrypt-decrypt.service';
 import { catchError } from 'rxjs/operators';
@@ -9,6 +9,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class AuthService {
+  isLoggedIn = new BehaviorSubject<boolean>(false);
   constructor(
     private http: HttpClient,
     private encryptDecrypt: EncryptDecryptService
@@ -20,6 +21,10 @@ export class AuthService {
       '&password=' +
       loginObj.password;
     return this.http.get(url).pipe(catchError(this.handleError));
+  }
+  googleAuthentication(token: any): Observable<any> {
+    const url = 'http://localhost:8083/api/v1/auth/google/login';
+    return this.http.post(url, token).pipe(catchError(this.handleError));
   }
   handleError(error: HttpErrorResponse) {
     console.log(error);

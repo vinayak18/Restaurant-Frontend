@@ -11,61 +11,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { loginCredentials } from '../models/loginCredentials';
 import { AuthService } from '../../services/auth/auth.service';
-const left = [
-  query(':enter, :leave', style({ position: 'fixed', width: '100%' }), {
-    optional: true,
-  }),
-  group([
-    query(
-      ':enter',
-      [
-        style({ transform: 'translateX(-100%)' }),
-        animate('.3s ease-out', style({ transform: 'translateX(0%)' })),
-      ],
-      {
-        optional: true,
-      }
-    ),
-    query(
-      ':leave',
-      [
-        style({ transform: 'translateX(0%)' }),
-        animate('.3s ease-out', style({ transform: 'translateX(100%)' })),
-      ],
-      {
-        optional: true,
-      }
-    ),
-  ]),
-];
+import {
+  FacebookLoginProvider,
+  SocialAuthService,
+  SocialUser,
+} from '@abacritt/angularx-social-login';
+import { Router } from '@angular/router';
 
-const right = [
-  query(':enter, :leave', style({ position: 'fixed', width: '100%' }), {
-    optional: true,
-  }),
-  group([
-    query(
-      ':enter',
-      [
-        style({ transform: 'translateX(100%)' }),
-        animate('.3s ease-out', style({ transform: 'translateX(0%)' })),
-      ],
-      {
-        optional: true,
-      }
-    ),
-    query(
-      ':leave',
-      [
-        style({ transform: 'translateX(0%)' }),
-        animate('.3s ease-out', style({ transform: 'translateX(-100%)' })),
-      ],
-      {
-        optional: true,
-      }
-    ),
-  ]),
-];
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -84,7 +36,13 @@ export class LoginComponent implements OnInit {
   switch: boolean = true;
   loginForm: FormGroup;
   registerForm: FormGroup;
-  constructor(private authService: AuthService) {}
+  socialUser: SocialUser;
+  userLogged: SocialUser;
+  constructor(
+    private authService: AuthService,
+    private socialAuthService: SocialAuthService,
+    private router: Router // private oauthService: OauthService, // private tokenService: TokenService
+  ) {}
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -115,6 +73,20 @@ export class LoginComponent implements OnInit {
         // Validators.pattern('^[ A-Za-z0-9_@$!./#&+-]*$'),
       ]),
     });
+    this.socialAuthService.authState.subscribe((data) => {
+      this.userLogged = data;
+      console.log(this.userLogged);
+      if (null != this.userLogged) {
+        let socialLoginToken = { value: this.userLogged.idToken };
+        this.authService
+          .googleAuthentication(socialLoginToken)
+          .subscribe((data) => {
+            console.log(data);
+            this.authService.isLoggedIn.next(true);
+            this.router.navigateByUrl('/home');
+          });
+      }
+    });
   }
   toggle() {
     this.switch = !this.switch;
@@ -135,5 +107,28 @@ export class LoginComponent implements OnInit {
   }
   registerUser() {
     alert(this.registerForm.get('email').value);
+  }
+
+  signInWithFacebook(): void {
+    this.socialAuthService
+      .signIn(FacebookLoginProvider.PROVIDER_ID)
+      .then((data) => {
+        this.socialUser = data;
+        console.log(this.socialUser.authToken);
+        // this.oauthService.facebook(tokenFace).subscribe(
+        //   (res) => {
+        //     this.tokenService.setToken(res.value);
+        //     this.isLogged = true;
+        //     this.router.navigate(['/']);
+        //   },
+        //   (err) => {
+        //     console.log(err);
+        //     this.logOut();
+        //   }
+        // );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 }

@@ -58,11 +58,11 @@
 
     </ul>
     <div class="navbar-nav user-info">
-      <div *ngIf="isLoggedIn" class="">
+      <div *ngIf="!isLoggedIn" class="">
         <a class="btn btn-sm" [routerLink]="['login']" role="button"
           style="background-color: #ffb633; color: black;">Login/Register</a>
       </div>
-      <div *ngIf="!isLoggedIn" class="dropdown">
+      <div *ngIf="isLoggedIn" class="dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           Hi Vinayak!
@@ -70,7 +70,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">My Account</a>
           <a class="dropdown-item" href="#">Payments</a>
-          <a class="dropdown-item" href="#">Logout</a>
+          <a class="dropdown-item" (click)="logout()">Logout</a>
         </div>
         <!-- <button mat-button [matMenuTriggerFor]="beforeMenu">Hi Vinayak</button>
         <mat-menu #beforeMenu="matMenu" [overlapTrigger]="true" xPosition="before" class="before-menu">
