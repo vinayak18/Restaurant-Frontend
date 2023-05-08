@@ -32,6 +32,18 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
+import {
+  SocialLoginModule,
+  SocialAuthServiceConfig,
+} from '@abacritt/angularx-social-login';
+import { GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider,
+  AmazonLoginProvider,
+} from '@abacritt/angularx-social-login';
+import { CoolSocialLoginButtonsModule } from '@angular-cool/social-login-buttons';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,8 +82,30 @@ import { MatInputModule } from '@angular/material/input';
     NgxPaginationModule,
     NgbModule,
     NgbCarouselModule,
+    CoolSocialLoginButtonsModule,
+    SocialLoginModule,
+    GoogleSigninButtonModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '459334269929-69k1rfm2snegoeparfavhfkof5gg3l0j.apps.googleusercontent.com'
+            ),
+          },
+          // {
+          //   id: FacebookLoginProvider.PROVIDER_ID,
+          //   provider: new FacebookLoginProvider('facebook public key'),
+          // },
+        ],
+      } as SocialAuthServiceConfig,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
