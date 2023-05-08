@@ -8,6 +8,7 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { foodType } from '../models/foodType';
 import { product } from '../models/product';
+import { ProductReviewService } from 'src/app/services/product-review/product-review.service';
 
 @Component({
   selector: 'app-menu',
@@ -28,89 +29,27 @@ export class MenuComponent implements OnInit {
   lunchList: product[] = [];
   dinnerList: product[] = [];
   value = 0;
-  orderDetails: product[] = [
-    {
-      pId: 1,
-      name: 'Boba Tea',
-      desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
-      price: 200,
-      quantity: 1,
-      avgRating: 4.5,
-      img_url: [
-        '../../assets/img/breakfast-1.jpg',
-        '../../assets/img/hero-1.jpg',
-        '../../assets/img/hero-2.jpg',
-        '../../assets/img/hero-3.jpg',
-      ],
-      type: foodType.LUNCH,
-      catagory: 'VEG',
-      live: true,
-    },
-    {
-      pId: 2,
-      name: 'Pizza',
-      desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
-      price: 200,
-      quantity: 1,
-      avgRating: 4.5,
-      img_url: [
-        '../../assets/img/breakfast-1.jpg',
-        '../../assets/img/hero-1.jpg',
-        '../../assets/img/hero-2.jpg',
-        '../../assets/img/hero-3.jpg',
-      ],
-      type: foodType.DINNER,
-      catagory: 'VEG',
-      live: true,
-    },
-    {
-      pId: 3,
-      name: 'Pizza',
-      desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
-      price: 200,
-      quantity: 1,
-      avgRating: 4.5,
-      img_url: [
-        '../../assets/img/breakfast-1.jpg',
-        '../../assets/img/hero-1.jpg',
-        '../../assets/img/hero-2.jpg',
-        '../../assets/img/hero-3.jpg',
-      ],
-      type: foodType.LUNCH,
-      catagory: 'VEG',
-      live: true,
-    },
-    {
-      pId: 4,
-      name: 'Boba Tea',
-      desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
-      price: 200,
-      quantity: 1,
-      avgRating: 4.5,
-      img_url: [
-        '../../assets/img/breakfast-1.jpg',
-        '../../assets/img/hero-1.jpg',
-        '../../assets/img/hero-2.jpg',
-        '../../assets/img/hero-3.jpg',
-      ],
-      type: foodType.BREAKFAST,
-      catagory: 'VEG',
-      live: true,
-    },
-  ];
+  allProducts: product[] = [];
   showOrHideFlag: boolean[] = [true, true, true];
-  constructor() {}
+  constructor(private product_review_service: ProductReviewService) {}
 
   ngOnInit(): void {
-    this.breakfastList = this.orderDetails.filter(
-      (value) => value.type === foodType.BREAKFAST
-    );
-    this.lunchList = this.orderDetails.filter(
-      (value) => value.type === foodType.LUNCH
-    );
-    this.dinnerList = this.orderDetails.filter(
-      (value) => value.type === foodType.DINNER
-    );
+    this.getAllProducts();
+  }
+  getAllProducts() {
+    this.product_review_service.getAllProducts().subscribe((data) => {
+      this.allProducts = data;
+      console.log(data);
+      this.breakfastList = this.allProducts.filter(
+        (value) => value.type === foodType.BREAKFAST
+      );
+      this.lunchList = this.allProducts.filter(
+        (value) => value.type === foodType.LUNCH
+      );
+      this.dinnerList = this.allProducts.filter(
+        (value) => value.type === foodType.DINNER
+      );
+    });
   }
   handleMinus(item) {
     item.quantity--;

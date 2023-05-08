@@ -23,7 +23,7 @@ export class OrderDetailsComponent implements OnInit {
     dateOfOrder: 'October 16, 2:57 PM',
     orderDetails: [
       {
-        pId: 1,
+        pid: 1,
         name: 'Boba Tea',
         desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
         price: 200,
@@ -35,12 +35,12 @@ export class OrderDetailsComponent implements OnInit {
           '../../assets/img/hero-2.jpg',
           '../../assets/img/hero-3.jpg',
         ],
-        type: foodType.SPEACIAL_DISH,
-        catagory: 'VEG',
+        type: foodType.SPECIAL_DISH,
+        category: 'VEG',
         live: true,
       },
       {
-        pId: 1,
+        pid: 1,
         name: 'Pizza',
         desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
         price: 200,
@@ -52,12 +52,12 @@ export class OrderDetailsComponent implements OnInit {
           '../../assets/img/hero-2.jpg',
           '../../assets/img/hero-3.jpg',
         ],
-        type: foodType.SPEACIAL_DISH,
-        catagory: 'VEG',
+        type: foodType.SPECIAL_DISH,
+        category: 'VEG',
         live: true,
       },
       {
-        pId: 1,
+        pid: 1,
         name: 'Pizza',
         desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
         price: 200,
@@ -70,11 +70,11 @@ export class OrderDetailsComponent implements OnInit {
           '../../assets/img/hero-3.jpg',
         ],
         type: foodType.LUNCH,
-        catagory: 'VEG',
+        category: 'VEG',
         live: true,
       },
       {
-        pId: 1,
+        pid: 1,
         name: 'Boba Tea',
         desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
         price: 200,
@@ -87,7 +87,7 @@ export class OrderDetailsComponent implements OnInit {
           '../../assets/img/hero-3.jpg',
         ],
         type: foodType.BREAKFAST,
-        catagory: 'VEG',
+        category: 'VEG',
         live: true,
       },
     ],
@@ -122,7 +122,7 @@ export class OrderDetailsComponent implements OnInit {
       (value) => value.type === foodType.DINNER
     );
     this.specialDishList = this.order.orderDetails.filter(
-      (value) => value.type === foodType.SPEACIAL_DISH
+      (value) => value.type === foodType.SPECIAL_DISH
     );
   }
 }

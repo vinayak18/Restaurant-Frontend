@@ -64,7 +64,7 @@ export class CheckoutComponent implements OnInit {
       dateOfOrder: null,
       orderDetails: [
         {
-          pId: 1,
+          pid: 1,
           name: 'Boba Tea',
           desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
           price: 200,
@@ -76,12 +76,12 @@ export class CheckoutComponent implements OnInit {
             '../../assets/img/hero-2.jpg',
             '../../assets/img/hero-3.jpg',
           ],
-          type: foodType.SPEACIAL_DISH,
-          catagory: 'VEG',
+          type: foodType.SPECIAL_DISH,
+          category: 'VEG',
           live: true,
         },
         {
-          pId: 1,
+          pid: 1,
           name: 'Pizza',
           desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
           price: 200,
@@ -93,12 +93,12 @@ export class CheckoutComponent implements OnInit {
             '../../assets/img/hero-2.jpg',
             '../../assets/img/hero-3.jpg',
           ],
-          type: foodType.SPEACIAL_DISH,
-          catagory: 'VEG',
+          type: foodType.SPECIAL_DISH,
+          category: 'VEG',
           live: true,
         },
         {
-          pId: 1,
+          pid: 1,
           name: 'Pizza',
           desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
           price: 200,
@@ -111,11 +111,11 @@ export class CheckoutComponent implements OnInit {
             '../../assets/img/hero-3.jpg',
           ],
           type: foodType.LUNCH,
-          catagory: 'VEG',
+          category: 'VEG',
           live: true,
         },
         {
-          pId: 1,
+          pid: 1,
           name: 'Boba Tea',
           desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
           price: 200,
@@ -128,7 +128,7 @@ export class CheckoutComponent implements OnInit {
             '../../assets/img/hero-3.jpg',
           ],
           type: foodType.BREAKFAST,
-          catagory: 'VEG',
+          category: 'VEG',
           live: true,
         },
       ],
@@ -156,7 +156,7 @@ export class CheckoutComponent implements OnInit {
       (value) => value.type === foodType.DINNER
     );
     this.specialDishList = this.orderSummary.orderDetails.filter(
-      (value) => value.type === foodType.SPEACIAL_DISH
+      (value) => value.type === foodType.SPECIAL_DISH
     );
   }
   toggleDeliverySwitch(deliveryType: string) {

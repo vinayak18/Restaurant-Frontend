@@ -1,7 +1,7 @@
 import { foodType } from './foodType';
 
 export class product {
-  pId: number;
+  pid: number;
   name: string;
   desc: string;
   price: number;
@@ -9,10 +9,10 @@ export class product {
   avgRating: number;
   img_url: string[];
   type: foodType;
-  catagory: string;
+  category: string;
   live: boolean;
   constructor(
-    $pId: number,
+    $pid: number,
     $name: string,
     $desc: string,
     $price: number,
@@ -20,10 +20,10 @@ export class product {
     $avgRating: number,
     $img_url: string[],
     $type: foodType,
-    $catagory: string,
+    $category: string,
     $live: boolean
   ) {
-    this.pId = $pId;
+    this.pid = $pid;
     this.name = $name;
     this.desc = $desc;
     this.price = $price;
@@ -31,7 +31,7 @@ export class product {
     this.avgRating = $avgRating;
     this.img_url = $img_url;
     this.type = $type;
-    this.catagory = $catagory;
+    this.category = $category;
     this.live = $live;
   }
 }

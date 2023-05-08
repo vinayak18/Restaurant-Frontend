@@ -20,7 +20,7 @@ export class PastOrderComponent {
       dateOfOrder: 'Timestamp',
       orderDetails: [
         {
-          pId: 1,
+          pid: 1,
           name: 'Boba Tea',
           desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
           price: 200,
@@ -32,8 +32,8 @@ export class PastOrderComponent {
             '../../assets/img/hero-2.jpg',
             '../../assets/img/hero-3.jpg',
           ],
-          type: foodType.SPEACIAL_DISH,
-          catagory: 'VEG',
+          type: foodType.SPECIAL_DISH,
+          category: 'VEG',
           live: true,
         },
       ],
@@ -64,7 +64,7 @@ export class PastOrderComponent {
       dateOfOrder: 'October 16, 2:57 PM',
       orderDetails: [
         {
-          pId: 1,
+          pid: 1,
           name: 'Boba Tea',
           desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
           price: 200,
@@ -76,8 +76,8 @@ export class PastOrderComponent {
             '../../assets/img/hero-2.jpg',
             '../../assets/img/hero-3.jpg',
           ],
-          type: foodType.SPEACIAL_DISH,
-          catagory: 'VEG',
+          type: foodType.SPECIAL_DISH,
+          category: 'VEG',
           live: true,
         },
       ],
@@ -101,7 +101,7 @@ export class PastOrderComponent {
       dateOfOrder: 'October 16, 2:57 PM',
       orderDetails: [
         {
-          pId: 1,
+          pid: 1,
           name: 'Boba Tea',
           desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
           price: 200,
@@ -113,8 +113,8 @@ export class PastOrderComponent {
             '../../assets/img/hero-2.jpg',
             '../../assets/img/hero-3.jpg',
           ],
-          type: foodType.SPEACIAL_DISH,
-          catagory: 'VEG',
+          type: foodType.SPECIAL_DISH,
+          category: 'VEG',
           live: true,
         },
       ],
@@ -138,7 +138,7 @@ export class PastOrderComponent {
       dateOfOrder: 'October 16, 2:57 PM',
       orderDetails: [
         {
-          pId: 1,
+          pid: 1,
           name: 'Boba Tea',
           desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
           price: 200,
@@ -150,8 +150,8 @@ export class PastOrderComponent {
             '../../assets/img/hero-2.jpg',
             '../../assets/img/hero-3.jpg',
           ],
-          type: foodType.SPEACIAL_DISH,
-          catagory: 'VEG',
+          type: foodType.SPECIAL_DISH,
+          category: 'VEG',
           live: true,
         },
       ],
@@ -175,7 +175,7 @@ export class PastOrderComponent {
       dateOfOrder: 'October 16, 2:57 PM',
       orderDetails: [
         {
-          pId: 1,
+          pid: 1,
           name: 'Boba Tea',
           desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
           price: 200,
@@ -187,8 +187,8 @@ export class PastOrderComponent {
             '../../assets/img/hero-2.jpg',
             '../../assets/img/hero-3.jpg',
           ],
-          type: foodType.SPEACIAL_DISH,
-          catagory: 'VEG',
+          type: foodType.SPECIAL_DISH,
+          category: 'VEG',
           live: true,
         },
       ],
@@ -212,7 +212,7 @@ export class PastOrderComponent {
       dateOfOrder: 'October 16, 2:57 PM',
       orderDetails: [
         {
-          pId: 1,
+          pid: 1,
           name: 'Boba Tea',
           desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
           price: 200,
@@ -224,8 +224,8 @@ export class PastOrderComponent {
             '../../assets/img/hero-2.jpg',
             '../../assets/img/hero-3.jpg',
           ],
-          type: foodType.SPEACIAL_DISH,
-          catagory: 'VEG',
+          type: foodType.SPECIAL_DISH,
+          category: 'VEG',
           live: true,
         },
       ],
@@ -251,7 +251,7 @@ export class PastOrderComponent {
       dateOfOrder: 'October 16, 2:57 PM',
       orderDetails: [
         {
-          pId: 1,
+          pid: 1,
           name: 'Boba Tea',
           desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
           price: 200,
@@ -263,8 +263,8 @@ export class PastOrderComponent {
             '../../assets/img/hero-2.jpg',
             '../../assets/img/hero-3.jpg',
           ],
-          type: foodType.SPEACIAL_DISH,
-          catagory: 'VEG',
+          type: foodType.SPECIAL_DISH,
+          category: 'VEG',
           live: true,
         },
       ],
@@ -288,7 +288,7 @@ export class PastOrderComponent {
       dateOfOrder: 'October 16, 2:57 PM',
       orderDetails: [
         {
-          pId: 1,
+          pid: 1,
           name: 'Boba Tea',
           desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
           price: 200,
@@ -300,8 +300,8 @@ export class PastOrderComponent {
             '../../assets/img/hero-2.jpg',
             '../../assets/img/hero-3.jpg',
           ],
-          type: foodType.SPEACIAL_DISH,
-          catagory: 'VEG',
+          type: foodType.SPECIAL_DISH,
+          category: 'VEG',
           live: true,
         },
       ],
@@ -325,7 +325,7 @@ export class PastOrderComponent {
       dateOfOrder: 'October 16, 2:57 PM',
       orderDetails: [
         {
-          pId: 1,
+          pid: 1,
           name: 'Boba Tea',
           desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
           price: 200,
@@ -337,8 +337,8 @@ export class PastOrderComponent {
             '../../assets/img/hero-2.jpg',
             '../../assets/img/hero-3.jpg',
           ],
-          type: foodType.SPEACIAL_DISH,
-          catagory: 'VEG',
+          type: foodType.SPECIAL_DISH,
+          category: 'VEG',
           live: true,
         },
       ],
@@ -362,7 +362,7 @@ export class PastOrderComponent {
       dateOfOrder: 'October 16, 2:57 PM',
       orderDetails: [
         {
-          pId: 1,
+          pid: 1,
           name: 'Boba Tea',
           desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
           price: 200,
@@ -374,8 +374,8 @@ export class PastOrderComponent {
             '../../assets/img/hero-2.jpg',
             '../../assets/img/hero-3.jpg',
           ],
-          type: foodType.SPEACIAL_DISH,
-          catagory: 'VEG',
+          type: foodType.SPECIAL_DISH,
+          category: 'VEG',
           live: true,
         },
       ],
@@ -399,7 +399,7 @@ export class PastOrderComponent {
       dateOfOrder: 'Timestamp',
       orderDetails: [
         {
-          pId: 1,
+          pid: 1,
           name: 'Boba Tea',
           desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
           price: 200,
@@ -411,8 +411,8 @@ export class PastOrderComponent {
             '../../assets/img/hero-2.jpg',
             '../../assets/img/hero-3.jpg',
           ],
-          type: foodType.SPEACIAL_DISH,
-          catagory: 'VEG',
+          type: foodType.SPECIAL_DISH,
+          category: 'VEG',
           live: true,
         },
       ],

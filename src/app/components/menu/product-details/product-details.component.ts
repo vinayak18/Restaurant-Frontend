@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { foodType } from 'src/app/components/models/foodType';
 import { product } from 'src/app/components/models/product';
 import { review } from 'src/app/components/models/review';
 import { userReview } from 'src/app/components/models/userReview';
+import { ProductReviewService } from 'src/app/services/product-review/product-review.service';
 
 @Component({
   selector: 'app-product-details',
@@ -20,7 +20,7 @@ export class ProductDetailsComponent implements OnInit {
   reviewForm: userReview;
   bestseller: product[] = [
     {
-      pId: 21,
+      pid: 21,
       name: 'Pizza',
       desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
       price: 250,
@@ -33,11 +33,11 @@ export class ProductDetailsComponent implements OnInit {
         '../../assets/img/breakfast-1.jpg',
       ],
       type: foodType.LUNCH,
-      catagory: 'VEG',
+      category: 'VEG',
       live: true,
     },
     {
-      pId: 22,
+      pid: 22,
       name: 'Sahi Paneer',
       desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
       price: 200,
@@ -50,11 +50,11 @@ export class ProductDetailsComponent implements OnInit {
         '../../assets/img/breakfast-1.jpg',
       ],
       type: foodType.LUNCH,
-      catagory: 'VEG',
+      category: 'VEG',
       live: true,
     },
     {
-      pId: 23,
+      pid: 23,
       name: 'Aloo Dum',
       desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
       price: 200,
@@ -67,12 +67,12 @@ export class ProductDetailsComponent implements OnInit {
         '../../assets/img/breakfast-1.jpg',
       ],
       type: foodType.LUNCH,
-      catagory: 'VEG',
+      category: 'VEG',
       live: true,
     },
   ];
   product: product = {
-    pId: 1,
+    pid: 1,
     name: 'Boba Tea',
     desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
     price: 200,
@@ -85,12 +85,12 @@ export class ProductDetailsComponent implements OnInit {
       '../../assets/img/breakfast-1.jpg',
     ],
     type: foodType.LUNCH,
-    catagory: 'VEG',
+    category: 'VEG',
     live: true,
   };
   productReview: review = {
     reviewId: 1,
-    pId: 1,
+    pid: 1,
     totalRating: 9,
     noOfRating: 2,
     userReview: [
@@ -120,12 +120,23 @@ export class ProductDetailsComponent implements OnInit {
       },
     ],
   };
-  constructor(private activeRoute: ActivatedRoute) {
+  constructor(
+    private activeRoute: ActivatedRoute,
+    private product_review_service: ProductReviewService
+  ) {
     this.productId = this.activeRoute.snapshot.params['productId'];
     console.log(this.productId);
   }
   ngOnInit(): void {
-    this.selectedImage = this.product.img_url[0];
+    this.getProductById();
+  }
+  getProductById() {
+    this.product_review_service
+      .getProductById(this.productId)
+      .subscribe((data) => {
+        this.product = data;
+        this.selectedImage = this.product.img_url[0];
+      });
   }
   changeSelectedImage(url: string) {
     this.selectedImage = url;

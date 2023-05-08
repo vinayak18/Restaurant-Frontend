@@ -51,7 +51,7 @@
               <hr style="border: 1px solid #ffb633">
             </span>
             <div class="col-4" *ngFor="let item of bestseller">
-              <a [routerLink]="['/menu/product',item.pId]" class="thumb-menu text-center underline">
+              <a [routerLink]="['/menu/product',item.pid]" class="thumb-menu text-center underline">
                 <img class="img-fluid img-cover" [src]="item.img_url[0]" style="height: 80%;" />
                 <h6>{{item.name}}</h6>
               </a>

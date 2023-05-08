@@ -23,7 +23,7 @@
   "productservice": {
     "product": [
       {
-        "pId": "#1",
+        "pid": "#1",
         "name": "Boba Tea",
         "desc": "Amazingly fresh and squisly flavorable choco chips are added in it",
         "price": 200,
