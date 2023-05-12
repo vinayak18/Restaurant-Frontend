@@ -98,7 +98,13 @@ export class LoginComponent implements OnInit {
     );
     this.authService.authenticate(loginObj).subscribe(
       (data) => {
+        sessionStorage.setItem(
+          'Authorization',
+          data.headers.get('Authorization')!
+        );
         console.log(data);
+        this.authService.isLoggedIn.next(true);
+        this.router.navigateByUrl('/home');
       },
       (err) => {
         console.log(err.status);

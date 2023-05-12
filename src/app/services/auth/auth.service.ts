@@ -15,12 +15,22 @@ export class AuthService {
     private encryptDecrypt: EncryptDecryptService
   ) {}
   authenticate(loginObj: loginCredentials): Observable<any> {
-    const url =
-      'http://localhost:3000/user?email=' +
-      loginObj.username +
-      '&password=' +
-      loginObj.password;
-    return this.http.get(url).pipe(catchError(this.handleError));
+    const url = 'http://localhost:8083/api/v1/auth/user/login';
+    return this.http
+      .get(url, {
+        headers: {
+          authorization: this.createBasicAuthToken(
+            loginObj.username,
+            loginObj.password
+          ),
+        },
+        observe: 'response',
+        withCredentials: true,
+      })
+      .pipe(catchError(this.handleError));
+  }
+  createBasicAuthToken(username: String, password: String) {
+    return 'Basic ' + window.btoa(username + ':' + password);
   }
   googleAuthentication(token: any): Observable<any> {
     const url = 'http://localhost:8083/api/v1/auth/google/login';
