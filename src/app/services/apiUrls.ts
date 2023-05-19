@@ -1,7 +1,15 @@
 const productserviceUrl = '/productserviceurl/api/v1';
+const userserviceUrl = '/userserviceurl/api/v1';
 
 /* eslint-disable import/prefer-default-export */
 export const urls = {
+  userUrls: {
+    login: `${userserviceUrl}/auth/user/login`,
+    socialGoogleLogin: `${userserviceUrl}/auth/google/login`,
+    register: `${userserviceUrl}/auth/user/register`,
+    byEmail: `${userserviceUrl}/verify/user/email/{email}`,
+    byId: `${userserviceUrl}/verify/user/id/{id}`,
+  },
   productUrls: {
     all: `${productserviceUrl}/product/all`,
     byId: `${productserviceUrl}/product/{id}`,

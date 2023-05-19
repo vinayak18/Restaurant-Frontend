@@ -5,5 +5,12 @@
     "pathRewrite": { "^/productserviceurl": "" },
     "logLevel": "debug",
     "changeOrigin": true
+  },
+  "/userserviceurl/*": {
+    "target": "http://localhost:8083",
+    "secure": false,
+    "pathRewrite": { "^/userserviceurl": "" },
+    "logLevel": "debug",
+    "changeOrigin": true
   }
 }

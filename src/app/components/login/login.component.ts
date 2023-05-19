@@ -17,6 +17,9 @@ import {
   SocialUser,
 } from '@abacritt/angularx-social-login';
 import { Router } from '@angular/router';
+import { userDetails } from '../models/userDetails';
+import { EncryptDecryptService } from 'src/app/services/auth/encrypt-decrypt.service';
+import { secretKey } from '../models/secretKey';
 
 @Component({
   selector: 'app-login',
@@ -41,6 +44,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private socialAuthService: SocialAuthService,
+    private encrypt: EncryptDecryptService,
     private router: Router // private oauthService: OauthService, // private tokenService: TokenService
   ) {}
 
@@ -60,12 +64,14 @@ export class LoginComponent implements OnInit {
       ]),
     });
     this.registerForm = new FormGroup({
+      name: new FormControl('', [Validators.required]),
       email: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(20),
         // Validators.pattern('^w+([.-]?w+)@w+([.-]?w+)(.w{2,3})+$'),
       ]),
+      phoneNo: new FormControl('', [Validators.required]),
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
@@ -99,8 +105,8 @@ export class LoginComponent implements OnInit {
     this.authService.authenticate(loginObj).subscribe(
       (data) => {
         sessionStorage.setItem(
-          'Authorization',
-          data.headers.get('Authorization')!
+          this.encrypt.encryption('Authorization', secretKey),
+          this.encrypt.encryption(data.headers.get('Authorization'), secretKey)
         );
         console.log(data);
         this.authService.isLoggedIn.next(true);
@@ -112,7 +118,16 @@ export class LoginComponent implements OnInit {
     );
   }
   registerUser() {
-    alert(this.registerForm.get('email').value);
+    const userObj = new userDetails(
+      this.registerForm.get('name').value,
+      this.registerForm.get('email').value,
+      this.registerForm.get('phoneNo').value,
+      this.registerForm.get('password').value
+    );
+    console.log(userObj);
+    this.authService.registerUser(userObj).subscribe((data) => {
+      this.toggle();
+    });
   }
 
   signInWithFacebook(): void {

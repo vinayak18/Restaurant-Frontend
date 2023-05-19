@@ -4,6 +4,9 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { loginCredentials } from 'src/app/components/models/loginCredentials';
 import { EncryptDecryptService } from './encrypt-decrypt.service';
 import { catchError } from 'rxjs/operators';
+import { userDetails } from 'src/app/components/models/userDetails';
+import { urls } from '../apiUrls';
+import { secretKey } from 'src/app/components/models/secretKey';
 
 @Injectable({
   providedIn: 'root',
@@ -12,10 +15,14 @@ export class AuthService {
   isLoggedIn = new BehaviorSubject<boolean>(false);
   constructor(
     private http: HttpClient,
-    private encryptDecrypt: EncryptDecryptService
+    private decrypt: EncryptDecryptService
   ) {}
+  registerUser(userObj: userDetails): Observable<any> {
+    const url = urls.userUrls.register;
+    return this.http.post(url, userObj).pipe(catchError(this.handleError));
+  }
   authenticate(loginObj: loginCredentials): Observable<any> {
-    const url = 'http://localhost:8083/api/v1/auth/user/login';
+    const url = urls.userUrls.login;
     return this.http
       .get(url, {
         headers: {
@@ -33,8 +40,14 @@ export class AuthService {
     return 'Basic ' + window.btoa(username + ':' + password);
   }
   googleAuthentication(token: any): Observable<any> {
-    const url = 'http://localhost:8083/api/v1/auth/google/login';
+    const url = urls.userUrls.socialGoogleLogin;
     return this.http.post(url, token).pipe(catchError(this.handleError));
+  }
+  getAuthToken(): string {
+    return this.decrypt.decryption(
+      sessionStorage.getItem('Authorization'),
+      secretKey
+    );
   }
   handleError(error: HttpErrorResponse) {
     console.log(error);
