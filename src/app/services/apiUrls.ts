@@ -9,6 +9,7 @@ export const urls = {
     register: `${userserviceUrl}/auth/user/register`,
     byEmail: `${userserviceUrl}/verify/user/email/{email}`,
     byId: `${userserviceUrl}/verify/user/id/{id}`,
+    addToCart: `${userserviceUrl}/verify/user/update/cart/{email}`,
   },
   productUrls: {
     all: `${productserviceUrl}/product/all`,

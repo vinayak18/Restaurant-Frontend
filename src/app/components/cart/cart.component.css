@@ -73,4 +73,9 @@
   table#cart tfoot td .btn {
     display: block;
   }
+
+  table#cart tfoot td .sv {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }

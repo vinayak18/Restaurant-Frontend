@@ -45,6 +45,11 @@
       <!-- <tr class="visible-xs">
         <td class="text-center"><strong>Total 1.99</strong></td>
       </tr> -->
+      <tr *ngIf="isSaved">
+        <td colspan="6" class="hidden-xs text-right">
+          <button class="btn btn-dark sv" (click)="saveChanges()">Save Changes</button>
+        </td>
+      </tr>
       <tr>
         <td><a href="#" class="btn btn-warning" [routerLink]="['/menu']"><i class="fa fa-angle-left"></i> Continue
             Shopping</a></td>

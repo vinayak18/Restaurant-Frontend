@@ -9,6 +9,9 @@ import { Component, OnInit } from '@angular/core';
 import { foodType } from '../models/foodType';
 import { product } from '../models/product';
 import { ProductReviewService } from 'src/app/services/product-review/product-review.service';
+import { UserService } from 'src/app/services/user/user.service';
+import { EncryptDecryptService } from 'src/app/services/auth/encrypt-decrypt.service';
+import { secretKey } from '../models/secretKey';
 
 @Component({
   selector: 'app-menu',
@@ -31,7 +34,11 @@ export class MenuComponent implements OnInit {
   value = 0;
   allProducts: product[] = [];
   showOrHideFlag: boolean[] = [true, true, true];
-  constructor(private product_review_service: ProductReviewService) {}
+  constructor(
+    private product_review_service: ProductReviewService,
+    private userService: UserService,
+    private encrypt_decrypt: EncryptDecryptService
+  ) {}
 
   ngOnInit(): void {
     this.getAllProducts();
@@ -59,5 +66,26 @@ export class MenuComponent implements OnInit {
   }
   toggleFlag(index: number) {
     this.showOrHideFlag[index] = !this.showOrHideFlag[index];
+  }
+  addToCart(item: product) {
+    // let currentProduct: product = JSON.parse(JSON.stringify(item));
+    let cart: product[] = [];
+    let data = sessionStorage.getItem(
+      this.encrypt_decrypt.encryption('Cart', secretKey)
+    );
+    if (data !== null && data !== undefined) {
+      cart = JSON.parse(this.encrypt_decrypt.decryption(data, secretKey));
+    }
+    for (let x of cart) {
+      if (item.pid === x.pid) {
+        console.log('Product already exists!');
+        return;
+      }
+    }
+    cart.push(item);
+    sessionStorage.setItem(
+      this.encrypt_decrypt.encryption('Cart', secretKey),
+      this.encrypt_decrypt.encryption(JSON.stringify(cart), secretKey)
+    );
   }
 }

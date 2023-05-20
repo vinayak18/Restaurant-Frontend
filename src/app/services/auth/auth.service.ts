@@ -15,7 +15,7 @@ export class AuthService {
   isLoggedIn = new BehaviorSubject<boolean>(false);
   constructor(
     private http: HttpClient,
-    private decrypt: EncryptDecryptService
+    private encrypt_decrypt: EncryptDecryptService
   ) {}
   registerUser(userObj: userDetails): Observable<any> {
     const url = urls.userUrls.register;
@@ -44,8 +44,10 @@ export class AuthService {
     return this.http.post(url, token).pipe(catchError(this.handleError));
   }
   getAuthToken(): string {
-    return this.decrypt.decryption(
-      sessionStorage.getItem('Authorization'),
+    return this.encrypt_decrypt.decryption(
+      sessionStorage.getItem(
+        this.encrypt_decrypt.encryption('Authorization', secretKey)
+      ),
       secretKey
     );
   }

@@ -20,6 +20,8 @@ import { Router } from '@angular/router';
 import { userDetails } from '../models/userDetails';
 import { EncryptDecryptService } from 'src/app/services/auth/encrypt-decrypt.service';
 import { secretKey } from '../models/secretKey';
+import { UserService } from 'src/app/services/user/user.service';
+import { product } from '../models/product';
 
 @Component({
   selector: 'app-login',
@@ -43,8 +45,9 @@ export class LoginComponent implements OnInit {
   userLogged: SocialUser;
   constructor(
     private authService: AuthService,
+    private userService: UserService,
     private socialAuthService: SocialAuthService,
-    private encrypt: EncryptDecryptService,
+    private encrypt_decrypt: EncryptDecryptService,
     private router: Router // private oauthService: OauthService, // private tokenService: TokenService
   ) {}
 
@@ -105,17 +108,52 @@ export class LoginComponent implements OnInit {
     this.authService.authenticate(loginObj).subscribe(
       (data) => {
         sessionStorage.setItem(
-          this.encrypt.encryption('Authorization', secretKey),
-          this.encrypt.encryption(data.headers.get('Authorization'), secretKey)
+          this.encrypt_decrypt.encryption('Authorization', secretKey),
+          this.encrypt_decrypt.encryption(
+            data.headers.get('Authorization'),
+            secretKey
+          )
         );
         console.log(data);
+        this.userService
+          .getUserViaEmail(data.body.username)
+          .subscribe((data) => {
+            sessionStorage.setItem(
+              this.encrypt_decrypt.encryption('UserDetails', secretKey),
+              this.encrypt_decrypt.encryption(
+                JSON.stringify(data.body),
+                secretKey
+              )
+            );
+          });
         this.authService.isLoggedIn.next(true);
+        this.checkCartItems(data.body);
         this.router.navigateByUrl('/home');
       },
       (err) => {
         console.log(err.status);
       }
     );
+  }
+  checkCartItems(user: any) {
+    let cartItems: product[] = [];
+    let data = sessionStorage.getItem(
+      this.encrypt_decrypt.encryption('Cart', secretKey)
+    );
+    if (data !== null && data !== undefined) {
+      cartItems = JSON.parse(this.encrypt_decrypt.decryption(data, secretKey));
+      this.userService
+        .addToCartProducts(user.username, cartItems)
+        .subscribe((data) => {
+          sessionStorage.setItem(
+            this.encrypt_decrypt.encryption('UserDetails', secretKey),
+            this.encrypt_decrypt.encryption(
+              JSON.stringify(data.body),
+              secretKey
+            )
+          );
+        });
+    }
   }
   registerUser() {
     const userObj = new userDetails(
