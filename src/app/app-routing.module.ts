@@ -11,11 +11,12 @@ import { ActiveOrderComponent } from './components/order/active-order/active-ord
 import { OrderDetailsComponent } from './components/order/order-details/order-details.component';
 import { PastOrderComponent } from './components/order/past-order/past-order.component';
 import { SpecialDishesComponent } from './components/special-dishes/special-dishes.component';
+import { AuthGuard } from './guard/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    component: LoginComponent,
+    component: HomeComponent,
   },
   {
     path: 'home',
@@ -36,18 +37,22 @@ const routes: Routes = [
   {
     path: 'cart/checkout',
     component: CheckoutComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'order/active',
     component: ActiveOrderComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'order/past',
     component: PastOrderComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'order/details/:orderId',
     component: OrderDetailsComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'special-dishes',

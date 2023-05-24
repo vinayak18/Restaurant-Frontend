@@ -130,13 +130,18 @@ export class CartComponent implements OnInit {
     this.authService.isLoggedIn.subscribe((data) => {
       this.isLoggedIn = data;
     });
-    let data = sessionStorage.getItem(
-      this.encrypt_decrypt.encryption('Cart', secretKey)
-    );
-    if (data !== null && data !== undefined) {
-      this.cartItems = JSON.parse(
-        this.encrypt_decrypt.decryption(data, secretKey)
+    if (this.isLoggedIn) {
+      const currUser = this.userService.getCurrentUserDetails();
+      this.cartItems = currUser.cart;
+    } else {
+      let data = sessionStorage.getItem(
+        this.encrypt_decrypt.encryption('Cart', secretKey)
       );
+      if (data !== null && data !== undefined) {
+        this.cartItems = JSON.parse(
+          this.encrypt_decrypt.decryption(data, secretKey)
+        );
+      }
     }
     this.getTotalAmount();
   }
