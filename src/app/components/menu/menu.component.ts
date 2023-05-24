@@ -12,6 +12,7 @@ import { ProductReviewService } from 'src/app/services/product-review/product-re
 import { UserService } from 'src/app/services/user/user.service';
 import { EncryptDecryptService } from 'src/app/services/auth/encrypt-decrypt.service';
 import { secretKey } from '../models/secretKey';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -32,15 +33,20 @@ export class MenuComponent implements OnInit {
   lunchList: product[] = [];
   dinnerList: product[] = [];
   value = 0;
+  isLoggedIn: boolean = false;
   allProducts: product[] = [];
   showOrHideFlag: boolean[] = [true, true, true];
   constructor(
     private product_review_service: ProductReviewService,
+    private authService: AuthService,
     private userService: UserService,
     private encrypt_decrypt: EncryptDecryptService
   ) {}
 
   ngOnInit(): void {
+    this.authService.isLoggedIn.subscribe((data) => {
+      this.isLoggedIn = data;
+    });
     this.getAllProducts();
   }
   getAllProducts() {
@@ -87,5 +93,19 @@ export class MenuComponent implements OnInit {
       this.encrypt_decrypt.encryption('Cart', secretKey),
       this.encrypt_decrypt.encryption(JSON.stringify(cart), secretKey)
     );
+    if (this.isLoggedIn) {
+      const currUser = this.userService.getCurrentUserDetails();
+      this.userService
+        .addToCartProducts(currUser.email, cart)
+        .subscribe((data) => {
+          sessionStorage.setItem(
+            this.encrypt_decrypt.encryption('UserDetails', secretKey),
+            this.encrypt_decrypt.encryption(
+              JSON.stringify(data.body),
+              secretKey
+            )
+          );
+        });
+    }
   }
 }

@@ -146,6 +146,9 @@ export class CartComponent implements OnInit {
       this.isSaved = true;
       if (this.cartItems[idx].quantity === 0) {
         this.cartItems.splice(idx, 1);
+        if (this.cartItems.length == 0) {
+          this.saveChanges();
+        }
       }
     } else {
       this.cartItems.splice(idx, 1);

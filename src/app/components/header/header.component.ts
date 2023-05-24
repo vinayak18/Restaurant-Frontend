@@ -23,9 +23,14 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(): void {
-    this.socialAuthService.signOut().then((data) => {
+    this.socialAuthService.authState.subscribe((data) => {
+      if (null != data) {
+        this.socialAuthService.signOut();
+      }
+      sessionStorage.clear();
       this.authService.isLoggedIn.next(false);
       this.router.navigateByUrl('/login');
     });
+    
   }
 }

@@ -91,7 +91,28 @@ export class LoginComponent implements OnInit {
           .googleAuthentication(socialLoginToken)
           .subscribe((data) => {
             console.log(data);
+            sessionStorage.setItem(
+              this.encrypt_decrypt.encryption('Authorization', secretKey),
+              this.encrypt_decrypt.encryption(
+                data.token,
+                secretKey
+              )
+            );
+            console.log(data);
+            this.userService
+              .getUserViaEmail(data.username)
+              .subscribe((user) => {
+                console.log(user);
+                sessionStorage.setItem(
+                  this.encrypt_decrypt.encryption('UserDetails', secretKey),
+                  this.encrypt_decrypt.encryption(
+                    JSON.stringify(user.body),
+                    secretKey
+                  )
+                );
+              });
             this.authService.isLoggedIn.next(true);
+            this.checkCartItems(data);
             this.router.navigateByUrl('/home');
           });
       }
@@ -117,11 +138,11 @@ export class LoginComponent implements OnInit {
         console.log(data);
         this.userService
           .getUserViaEmail(data.body.username)
-          .subscribe((data) => {
+          .subscribe((user) => {
             sessionStorage.setItem(
               this.encrypt_decrypt.encryption('UserDetails', secretKey),
               this.encrypt_decrypt.encryption(
-                JSON.stringify(data.body),
+                JSON.stringify(user.body),
                 secretKey
               )
             );
