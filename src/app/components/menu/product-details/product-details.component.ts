@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/services/user/user.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { foodType } from 'src/app/components/models/foodType';
@@ -5,6 +6,9 @@ import { product } from 'src/app/components/models/product';
 import { review } from 'src/app/components/models/review';
 import { userReview } from 'src/app/components/models/userReview';
 import { ProductReviewService } from 'src/app/services/product-review/product-review.service';
+import { secretKey } from '../../models/secretKey';
+import { EncryptDecryptService } from 'src/app/services/common/encrypt-decrypt.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-product-details',
@@ -18,6 +22,7 @@ export class ProductDetailsComponent implements OnInit {
   selectedImage: string = '';
   reviewFlag: boolean;
   reviewForm: userReview;
+  isLoggedIn: boolean = false;
   bestseller: product[] = [
     {
       pid: 21,
@@ -122,12 +127,18 @@ export class ProductDetailsComponent implements OnInit {
   };
   constructor(
     private activeRoute: ActivatedRoute,
-    private product_review_service: ProductReviewService
+    private product_review_service: ProductReviewService,
+    private authService: AuthService,
+    private userService: UserService,
+    private encrypt_decrypt: EncryptDecryptService
   ) {
     this.productId = this.activeRoute.snapshot.params['productId'];
     console.log(this.productId);
   }
   ngOnInit(): void {
+    this.authService.isLoggedIn.subscribe((data) => {
+      this.isLoggedIn = data;
+    });
     this.getProductById();
   }
   getProductById() {
@@ -154,5 +165,40 @@ export class ProductDetailsComponent implements OnInit {
   addReview() {
     alert(this.reviewForm.userRating);
     this.reviewFlag = false;
+  }
+
+  addToCart() {
+    let cart: product[] = [];
+    let data = sessionStorage.getItem(
+      this.encrypt_decrypt.encryption('Cart', secretKey)
+    );
+    if (data !== null && data !== undefined) {
+      cart = JSON.parse(this.encrypt_decrypt.decryption(data, secretKey));
+    }
+    for (let x of cart) {
+      if (this.product.pid === x.pid) {
+        console.log('Product already exists!');
+        return;
+      }
+    }
+    cart.push(this.product);
+    sessionStorage.setItem(
+      this.encrypt_decrypt.encryption('Cart', secretKey),
+      this.encrypt_decrypt.encryption(JSON.stringify(cart), secretKey)
+    );
+    if (this.isLoggedIn) {
+      const currUser = this.userService.getCurrentUserDetails();
+      this.userService
+        .addToCartProducts(currUser.email, cart)
+        .subscribe((data) => {
+          sessionStorage.setItem(
+            this.encrypt_decrypt.encryption('UserDetails', secretKey),
+            this.encrypt_decrypt.encryption(
+              JSON.stringify(data.body),
+              secretKey
+            )
+          );
+        });
+    }
   }
 }

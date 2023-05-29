@@ -4,7 +4,7 @@ import {
   HttpParams,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EncryptDecryptService } from '../auth/encrypt-decrypt.service';
+import { EncryptDecryptService } from '../common/encrypt-decrypt.service';
 import { urls } from '../apiUrls';
 import { AuthService } from '../auth/auth.service';
 import { catchError } from 'rxjs/operators';
@@ -29,16 +29,10 @@ export class UserService {
 
   getUserViaEmail(email: string): Observable<any> {
     const url = urls.userUrls.byEmail.replace('{email}', '' + email);
-    const jwt = this.auth.getAuthToken();
     return this.http
       .get(url, {
-        headers: {
-          authorization: 'Bearer ' + jwt,
-        },
         observe: 'response',
-        withCredentials: true,
-      })
-      .pipe(catchError(this.handleError));
+      });
   }
   getCurrentUserDetails() {
     let currUser = null;
@@ -53,34 +47,14 @@ export class UserService {
   }
   addToCartProducts(email: string, items: product[]): Observable<any> {
     const url = urls.userUrls.addToCart.replace('{email}', '' + email);
-    const jwt = this.auth.getAuthToken();
     let isLoggedIn = false;
     this.auth.isLoggedIn.subscribe((data) => {
       isLoggedIn = data;
     });
     return this.http
       .put(url, items, {
-        headers: {
-          authorization: 'Bearer ' + jwt,
-        },
         observe: 'response',
-        withCredentials: true,
         params: new HttpParams().set('isLoggedIn', isLoggedIn),
-      })
-      .pipe(catchError(this.handleError));
-  }
-  handleError(error: HttpErrorResponse) {
-    console.log(error);
-    let errorMessage = '';
-
-    if (error.error instanceof ErrorEvent) {
-      // client-side error
-      errorMessage = `Error: ${error.error.message}`;
-    } else {
-      // server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    //window.alert(errorMessage);
-    return throwError(errorMessage);
+      });
   }
 }

@@ -1,4 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { EncryptDecryptService } from 'src/app/services/common/encrypt-decrypt.service';
+import { UserService } from 'src/app/services/user/user.service';
+import { product } from '../models/product';
+import { secretKey } from '../models/secretKey';
+import { ProductReviewService } from 'src/app/services/product-review/product-review.service';
+import { foodType } from '../models/foodType';
 
 @Component({
   selector: 'app-special-dishes',
@@ -8,35 +15,63 @@ import { Component, Input, OnInit } from '@angular/core';
 export class SpecialDishesComponent implements OnInit {
   pageNo: number = 1;
   productPerPage: number = 3;
+  isLoggedIn: boolean = false;
   @Input() homeRouteFlag: boolean;
-  constructor() {}
+  specialDishes: product[] = [];
+  constructor(
+    private productService: ProductReviewService,
+    private authService: AuthService,
+    private userService: UserService,
+    private encrypt_decrypt: EncryptDecryptService
+  ) {}
 
-  ngOnInit(): void {}
-  dummy: any = [
-    {
-      name: 'Beef Steak Sauce',
-      desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, ea vero alias perferendis quas animi doloribus voluptates. Atque explicabo ea nesciunt provident libero qui eum, corporis esse quos excepturi soluta?',
-      price: 15,
-    },
-    {
-      name: 'Beef Steak Sauce',
-      desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, ea vero alias perferendis quas animi doloribus voluptates. Atque explicabo ea nesciunt provident libero qui eum, corporis esse quos excepturi soluta?',
-      price: 15,
-    },
-    {
-      name: 'Salmon Zucchini',
-      desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, ea vero alias perferendis quas animi doloribus voluptates. Atque explicabo ea nesciunt provident libero qui eum, corporis esse quos excepturi soluta?',
-      price: 30,
-    },
-    {
-      name: 'Beef Steak Sauce',
-      desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, ea vero alias perferendis quas animi doloribus voluptates. Atque explicabo ea nesciunt provident libero qui eum, corporis esse quos excepturi soluta?',
-      price: 15,
-    },
-    {
-      name: 'Beef Steak Sauce',
-      desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, ea vero alias perferendis quas animi doloribus voluptates. Atque explicabo ea nesciunt provident libero qui eum, corporis esse quos excepturi soluta?',
-      price: 15,
-    },
-  ];
+  ngOnInit(): void {
+    this.authService.isLoggedIn.subscribe((data) => {
+      this.isLoggedIn = data;
+    });
+    this.getAllSpecialDishes();
+  }
+
+  getAllSpecialDishes() {
+    this.productService
+      .getProductByFoodType(foodType.SPECIAL_DISH)
+      .subscribe((data) => {
+        this.specialDishes = data;
+      });
+  }
+
+  addToCart(dish: product) {
+    let cart: product[] = [];
+    let data = sessionStorage.getItem(
+      this.encrypt_decrypt.encryption('Cart', secretKey)
+    );
+    if (data !== null && data !== undefined) {
+      cart = JSON.parse(this.encrypt_decrypt.decryption(data, secretKey));
+    }
+    for (let x of cart) {
+      if (dish.pid === x.pid) {
+        console.log('Product already exists!');
+        return;
+      }
+    }
+    cart.push(dish);
+    sessionStorage.setItem(
+      this.encrypt_decrypt.encryption('Cart', secretKey),
+      this.encrypt_decrypt.encryption(JSON.stringify(cart), secretKey)
+    );
+    if (this.isLoggedIn) {
+      const currUser = this.userService.getCurrentUserDetails();
+      this.userService
+        .addToCartProducts(currUser.email, cart)
+        .subscribe((data) => {
+          sessionStorage.setItem(
+            this.encrypt_decrypt.encryption('UserDetails', secretKey),
+            this.encrypt_decrypt.encryption(
+              JSON.stringify(data.body),
+              secretKey
+            )
+          );
+        });
+    }
+  }
 }

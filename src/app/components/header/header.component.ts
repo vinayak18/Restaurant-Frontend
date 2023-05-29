@@ -24,7 +24,9 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.socialAuthService.authState.subscribe((data) => {
-      this.socialAuthService.signOut();
+      if (null != data) {
+        this.socialAuthService.signOut();
+      }
     });
     sessionStorage.clear();
     this.authService.isLoggedIn.next(false);

@@ -10,9 +10,10 @@ import { foodType } from '../models/foodType';
 import { product } from '../models/product';
 import { ProductReviewService } from 'src/app/services/product-review/product-review.service';
 import { UserService } from 'src/app/services/user/user.service';
-import { EncryptDecryptService } from 'src/app/services/auth/encrypt-decrypt.service';
+import { EncryptDecryptService } from 'src/app/services/common/encrypt-decrypt.service';
 import { secretKey } from '../models/secretKey';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { SnackbarService } from 'src/app/services/common/snackbar.service';
 
 @Component({
   selector: 'app-menu',
@@ -38,6 +39,7 @@ export class MenuComponent implements OnInit {
   showOrHideFlag: boolean[] = [true, true, true];
   constructor(
     private product_review_service: ProductReviewService,
+    private snackbarSerivce: SnackbarService,
     private authService: AuthService,
     private userService: UserService,
     private encrypt_decrypt: EncryptDecryptService
@@ -84,7 +86,7 @@ export class MenuComponent implements OnInit {
     }
     for (let x of cart) {
       if (item.pid === x.pid) {
-        console.log('Product already exists!');
+        this.snackbarSerivce.info('Product already exists in your cart.','');
         return;
       }
     }

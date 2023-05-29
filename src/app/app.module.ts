@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -43,6 +43,9 @@ import {
   AmazonLoginProvider,
 } from '@abacritt/angularx-social-login';
 import { CoolSocialLoginButtonsModule } from '@angular-cool/social-login-buttons';
+import { ToastrModule } from 'ngx-toastr';
+import { HttpHeaderInterceptor } from './interceptors/http-header.interceptor';
+import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 
 @NgModule({
   declarations: [
@@ -85,8 +88,18 @@ import { CoolSocialLoginButtonsModule } from '@angular-cool/social-login-buttons
     CoolSocialLoginButtonsModule,
     SocialLoginModule,
     GoogleSigninButtonModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-position-custom',
+      preventDuplicates: true,
+    }),
   ],
   providers: [
+    { 
+       provide: HTTP_INTERCEPTORS, useClass: HttpHeaderInterceptor, multi:true,
+    },
+    { 
+       provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi:true,
+    },
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

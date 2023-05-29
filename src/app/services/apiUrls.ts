@@ -13,7 +13,9 @@ export const urls = {
   },
   productUrls: {
     all: `${productserviceUrl}/product/all`,
-    byId: `${productserviceUrl}/product/{id}`,
+    byId: `${productserviceUrl}/product/{pid}`,
+    byFoodType: `${productserviceUrl}/product/type/{foodtype}`,
+    bestseller: `${productserviceUrl}/product/bestseller/{pid}`,
     add: `${productserviceUrl}/product/add`,
     update: `${productserviceUrl}/product/update`,
     delete: `${productserviceUrl}/product/delete/`,

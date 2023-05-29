@@ -18,7 +18,7 @@ import {
 } from '@abacritt/angularx-social-login';
 import { Router } from '@angular/router';
 import { userDetails } from '../models/userDetails';
-import { EncryptDecryptService } from 'src/app/services/auth/encrypt-decrypt.service';
+import { EncryptDecryptService } from 'src/app/services/common/encrypt-decrypt.service';
 import { secretKey } from '../models/secretKey';
 import { UserService } from 'src/app/services/user/user.service';
 import { product } from '../models/product';
