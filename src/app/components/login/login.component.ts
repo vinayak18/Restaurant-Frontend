@@ -39,6 +39,7 @@ import { product } from '../models/product';
 })
 export class LoginComponent implements OnInit {
   switch: boolean = true;
+  signIn: boolean = false;
   loginForm: FormGroup;
   registerForm: FormGroup;
   socialUser: SocialUser;
@@ -82,10 +83,44 @@ export class LoginComponent implements OnInit {
         // Validators.pattern('^[ A-Za-z0-9_@$!./#&+-]*$'),
       ]),
     });
+    // window.fbAsyncInit = function () {
+    //   FB.init({
+    //     appId: '546100497690700',
+    //     cookie: true,
+    //     xfbml: true,
+    //     version: 'v3.2',
+    //   });
+
+    //   FB.AppEvents.logPageView();
+    // };
+
+    // (function (d, s, id) {
+    //   var js,
+    //     fjs = d.getElementsByTagName(s)[0];
+    //   if (d.getElementById(id)) {
+    //     return;
+    //   }
+    //   js = d.createElement(s);
+    //   js.id = id;
+    //   js.src = 'https://connect.facebook.net/en_US/sdk.js';
+    //   fjs.parentNode.insertBefore(js, fjs);
+    // })(document, 'script', 'facebook-jssdk');
     this.socialAuthService.authState.subscribe((data) => {
       this.userLogged = data;
       console.log(this.userLogged);
-      if (null != this.userLogged) {
+      this.signIn = true;
+      let socialLoginToken = { value: this.userLogged.authToken };
+      this.authService
+        .fbAuthentication(this.userLogged.id, socialLoginToken)
+        .subscribe(
+          (data) => {
+            console.log('Auth 200');
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+      if (null != this.userLogged && null != this.userLogged.idToken) {
         let socialLoginToken = { value: this.userLogged.idToken };
         this.authService
           .googleAuthentication(socialLoginToken)
@@ -93,10 +128,7 @@ export class LoginComponent implements OnInit {
             console.log(data);
             sessionStorage.setItem(
               this.encrypt_decrypt.encryption('Authorization', secretKey),
-              this.encrypt_decrypt.encryption(
-                data.token,
-                secretKey
-              )
+              this.encrypt_decrypt.encryption(data.token, secretKey)
             );
             console.log(data);
             this.userService
@@ -115,6 +147,7 @@ export class LoginComponent implements OnInit {
             this.checkCartItems(data);
             this.router.navigateByUrl('/home');
           });
+      } else if (null != this.userLogged) {
       }
     });
   }
@@ -190,25 +223,39 @@ export class LoginComponent implements OnInit {
   }
 
   signInWithFacebook(): void {
-    this.socialAuthService
-      .signIn(FacebookLoginProvider.PROVIDER_ID)
-      .then((data) => {
-        this.socialUser = data;
-        console.log(this.socialUser.authToken);
-        // this.oauthService.facebook(tokenFace).subscribe(
-        //   (res) => {
-        //     this.tokenService.setToken(res.value);
-        //     this.isLogged = true;
-        //     this.router.navigate(['/']);
-        //   },
-        //   (err) => {
-        //     console.log(err);
-        //     this.logOut();
-        //   }
-        // );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const fbLoginOptions = {
+      // scope:
+      //   'pages_messaging,pages_messaging_subscriptions,email,pages_show_list,manage_pages,public_profile',
+      scope: 'public_profile',
+      locale: 'en_US',
+      return_scopes: true,
+      enable_profile_selector: true,
+      // fields: 'name,email,picture,first_name,last_name,accounts',
+      version: 'v13.0',
+      // auth_type: 'rerequest',
+    };
+    this.socialAuthService.signIn(
+      FacebookLoginProvider.PROVIDER_ID,
+      fbLoginOptions
+    );
+    // .then((data) => {
+    //   this.socialUser = data;
+    //   console.log(this.socialUser);
+    //   this.authService.isLoggedIn.next(true);
+    // this.oauthService.facebook(tokenFace).subscribe(
+    //   (res) => {
+    //     this.tokenService.setToken(res.value);
+    //     this.isLogged = true;
+    //     this.router.navigate(['/']);
+    //   },
+    //   (err) => {
+    //     console.log(err);
+    //     this.logOut();
+    //   }
+    // );
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    // });
   }
 }

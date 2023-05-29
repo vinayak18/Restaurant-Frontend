@@ -12,6 +12,10 @@ import { secretKey } from 'src/app/components/models/secretKey';
   providedIn: 'root',
 })
 export class AuthService {
+  fbAuthentication(id: string, token: any): Observable<any> {
+    const url = urls.userUrls.socialFbLogin.replace('{id}', '' + id);
+    return this.http.post(url, token).pipe(catchError(this.handleError));
+  }
   isLoggedIn = new BehaviorSubject<boolean>(false);
   constructor(
     private http: HttpClient,
@@ -30,6 +34,7 @@ export class AuthService {
             loginObj.username,
             loginObj.password
           ),
+          'X-Requested-With': 'XMLHttpRequest',
         },
         observe: 'response',
         withCredentials: true,
