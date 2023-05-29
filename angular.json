@@ -69,6 +69,11 @@
               "browserTarget": "CustomerUI:build:development"
             }
           },
+          "options": {
+            "ssl": true,
+            "sslKey": "./cert/CA/localhost/localhost.decrypted.key",
+            "sslCert": "./cert/CA/localhost/localhost.crt"
+          },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
