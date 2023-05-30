@@ -39,7 +39,6 @@ import { product } from '../models/product';
 })
 export class LoginComponent implements OnInit {
   switch: boolean = true;
-  signIn: boolean = false;
   loginForm: FormGroup;
   registerForm: FormGroup;
   socialUser: SocialUser;
@@ -105,51 +104,70 @@ export class LoginComponent implements OnInit {
     //   js.src = 'https://connect.facebook.net/en_US/sdk.js';
     //   fjs.parentNode.insertBefore(js, fjs);
     // })(document, 'script', 'facebook-jssdk');
-    this.socialAuthService.authState.subscribe((data) => {
-      this.userLogged = data;
-      console.log(this.userLogged);
-      this.signIn = true;
-      let socialLoginToken = { value: this.userLogged.authToken };
-      this.authService
-        .fbAuthentication(this.userLogged.id, socialLoginToken)
-        .subscribe(
-          (data) => {
-            console.log('Auth 200');
-          },
-          (err) => {
-            console.log(err);
-          }
-        );
-      if (null != this.userLogged && null != this.userLogged.idToken) {
-        let socialLoginToken = { value: this.userLogged.idToken };
-        this.authService
-          .googleAuthentication(socialLoginToken)
-          .subscribe((data) => {
-            console.log(data);
-            sessionStorage.setItem(
-              this.encrypt_decrypt.encryption('Authorization', secretKey),
-              this.encrypt_decrypt.encryption(data.token, secretKey)
+    this.socialAuthService.authState.subscribe(
+      (data) => {
+        console.log(data);
+        this.userLogged = data;
+        if (
+          null != this.userLogged &&
+          undefined != this.userLogged &&
+          null != this.userLogged.authToken &&
+          undefined != this.userLogged.authToken
+        ) {
+          console.log(this.userLogged);
+          let socialLoginToken = { value: this.userLogged.authToken };
+          this.authService
+            .fbAuthentication(this.userLogged.id, socialLoginToken)
+            .subscribe(
+              (data) => {
+                console.log('Auth 200');
+                this.authService.isLoggedIn.next(true);
+                this.router.navigateByUrl('/home');
+              },
+              (err) => {
+                console.log(err);
+              }
             );
-            console.log(data);
-            this.userService
-              .getUserViaEmail(data.username)
-              .subscribe((user) => {
-                console.log(user);
-                sessionStorage.setItem(
-                  this.encrypt_decrypt.encryption('UserDetails', secretKey),
-                  this.encrypt_decrypt.encryption(
-                    JSON.stringify(user.body),
-                    secretKey
-                  )
-                );
-              });
-            this.authService.isLoggedIn.next(true);
-            this.checkCartItems(data);
-            this.router.navigateByUrl('/home');
-          });
-      } else if (null != this.userLogged) {
+        }
+        if (
+          null != this.userLogged &&
+          undefined != this.userLogged &&
+          null != this.userLogged.idToken &&
+          undefined != this.userLogged.idToken
+        ) {
+          let socialLoginToken = { value: this.userLogged.idToken };
+          this.authService
+            .googleAuthentication(socialLoginToken)
+            .subscribe((data) => {
+              console.log(data);
+              sessionStorage.setItem(
+                this.encrypt_decrypt.encryption('Authorization', secretKey),
+                this.encrypt_decrypt.encryption(data.token, secretKey)
+              );
+              console.log(data);
+              this.userService
+                .getUserViaEmail(data.username)
+                .subscribe((user) => {
+                  console.log(user);
+                  sessionStorage.setItem(
+                    this.encrypt_decrypt.encryption('UserDetails', secretKey),
+                    this.encrypt_decrypt.encryption(
+                      JSON.stringify(user.body),
+                      secretKey
+                    )
+                  );
+                });
+              this.authService.isLoggedIn.next(true);
+              this.checkCartItems(data);
+              this.router.navigateByUrl('/home');
+            });
+        } else if (null != this.userLogged) {
+        }
+      },
+      (err) => {
+        console.log(err);
       }
-    });
+    );
   }
   toggle() {
     this.switch = !this.switch;

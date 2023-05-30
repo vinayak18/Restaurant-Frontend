@@ -5,7 +5,7 @@ const userserviceUrl = '/userserviceurl/api/v1';
 export const urls = {
   userUrls: {
     login: `${userserviceUrl}/auth/user/login`,
-    socialFbLogin: `${userserviceUrl}/auth/fb/login/{id}`,
+    socialFbLogin: `${userserviceUrl}/auth/facebook/login/{id}`,
     socialGoogleLogin: `${userserviceUrl}/auth/google/login`,
     register: `${userserviceUrl}/auth/user/register`,
     byEmail: `${userserviceUrl}/verify/user/email/{email}`,

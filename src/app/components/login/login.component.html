@@ -6,7 +6,6 @@
       <h2>Welcome! <br><span>
           To Our Restaurant
         </span></h2>
-      <img *ngIf="signIn" src="{{userLogged.response.picture.data.url}}">
       <p>We provide pure veg authentic indian home-made food.</p>
       <div class="social-icon">
         <a href="#"><i class='bx bxl-facebook'></i></a>
@@ -41,7 +40,7 @@
         </div>
         <button class="btn" [disabled]="loginForm.invalid" type="submit" (click)="validateUser()">Login In</button>
         <div class="create-account">
-          <p>Create A New Account? <a href="#" class="register-link" (click)="toggle()">Sign Up</a></p>
+          <p>Create A New Account? <a class="register-link" (click)="toggle()">Sign Up</a></p>
         </div>
         <hr style="height: 5px; color: black;">
         <section>
@@ -50,7 +49,7 @@
         <section class="mt-1">
           <button class="btn text-left" style="background-color: #3B5998; color: white;" width="400" type='standard' size='medium' text="signin_with" (click)="signInWithFacebook()">
             <i class='bx bxl-facebook-circle' style="margin-left: 2.5%;"></i>
-            <span style="margin-left: 28%;">Login with Facebook</span>
+            <span style="margin-left: 28%;">Sign in with Facebook</span>
           </button>
         </section>
         <!-- <section class="row">
@@ -101,7 +100,7 @@
         </div>
         <button class="btn" [disabled]="registerForm.invalid">Register</button>
         <div class="create-account">
-          <p>Already Have An Account? <a href="#" class="login-link" (click)="toggle()">Sign In</a></p>
+          <p>Already Have An Account? <a class="login-link" (click)="toggle()">Sign In</a></p>
         </div>
         <hr style="height: 5px; color: black;">
         <section>
@@ -112,6 +111,12 @@
             <!-- <cool-facebook-button color="dark" (click)="signInWithFacebook()">
               Login with Facebook
             </cool-facebook-button> -->
+        </section>
+        <section class="mt-1">
+          <button class="btn text-left" style="background-color: #3B5998; color: white;" width="400" type='standard' size='medium' text="signup_with" (click)="signInWithFacebook()">
+            <i class='bx bxl-facebook-circle' style="margin-left: 2.5%;"></i>
+            <span style="margin-left: 28%;">Sign up with Facebook</span>
+          </button>
         </section>
       </form>
     </div>
