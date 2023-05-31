@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private socialAuthService: SocialAuthService,
     private encrypt_decrypt: EncryptDecryptService,
-    private router: Router // private oauthService: OauthService, // private tokenService: TokenService
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -91,36 +91,17 @@ export class LoginComponent implements OnInit {
           .googleAuthentication(socialLoginToken)
           .subscribe((data) => {
             console.log(data);
-            sessionStorage.setItem(
-              this.encrypt_decrypt.encryption('Authorization', secretKey),
-              this.encrypt_decrypt.encryption(
-                data.token,
-                secretKey
-              )
-            );
-            console.log(data);
-            this.userService
-              .getUserViaEmail(data.username)
-              .subscribe((user) => {
-                console.log(user);
-                sessionStorage.setItem(
-                  this.encrypt_decrypt.encryption('UserDetails', secretKey),
-                  this.encrypt_decrypt.encryption(
-                    JSON.stringify(user.body),
-                    secretKey
-                  )
-                );
-              });
-            this.authService.isLoggedIn.next(true);
-            this.checkCartItems(data);
-            this.router.navigateByUrl('/home');
+            this.authService.setAuthToken(data.token);
+            this.getUser(data);
           });
       }
     });
   }
+  
   toggle() {
     this.switch = !this.switch;
   }
+
   validateUser() {
     const loginObj = new loginCredentials(
       this.loginForm.get('email').value,
@@ -128,34 +109,16 @@ export class LoginComponent implements OnInit {
     );
     this.authService.authenticate(loginObj).subscribe(
       (data) => {
-        sessionStorage.setItem(
-          this.encrypt_decrypt.encryption('Authorization', secretKey),
-          this.encrypt_decrypt.encryption(
-            data.headers.get('Authorization'),
-            secretKey
-          )
-        );
+        this.authService.setAuthToken(data.headers.get('Authorization'));
+        this.getUser(data.body);
         console.log(data);
-        this.userService
-          .getUserViaEmail(data.body.username)
-          .subscribe((user) => {
-            sessionStorage.setItem(
-              this.encrypt_decrypt.encryption('UserDetails', secretKey),
-              this.encrypt_decrypt.encryption(
-                JSON.stringify(user.body),
-                secretKey
-              )
-            );
-          });
-        this.authService.isLoggedIn.next(true);
-        this.checkCartItems(data.body);
-        this.router.navigateByUrl('/home');
       },
       (err) => {
         console.log(err.status);
       }
     );
   }
+
   checkCartItems(user: any) {
     let cartItems: product[] = [];
     let data = sessionStorage.getItem(
@@ -165,17 +128,12 @@ export class LoginComponent implements OnInit {
       cartItems = JSON.parse(this.encrypt_decrypt.decryption(data, secretKey));
       this.userService
         .addToCartProducts(user.username, cartItems)
-        .subscribe((data) => {
-          sessionStorage.setItem(
-            this.encrypt_decrypt.encryption('UserDetails', secretKey),
-            this.encrypt_decrypt.encryption(
-              JSON.stringify(data.body),
-              secretKey
-            )
-          );
+        .subscribe((user) => {
+          this.userService.setUserDetails(user.body);
         });
     }
   }
+
   registerUser() {
     const userObj = new userDetails(
       this.registerForm.get('name').value,
@@ -186,6 +144,16 @@ export class LoginComponent implements OnInit {
     console.log(userObj);
     this.authService.registerUser(userObj).subscribe((data) => {
       this.toggle();
+    });
+  }
+
+  getUser(data: any) {
+    this.userService.getUserViaEmail(data.username).subscribe((user) => {
+      console.log(user);
+      this.userService.setUserDetails(user.body);
+      this.authService.isLoggedIn.next(true);
+      this.checkCartItems(data);
+      this.router.navigateByUrl('/home');
     });
   }
 

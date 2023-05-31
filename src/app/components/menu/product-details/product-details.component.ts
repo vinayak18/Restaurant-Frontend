@@ -5,7 +5,7 @@ import { foodType } from 'src/app/components/models/foodType';
 import { product } from 'src/app/components/models/product';
 import { review } from 'src/app/components/models/review';
 import { userReview } from 'src/app/components/models/userReview';
-import { ProductReviewService } from 'src/app/services/product-review/product-review.service';
+import { ProductService } from 'src/app/services/product-review/product.service';
 import { secretKey } from '../../models/secretKey';
 import { EncryptDecryptService } from 'src/app/services/common/encrypt-decrypt.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -127,7 +127,7 @@ export class ProductDetailsComponent implements OnInit {
   };
   constructor(
     private activeRoute: ActivatedRoute,
-    private product_review_service: ProductReviewService,
+    private productService: ProductService,
     private authService: AuthService,
     private userService: UserService,
     private encrypt_decrypt: EncryptDecryptService
@@ -142,7 +142,7 @@ export class ProductDetailsComponent implements OnInit {
     this.getProductById();
   }
   getProductById() {
-    this.product_review_service
+    this.productService
       .getProductById(this.productId)
       .subscribe((data) => {
         this.product = data;

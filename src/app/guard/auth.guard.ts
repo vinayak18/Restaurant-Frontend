@@ -9,6 +9,7 @@ import {
 import { Observable } from 'rxjs';
 import { UserService } from '../services/user/user.service';
 import { AuthService } from '../services/auth/auth.service';
+import { SnackbarService } from '../services/common/snackbar.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,8 @@ export class AuthGuard implements CanActivate {
   constructor(
     private userService: UserService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private snackbarService: SnackbarService
   ) {}
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -33,6 +35,7 @@ export class AuthGuard implements CanActivate {
       return true;
     } else {
       this.authService.isLoggedIn.next(false);
+      this.snackbarService.warning('Please login to continue.', '');
       this.router.navigateByUrl('/login');
       return false;
     }

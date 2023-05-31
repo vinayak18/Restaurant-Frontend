@@ -8,7 +8,7 @@ import {
 import { Component, OnInit } from '@angular/core';
 import { foodType } from '../models/foodType';
 import { product } from '../models/product';
-import { ProductReviewService } from 'src/app/services/product-review/product-review.service';
+import { ProductService } from 'src/app/services/product-review/product.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { EncryptDecryptService } from 'src/app/services/common/encrypt-decrypt.service';
 import { secretKey } from '../models/secretKey';
@@ -38,7 +38,7 @@ export class MenuComponent implements OnInit {
   allProducts: product[] = [];
   showOrHideFlag: boolean[] = [true, true, true];
   constructor(
-    private product_review_service: ProductReviewService,
+    private productService: ProductService,
     private snackbarSerivce: SnackbarService,
     private authService: AuthService,
     private userService: UserService,
@@ -52,7 +52,7 @@ export class MenuComponent implements OnInit {
     this.getAllProducts();
   }
   getAllProducts() {
-    this.product_review_service.getAllProducts().subscribe((data) => {
+    this.productService.getAllProducts().subscribe((data) => {
       this.allProducts = data;
       console.log(data);
       this.breakfastList = this.allProducts.filter(

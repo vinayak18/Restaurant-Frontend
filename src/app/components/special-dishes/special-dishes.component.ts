@@ -4,7 +4,7 @@ import { EncryptDecryptService } from 'src/app/services/common/encrypt-decrypt.s
 import { UserService } from 'src/app/services/user/user.service';
 import { product } from '../models/product';
 import { secretKey } from '../models/secretKey';
-import { ProductReviewService } from 'src/app/services/product-review/product-review.service';
+import { ProductService } from 'src/app/services/product-review/product.service';
 import { foodType } from '../models/foodType';
 
 @Component({
@@ -19,7 +19,7 @@ export class SpecialDishesComponent implements OnInit {
   @Input() homeRouteFlag: boolean;
   specialDishes: product[] = [];
   constructor(
-    private productService: ProductReviewService,
+    private productService: ProductService,
     private authService: AuthService,
     private userService: UserService,
     private encrypt_decrypt: EncryptDecryptService

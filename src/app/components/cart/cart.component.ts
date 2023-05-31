@@ -172,13 +172,7 @@ export class CartComponent implements OnInit {
       this.userService
         .addToCartProducts(currUser.email, this.cartItems)
         .subscribe((data) => {
-          sessionStorage.setItem(
-            this.encrypt_decrypt.encryption('UserDetails', secretKey),
-            this.encrypt_decrypt.encryption(
-              JSON.stringify(data.body),
-              secretKey
-            )
-          );
+          this.userService.setUserDetails(data.body);
         });
     }
     this.isSaved = false;
