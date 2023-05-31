@@ -170,7 +170,7 @@ export class CartComponent implements OnInit {
     if (this.isLoggedIn) {
       const currUser = this.userService.getCurrentUserDetails();
       this.userService
-        .addToCartProducts(currUser.email, this.cartItems)
+        .addToCartProducts(currUser.userId, this.cartItems)
         .subscribe((data) => {
           this.userService.setUserDetails(data.body);
         });

@@ -34,6 +34,13 @@ export class UserService {
     });
   }
 
+  getUserViaUsedId(id: string): Observable<any> {
+    const url = urls.userUrls.byId.replace('{id}', '' + id);
+    return this.http.get(url, {
+      observe: 'response',
+    });
+  }
+
   getCurrentUserDetails() {
     let currUser = null;
     let data = sessionStorage.getItem(

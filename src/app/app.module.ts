@@ -46,17 +46,15 @@ import { CoolSocialLoginButtonsModule } from '@angular-cool/social-login-buttons
 import { ToastrModule } from 'ngx-toastr';
 import { HttpHeaderInterceptor } from './interceptors/http-header.interceptor';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
+
 const fbLoginOptions = {
-  // scope:
-  //   'pages_messaging,pages_messaging_subscriptions,email,pages_show_list,manage_pages,public_profile',
   scope: 'public_profile',
   locale: 'en_US',
   return_scopes: true,
   enable_profile_selector: true,
-  // fields: 'name,email,picture,first_name,last_name,accounts',
   version: 'v13.0',
-  // auth_type: 'rerequest',
 };
+
 @NgModule({
   declarations: [
     AppComponent,

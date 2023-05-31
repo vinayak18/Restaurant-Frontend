@@ -159,7 +159,7 @@ export class LoginComponent implements OnInit {
     if (data !== null && data !== undefined) {
       cartItems = JSON.parse(this.encrypt_decrypt.decryption(data, secretKey));
       this.userService
-        .addToCartProducts(user.username, cartItems)
+        .addToCartProducts(user.userId, cartItems)
         .subscribe((user) => {
           this.userService.setUserDetails(user.body);
         });
@@ -180,7 +180,7 @@ export class LoginComponent implements OnInit {
   }
 
   getUser(data: any) {
-    this.userService.getUserViaEmail(data.username).subscribe((user) => {
+    this.userService.getUserViaUsedId(data.userId).subscribe((user) => {
       console.log(user);
       this.userService.setUserDetails(user.body);
       this.authService.isLoggedIn.next(true);
@@ -191,38 +191,15 @@ export class LoginComponent implements OnInit {
 
   signInWithFacebook(): void {
     const fbLoginOptions = {
-      // scope:
-      //   'pages_messaging,pages_messaging_subscriptions,email,pages_show_list,manage_pages,public_profile',
       scope: 'public_profile',
       locale: 'en_US',
       return_scopes: true,
       enable_profile_selector: true,
-      // fields: 'name,email,picture,first_name,last_name,accounts',
       version: 'v13.0',
-      // auth_type: 'rerequest',
     };
     this.socialAuthService.signIn(
       FacebookLoginProvider.PROVIDER_ID,
       fbLoginOptions
     );
-    // .then((data) => {
-    //   this.socialUser = data;
-    //   console.log(this.socialUser);
-    //   this.authService.isLoggedIn.next(true);
-    // this.oauthService.facebook(tokenFace).subscribe(
-    //   (res) => {
-    //     this.tokenService.setToken(res.value);
-    //     this.isLogged = true;
-    //     this.router.navigate(['/']);
-    //   },
-    //   (err) => {
-    //     console.log(err);
-    //     this.logOut();
-    //   }
-    // );
-    // })
-    // .catch((err) => {
-    //   console.log(err);
-    // });
   }
 }

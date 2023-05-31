@@ -98,15 +98,9 @@ export class MenuComponent implements OnInit {
     if (this.isLoggedIn) {
       const currUser = this.userService.getCurrentUserDetails();
       this.userService
-        .addToCartProducts(currUser.email, cart)
+        .addToCartProducts(currUser.userId, cart)
         .subscribe((data) => {
-          sessionStorage.setItem(
-            this.encrypt_decrypt.encryption('UserDetails', secretKey),
-            this.encrypt_decrypt.encryption(
-              JSON.stringify(data.body),
-              secretKey
-            )
-          );
+          this.userService.setUserDetails(data.body);
         });
     }
   }
