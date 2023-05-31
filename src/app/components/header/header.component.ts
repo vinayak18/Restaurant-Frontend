@@ -29,12 +29,13 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  logout(): void {
-    this.socialAuthService.authState.subscribe((data) => {
-      if (null != data) {
-        this.socialAuthService.signOut();
-      }
-    });
+  async logout(): Promise<void> {
+    // For app-user sign out logic we have used try-catch to prevent getting error from social-login-user sign out
+    try {
+      await this.socialAuthService.signOut(true);
+    } catch (error) {
+      console.log(error);
+    }
     sessionStorage.clear();
     this.authService.isLoggedIn.next(false);
     this.router.navigateByUrl('/login');

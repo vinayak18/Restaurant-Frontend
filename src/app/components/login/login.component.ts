@@ -82,20 +82,52 @@ export class LoginComponent implements OnInit {
         // Validators.pattern('^[ A-Za-z0-9_@$!./#&+-]*$'),
       ]),
     });
-    this.socialAuthService.authState.subscribe((data) => {
-      this.userLogged = data;
-      console.log(this.userLogged);
-      if (null != this.userLogged) {
-        let socialLoginToken = { value: this.userLogged.idToken };
-        this.authService
-          .googleAuthentication(socialLoginToken)
-          .subscribe((data) => {
-            console.log(data);
-            this.authService.setAuthToken(data.token);
-            this.getUser(data);
-          });
+
+    this.socialAuthService.authState.subscribe(
+      (data) => {
+        console.log(data);
+        this.userLogged = data;
+        if (
+          null != this.userLogged &&
+          undefined != this.userLogged &&
+          null != this.userLogged.authToken &&
+          undefined != this.userLogged.authToken
+        ) {
+          console.log(this.userLogged);
+          let socialLoginToken = { value: this.userLogged.authToken };
+          this.authService
+            .fbAuthentication(this.userLogged.id, socialLoginToken)
+            .subscribe(
+              (data) => {
+                this.authService.setAuthToken(data.token);
+                this.getUser(data);
+              },
+              (err) => {
+                console.log(err);
+              }
+            );
+        }
+        if (
+          null != this.userLogged &&
+          undefined != this.userLogged &&
+          null != this.userLogged.idToken &&
+          undefined != this.userLogged.idToken
+        ) {
+          let socialLoginToken = { value: this.userLogged.idToken };
+          this.authService
+            .googleAuthentication(socialLoginToken)
+            .subscribe((data) => {
+              console.log(data);
+              this.authService.setAuthToken(data.token);
+              this.getUser(data);
+            });
+        } else if (null != this.userLogged) {
+        }
+      },
+      (err) => {
+        console.log(err);
       }
-    });
+    );
   }
   
   toggle() {
@@ -158,25 +190,39 @@ export class LoginComponent implements OnInit {
   }
 
   signInWithFacebook(): void {
-    this.socialAuthService
-      .signIn(FacebookLoginProvider.PROVIDER_ID)
-      .then((data) => {
-        this.socialUser = data;
-        console.log(this.socialUser.authToken);
-        // this.oauthService.facebook(tokenFace).subscribe(
-        //   (res) => {
-        //     this.tokenService.setToken(res.value);
-        //     this.isLogged = true;
-        //     this.router.navigate(['/']);
-        //   },
-        //   (err) => {
-        //     console.log(err);
-        //     this.logOut();
-        //   }
-        // );
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    const fbLoginOptions = {
+      // scope:
+      //   'pages_messaging,pages_messaging_subscriptions,email,pages_show_list,manage_pages,public_profile',
+      scope: 'public_profile',
+      locale: 'en_US',
+      return_scopes: true,
+      enable_profile_selector: true,
+      // fields: 'name,email,picture,first_name,last_name,accounts',
+      version: 'v13.0',
+      // auth_type: 'rerequest',
+    };
+    this.socialAuthService.signIn(
+      FacebookLoginProvider.PROVIDER_ID,
+      fbLoginOptions
+    );
+    // .then((data) => {
+    //   this.socialUser = data;
+    //   console.log(this.socialUser);
+    //   this.authService.isLoggedIn.next(true);
+    // this.oauthService.facebook(tokenFace).subscribe(
+    //   (res) => {
+    //     this.tokenService.setToken(res.value);
+    //     this.isLogged = true;
+    //     this.router.navigate(['/']);
+    //   },
+    //   (err) => {
+    //     console.log(err);
+    //     this.logOut();
+    //   }
+    // );
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    // });
   }
 }

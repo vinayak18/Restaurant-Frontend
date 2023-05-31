@@ -47,6 +47,11 @@ export class AuthService {
     return this.http.post(url, token);
   }
 
+  fbAuthentication(id: string, token: any): Observable<any> {
+    const url = urls.userUrls.socialFbLogin.replace('{id}', '' + id);
+    return this.http.post(url, token);
+  }
+
   getAuthToken(): string {
     return this.encrypt_decrypt.decryption(
       sessionStorage.getItem(
