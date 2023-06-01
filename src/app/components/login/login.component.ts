@@ -180,7 +180,7 @@ export class LoginComponent implements OnInit {
   }
 
   getUser(data: any) {
-    this.userService.getUserViaUsedId(data.userId).subscribe((user) => {
+    this.userService.getUserViaEmail(data.email).subscribe((user) => {
       console.log(user);
       this.userService.setUserDetails(user.body);
       this.authService.isLoggedIn.next(true);
