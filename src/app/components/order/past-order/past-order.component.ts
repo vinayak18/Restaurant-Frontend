@@ -42,6 +42,7 @@ export class PastOrderComponent {
       deliveryFee: 25,
       coupon: {
         couponCode: 'First100',
+        totalAmount: 1000,
         discountAmount: 160,
       },
 
@@ -86,6 +87,7 @@ export class PastOrderComponent {
       deliveryFee: 25,
       coupon: {
         couponCode: 'First100',
+        totalAmount: 1000,
         discountAmount: 160,
       },
       netAmount: 1000.0,
@@ -123,6 +125,7 @@ export class PastOrderComponent {
       deliveryFee: 25,
       coupon: {
         couponCode: 'First100',
+        totalAmount: 1000,
         discountAmount: 160,
       },
       netAmount: 1000.0,
@@ -160,6 +163,7 @@ export class PastOrderComponent {
       deliveryFee: 25,
       coupon: {
         couponCode: 'First100',
+        totalAmount: 1000,
         discountAmount: 160,
       },
       netAmount: 1000.0,
@@ -197,6 +201,7 @@ export class PastOrderComponent {
       deliveryFee: 25,
       coupon: {
         couponCode: 'First100',
+        totalAmount: 1000,
         discountAmount: 160,
       },
       netAmount: 1000.0,
@@ -234,6 +239,7 @@ export class PastOrderComponent {
       deliveryFee: 25,
       coupon: {
         couponCode: 'First100',
+        totalAmount: 1000,
         discountAmount: 160,
       },
       netAmount: 1000.0,
@@ -273,6 +279,7 @@ export class PastOrderComponent {
       deliveryFee: 25,
       coupon: {
         couponCode: 'First100',
+        totalAmount: 1000,
         discountAmount: 160,
       },
       netAmount: 1000.0,
@@ -310,6 +317,7 @@ export class PastOrderComponent {
       deliveryFee: 25,
       coupon: {
         couponCode: 'First100',
+        totalAmount: 1000,
         discountAmount: 160,
       },
       netAmount: 1000.0,
@@ -347,6 +355,7 @@ export class PastOrderComponent {
       deliveryFee: 25,
       coupon: {
         couponCode: 'First100',
+        totalAmount: 1000,
         discountAmount: 160,
       },
       netAmount: 1000.0,
@@ -384,6 +393,7 @@ export class PastOrderComponent {
       deliveryFee: 25,
       coupon: {
         couponCode: 'First100',
+        totalAmount: 1000,
         discountAmount: 160,
       },
       netAmount: 1000.0,
@@ -421,6 +431,7 @@ export class PastOrderComponent {
       deliveryFee: 25,
       coupon: {
         couponCode: 'First100',
+        totalAmount: 1000,
         discountAmount: 160,
       },
       netAmount: 1000.0,

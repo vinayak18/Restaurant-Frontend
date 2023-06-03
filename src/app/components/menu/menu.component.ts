@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 import { foodType } from '../models/foodType';
 import { product } from '../models/product';
 import { ProductService } from 'src/app/services/product-review/product.service';
-import { UserService } from 'src/app/services/user/user.service';
+import { UserService } from 'src/app/services/user-coupon-order/user.service';
 import { EncryptDecryptService } from 'src/app/services/common/encrypt-decrypt.service';
 import { secretKey } from '../models/secretKey';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -86,7 +86,7 @@ export class MenuComponent implements OnInit {
     }
     for (let x of cart) {
       if (item.pid === x.pid) {
-        this.snackbarSerivce.info('Product already exists in your cart.','');
+        this.snackbarSerivce.info('Product already exists in your cart.', '');
         return;
       }
     }

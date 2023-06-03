@@ -1,4 +1,4 @@
-import { UserService } from 'src/app/services/user/user.service';
+import { UserService } from 'src/app/services/user-coupon-order/user.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { foodType } from 'src/app/components/models/foodType';
@@ -23,76 +23,8 @@ export class ProductDetailsComponent implements OnInit {
   reviewFlag: boolean;
   reviewForm: userReview;
   isLoggedIn: boolean = false;
-  bestseller: product[] = [
-    {
-      pid: 21,
-      name: 'Pizza',
-      desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
-      price: 250,
-      quantity: 1,
-      avgRating: 4.5,
-      img_url: [
-        '../../assets/img/hero-3.jpg',
-        '../../assets/img/hero-1.jpg',
-        '../../assets/img/hero-2.jpg',
-        '../../assets/img/breakfast-1.jpg',
-      ],
-      type: foodType.LUNCH,
-      category: 'VEG',
-      live: true,
-    },
-    {
-      pid: 22,
-      name: 'Sahi Paneer',
-      desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
-      price: 200,
-      quantity: 1,
-      avgRating: 4.5,
-      img_url: [
-        '../../assets/img/hero-3.jpg',
-        '../../assets/img/hero-1.jpg',
-        '../../assets/img/hero-2.jpg',
-        '../../assets/img/breakfast-1.jpg',
-      ],
-      type: foodType.LUNCH,
-      category: 'VEG',
-      live: true,
-    },
-    {
-      pid: 23,
-      name: 'Aloo Dum',
-      desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
-      price: 200,
-      quantity: 1,
-      avgRating: 4.5,
-      img_url: [
-        '../../assets/img/hero-3.jpg',
-        '../../assets/img/hero-1.jpg',
-        '../../assets/img/hero-2.jpg',
-        '../../assets/img/breakfast-1.jpg',
-      ],
-      type: foodType.LUNCH,
-      category: 'VEG',
-      live: true,
-    },
-  ];
-  product: product = {
-    pid: 1,
-    name: 'Boba Tea',
-    desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
-    price: 200,
-    quantity: 1,
-    avgRating: 4.5,
-    img_url: [
-      '../../assets/img/hero-3.jpg',
-      '../../assets/img/hero-1.jpg',
-      '../../assets/img/hero-2.jpg',
-      '../../assets/img/breakfast-1.jpg',
-    ],
-    type: foodType.LUNCH,
-    category: 'VEG',
-    live: true,
-  };
+  bestseller: product[] = [];
+  product: product = {} as product;
   productReview: review = {
     reviewId: 1,
     pid: 1,
@@ -140,14 +72,18 @@ export class ProductDetailsComponent implements OnInit {
       this.isLoggedIn = data;
     });
     this.getProductById();
+    this.getBestSellers();
   }
   getProductById() {
-    this.productService
-      .getProductById(this.productId)
-      .subscribe((data) => {
-        this.product = data;
-        this.selectedImage = this.product.img_url[0];
-      });
+    this.productService.getProductById(this.productId).subscribe((data) => {
+      this.product = data;
+      this.selectedImage = this.product.img_url[0];
+    });
+  }
+  getBestSellers() {
+    this.productService.getBestSellers(this.productId).subscribe((data) => {
+      this.bestseller = data;
+    });
   }
   changeSelectedImage(url: string) {
     this.selectedImage = url;

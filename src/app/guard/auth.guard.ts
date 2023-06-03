@@ -7,7 +7,7 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { UserService } from '../services/user/user.service';
+import { UserService } from '../services/user-coupon-order/user.service';
 import { AuthService } from '../services/auth/auth.service';
 import { SnackbarService } from '../services/common/snackbar.service';
 

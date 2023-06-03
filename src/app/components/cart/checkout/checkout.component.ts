@@ -10,6 +10,9 @@ import { foodType } from 'src/app/components/models/foodType';
 import { address } from 'src/app/components/models/address';
 import { customerInfo } from 'src/app/components/models/customerInfo';
 import { product } from 'src/app/components/models/product';
+import { CouponService } from 'src/app/services/user-coupon-order/coupon.service';
+import { coupon } from '../../models/coupon';
+import { SnackbarService } from 'src/app/services/common/snackbar.service';
 
 /**
  * @title Stepper responsive
@@ -36,9 +39,11 @@ export class CheckoutComponent implements OnInit {
   orderSummary: order;
   constructor(
     private _formBuilder: FormBuilder,
-    breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private couponService: CouponService,
+    private snackbarService: SnackbarService
   ) {
-    this.stepperOrientation = breakpointObserver
+    this.stepperOrientation = this.breakpointObserver
       .observe('(min-width: 800px)')
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
   }
@@ -137,6 +142,7 @@ export class CheckoutComponent implements OnInit {
       deliveryFee: 0,
       coupon: {
         couponCode: 'DEFAULT0',
+        totalAmount: 1000,
         discountAmount: 0,
       },
       netAmount: 0,
@@ -248,12 +254,21 @@ export class CheckoutComponent implements OnInit {
       this.orderSummary.deliveryFee;
   }
   validateCouponCode(code: string) {
-    alert(code);
-    this.orderSummary.coupon = {
+    const couponData = {
       couponCode: code,
-      discountAmount: 160,
+      totalAmount: this.orderSummary.actualAmount,
     };
-    this.calculateTax();
+    this.couponService.getCouponViaCode(couponData).subscribe(
+      (data) => {
+        this.orderSummary.coupon = data;
+        this.calculateTax();
+      },
+      (err) => {
+        this.snackbarService.error('Invalid Coupon Code', '');
+        this.orderSummary.coupon = new coupon('DEFAULT0', 0, 0);
+        this.calculateTax();
+      }
+    );
   }
   placeOrder(stepper: MatStepper) {
     this.orderSummary.orderId = '12345';

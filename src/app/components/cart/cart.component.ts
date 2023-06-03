@@ -4,7 +4,7 @@ import { product } from '../models/product';
 import { EncryptDecryptService } from 'src/app/services/common/encrypt-decrypt.service';
 import { secretKey } from '../models/secretKey';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { UserService } from 'src/app/services/user/user.service';
+import { UserService } from 'src/app/services/user-coupon-order/user.service';
 
 @Component({
   selector: 'app-cart',

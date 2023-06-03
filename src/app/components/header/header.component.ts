@@ -2,7 +2,7 @@ import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { UserService } from 'src/app/services/user/user.service';
+import { UserService } from 'src/app/services/user-coupon-order/user.service';
 
 @Component({
   selector: 'app-header',

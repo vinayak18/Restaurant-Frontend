@@ -20,7 +20,7 @@ import { Router } from '@angular/router';
 import { userDetails } from '../models/userDetails';
 import { EncryptDecryptService } from 'src/app/services/common/encrypt-decrypt.service';
 import { secretKey } from '../models/secretKey';
-import { UserService } from 'src/app/services/user/user.service';
+import { UserService } from 'src/app/services/user-coupon-order/user.service';
 import { product } from '../models/product';
 
 @Component({
@@ -129,7 +129,7 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-  
+
   toggle() {
     this.switch = !this.switch;
   }

@@ -8,15 +8,17 @@ import { product } from 'src/app/components/models/product';
 })
 export class ProductService {
   url: string = '';
-  constructor(
-    private http: HttpClient
-  ) {}
+  constructor(private http: HttpClient) {}
 
   //product service apis
+  getBestSellers(pid: number): Observable<product[]> {
+    const url = urls.productUrls.bestseller.replace('{pid}', '' + pid);
+    return this.http.get<product[]>(url);
+  }
+
   getAllProducts(): Observable<product[]> {
     this.url = urls.productUrls.all;
-    return this.http
-      .get<product[]>(this.url);
+    return this.http.get<product[]>(this.url);
   }
 
   getProductById(pid: number): Observable<product> {
@@ -29,5 +31,4 @@ export class ProductService {
     this.url = urls.productUrls.byFoodType.replace('{foodtype}', '' + foodType);
     return this.http.get<product[]>(this.url);
   }
-
 }
