@@ -12,6 +12,9 @@ export const urls = {
     byId: `${userserviceUrl}/verify/user/id/{id}`,
     addToCart: `${userserviceUrl}/verify/user/update/cart/{email}`,
     initiatePayment: `${userserviceUrl}/verify/order/initialize`,
+    byOrderId: `${userserviceUrl}/verify/order/retrieve/{id}`,
+    activeOrders: `${userserviceUrl}/verify/order/{userId}/active`,
+    pastOrders: `${userserviceUrl}/verify/order/{userId}/past`,
   },
   productUrls: {
     all: `${productserviceUrl}/product/all`,

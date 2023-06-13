@@ -6,7 +6,7 @@ import { status } from './status';
 export class order {
   orderId: string;
   userId: string;
-  dateOfOrder: string;
+  dateOfOrder: Date;
   orderDetails: product[];
   actualAmount: number;
   tax: number;
@@ -21,7 +21,7 @@ export class order {
   constructor(
     $orderId: string,
     $userId: string,
-    $dateOfOrder: string,
+    $dateOfOrder: Date,
     $orderDetails: product[],
     $actualAmount: number,
     $tax: number,

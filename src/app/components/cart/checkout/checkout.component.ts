@@ -246,7 +246,7 @@ export class CheckoutComponent implements OnInit {
         // Handle successful payment here
         console.log(paymentIntent);
         this.orderSummary.orderId = '12345';
-        this.orderSummary.dateOfOrder = 'October 16, 2:57 PM';
+        // this.orderSummary.dateOfOrder = 'October 16, 2:57 PM';
         stepper.next();
         this.editable = false;
       }
