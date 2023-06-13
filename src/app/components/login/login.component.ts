@@ -151,7 +151,7 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  checkCartItems(user: any) {
+  checkCartItems(user: userDetails) {
     let cartItems: product[] = [];
     let data = sessionStorage.getItem(
       this.encrypt_decrypt.encryption('Cart', secretKey)
@@ -164,14 +164,25 @@ export class LoginComponent implements OnInit {
           this.userService.setUserDetails(user.body);
         });
     }
+    else{
+      sessionStorage.setItem(
+        this.encrypt_decrypt.encryption('Cart', secretKey),
+        this.encrypt_decrypt.encryption(
+          JSON.stringify(user.cart),
+          secretKey
+        )
+      );
+    } 
   }
 
   registerUser() {
     const userObj = new userDetails(
+      null,
       this.registerForm.get('name').value,
       this.registerForm.get('email').value,
       this.registerForm.get('phoneNo').value,
-      this.registerForm.get('password').value
+      this.registerForm.get('password').value,
+      []
     );
     console.log(userObj);
     this.authService.registerUser(userObj).subscribe((data) => {
@@ -184,7 +195,7 @@ export class LoginComponent implements OnInit {
       console.log(user);
       this.userService.setUserDetails(user.body);
       this.authService.isLoggedIn.next(true);
-      this.checkCartItems(data);
+      this.checkCartItems(user.body);
       this.router.navigateByUrl('/home');
     });
   }

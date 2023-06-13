@@ -213,10 +213,10 @@
                       </div>
                     </div>
                   </div>
+                  <hr *ngIf="lunchList.length!==0">
                 </div>
 
                 <div class="mt-2" *ngIf="lunchList.length!==0">
-                  <hr>
                   <h6>LUNCH</h6>
                   <div class="" *ngFor="let item of lunchList">
                     <div class="row mt-2">
@@ -229,9 +229,9 @@
                       </div>
                     </div>
                   </div>
+                  <hr *ngIf="dinnerList.length!==0">
                 </div>
                 <div class="mt-2" *ngIf="dinnerList.length!==0">
-                  <hr>
                   <h6>DINNER</h6>
                   <div class="" *ngFor="let item of dinnerList">
                     <div class="row mt-2">
@@ -244,9 +244,9 @@
                       </div>
                     </div>
                   </div>
+                  <hr *ngIf="specialDishList.length!==0">
                 </div>
                 <div class="mt-2" *ngIf="specialDishList.length!==0">
-                  <hr>
                   <h6>Special DISH</h6>
                   <div class="" *ngFor="let item of specialDishList">
                     <div class="row mt-2">

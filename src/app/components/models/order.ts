@@ -16,7 +16,7 @@ export class order {
   deliveryType: string;
   customerInfo: customerInfo;
   status: status;
-  payment: string;
+  paymentType: string;
   rating: number;
   constructor(
     $orderId: string,
@@ -31,7 +31,7 @@ export class order {
     $deliveryType: string,
     $customerInfo: customerInfo,
     $status: status,
-    $payment: string,
+    $paymentType: string,
     $rating: number
   ) {
     this.orderId = $orderId;
@@ -46,7 +46,7 @@ export class order {
     this.deliveryType = $deliveryType;
     this.customerInfo = $customerInfo;
     this.status = $status;
-    this.payment = $payment;
+    this.paymentType = $paymentType;
     this.rating = $rating;
   }
 }

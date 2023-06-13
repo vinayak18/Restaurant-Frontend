@@ -50,7 +50,7 @@ export class PastOrderComponent {
       deliveryType: 'Delivery',
       customerInfo: null,
       status: status.ACCEPTED,
-      payment: 'UPI',
+      paymentType: 'UPI',
       rating: 5,
     },
   ];
@@ -94,7 +94,7 @@ export class PastOrderComponent {
       deliveryType: 'Delivery',
       customerInfo: null,
       status: status.ACCEPTED,
-      payment: 'UPI',
+      paymentType: 'UPI',
       rating: 5,
     },
     {
@@ -132,7 +132,7 @@ export class PastOrderComponent {
       deliveryType: 'Delivery',
       customerInfo: null,
       status: status.ACCEPTED,
-      payment: 'UPI',
+      paymentType: 'UPI',
       rating: 5,
     },
     {
@@ -170,7 +170,7 @@ export class PastOrderComponent {
       deliveryType: 'Delivery',
       customerInfo: null,
       status: status.ACCEPTED,
-      payment: 'UPI',
+      paymentType: 'UPI',
       rating: 5,
     },
     {
@@ -208,7 +208,7 @@ export class PastOrderComponent {
       deliveryType: 'Delivery',
       customerInfo: null,
       status: status.ACCEPTED,
-      payment: 'UPI',
+      paymentType: 'UPI',
       rating: 5,
     },
     {
@@ -246,7 +246,7 @@ export class PastOrderComponent {
       deliveryType: 'Delivery',
       customerInfo: null,
       status: status.ACCEPTED,
-      payment: 'UPI',
+      paymentType: 'UPI',
       rating: 5,
     },
   ];
@@ -286,7 +286,7 @@ export class PastOrderComponent {
       deliveryType: 'Delivery',
       customerInfo: null,
       status: status.ACCEPTED,
-      payment: 'UPI',
+      paymentType: 'UPI',
       rating: 5,
     },
     {
@@ -324,7 +324,7 @@ export class PastOrderComponent {
       deliveryType: 'Delivery',
       customerInfo: null,
       status: status.ACCEPTED,
-      payment: 'UPI',
+      paymentType: 'UPI',
       rating: 5,
     },
     {
@@ -362,7 +362,7 @@ export class PastOrderComponent {
       deliveryType: 'Delivery',
       customerInfo: null,
       status: status.ACCEPTED,
-      payment: 'UPI',
+      paymentType: 'UPI',
       rating: 5,
     },
     {
@@ -400,7 +400,7 @@ export class PastOrderComponent {
       deliveryType: 'Delivery',
       customerInfo: null,
       status: status.ACCEPTED,
-      payment: 'UPI',
+      paymentType: 'UPI',
       rating: 5,
     },
     {
@@ -438,7 +438,7 @@ export class PastOrderComponent {
       deliveryType: 'Delivery',
       customerInfo: null,
       status: status.DELIVERED,
-      payment: 'UPI',
+      paymentType: 'UPI',
       rating: 5,
     },
   ];

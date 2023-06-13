@@ -11,6 +11,7 @@ export const urls = {
     byEmail: `${userserviceUrl}/verify/user/email/{email}`,
     byId: `${userserviceUrl}/verify/user/id/{id}`,
     addToCart: `${userserviceUrl}/verify/user/update/cart/{email}`,
+    initiatePayment: `${userserviceUrl}/verify/order/initialize`,
   },
   productUrls: {
     all: `${productserviceUrl}/product/all`,

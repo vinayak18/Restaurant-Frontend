@@ -103,7 +103,7 @@ export class OrderDetailsComponent implements OnInit {
     deliveryType: 'Delivery',
     customerInfo: null,
     status: status.ACCEPTED,
-    payment: 'UPI',
+    paymentType: 'UPI',
     rating: 5,
   };
   discountAmount: number = 160.0;

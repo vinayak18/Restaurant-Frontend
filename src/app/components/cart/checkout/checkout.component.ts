@@ -13,6 +13,12 @@ import { product } from 'src/app/components/models/product';
 import { CouponService } from 'src/app/services/user-coupon-order/coupon.service';
 import { coupon } from '../../models/coupon';
 import { SnackbarService } from 'src/app/services/common/snackbar.service';
+import { loadStripe } from '@stripe/stripe-js';
+import { environment } from 'src/environments/environment';
+import { OrderService } from 'src/app/services/user-coupon-order/order.service';
+import { ActivatedRoute } from '@angular/router';
+import { userDetails } from '../../models/userDetails';
+import { UserService } from 'src/app/services/user-coupon-order/user.service';
 
 /**
  * @title Stepper responsive
@@ -23,6 +29,8 @@ import { SnackbarService } from 'src/app/services/common/snackbar.service';
   styleUrls: ['./checkout.component.css'],
 })
 export class CheckoutComponent implements OnInit {
+  currUser: userDetails;
+  stripePromise = loadStripe(environment.stripe);
   editable = true;
   discountAmount: number = 0;
   breakfastList: product[] = [];
@@ -41,18 +49,24 @@ export class CheckoutComponent implements OnInit {
     private _formBuilder: FormBuilder,
     private breakpointObserver: BreakpointObserver,
     private couponService: CouponService,
-    private snackbarService: SnackbarService
+    private orderService: OrderService,
+    private snackbarService: SnackbarService,
+    private userService: UserService
   ) {
     this.stepperOrientation = this.breakpointObserver
       .observe('(min-width: 800px)')
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
   }
   ngOnInit(): void {
+    this.currUser = this.userService.getCurrentUserDetails();
     this.firstFormGroup = this._formBuilder.group({
-      userId: ['#123', Validators.required],
-      name: ['', Validators.required],
-      email: ['', Validators.required],
-      phoneNo: ['', Validators.required],
+      userId: [this.currUser.userId, Validators.required],
+      name: [this.currUser.name, Validators.required],
+      email: [this.currUser.email, Validators.required],
+      phoneNo: [
+        this.currUser.phoneNo != '0' ? this.currUser.phoneNo : '',
+        Validators.required,
+      ],
     });
     this.secondFormGroup = this._formBuilder.group({
       deliveryType: ['Delivery', Validators.required],
@@ -67,76 +81,7 @@ export class CheckoutComponent implements OnInit {
       orderId: null,
       userId: null,
       dateOfOrder: null,
-      orderDetails: [
-        {
-          pid: 1,
-          name: 'Boba Tea',
-          desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
-          price: 200,
-          quantity: 2,
-          avgRating: 4.5,
-          img_url: [
-            '../../assets/img/breakfast-1.jpg',
-            '../../assets/img/hero-1.jpg',
-            '../../assets/img/hero-2.jpg',
-            '../../assets/img/hero-3.jpg',
-          ],
-          type: foodType.SPECIAL_DISH,
-          category: 'VEG',
-          live: true,
-        },
-        {
-          pid: 1,
-          name: 'Pizza',
-          desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
-          price: 200,
-          quantity: 2,
-          avgRating: 4.5,
-          img_url: [
-            '../../assets/img/breakfast-1.jpg',
-            '../../assets/img/hero-1.jpg',
-            '../../assets/img/hero-2.jpg',
-            '../../assets/img/hero-3.jpg',
-          ],
-          type: foodType.SPECIAL_DISH,
-          category: 'VEG',
-          live: true,
-        },
-        {
-          pid: 1,
-          name: 'Pizza',
-          desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
-          price: 200,
-          quantity: 2,
-          avgRating: 4.5,
-          img_url: [
-            '../../assets/img/breakfast-1.jpg',
-            '../../assets/img/hero-1.jpg',
-            '../../assets/img/hero-2.jpg',
-            '../../assets/img/hero-3.jpg',
-          ],
-          type: foodType.LUNCH,
-          category: 'VEG',
-          live: true,
-        },
-        {
-          pid: 1,
-          name: 'Boba Tea',
-          desc: 'Amazingly fresh and squisly flavorable choco chips are added in it',
-          price: 200,
-          quantity: 2,
-          avgRating: 4.5,
-          img_url: [
-            '../../assets/img/breakfast-1.jpg',
-            '../../assets/img/hero-1.jpg',
-            '../../assets/img/hero-2.jpg',
-            '../../assets/img/hero-3.jpg',
-          ],
-          type: foodType.BREAKFAST,
-          category: 'VEG',
-          live: true,
-        },
-      ],
+      orderDetails: this.currUser.cart,
       actualAmount: 0,
       tax: 0,
       deliveryFee: 0,
@@ -149,7 +94,7 @@ export class CheckoutComponent implements OnInit {
       deliveryType: null,
       customerInfo: null,
       status: status.ACCEPTED,
-      payment: 'UPI',
+      paymentType: 'UPI',
       rating: 5,
     };
     this.breakfastList = this.orderSummary.orderDetails.filter(
@@ -270,10 +215,41 @@ export class CheckoutComponent implements OnInit {
       }
     );
   }
-  placeOrder(stepper: MatStepper) {
-    this.orderSummary.orderId = '12345';
-    this.orderSummary.dateOfOrder = 'October 16, 2:57 PM';
-    stepper.next();
-    this.editable = false;
+
+  async placeOrder(stepper: MatStepper) {
+
+    console.log(stepper);
+    const payment = {
+      name: 'Total Amount',
+      currency: 'inr',
+      amount: this.orderSummary.netAmount,
+      quantity: '1',
+      cancelUrl: 'https://localhost:4200/cart/checkout',
+      successUrl: 'https://localhost:4200/order/confirmation',
+    };
+    const stripe = await this.stripePromise;
+
+    this.orderService.initiatePayment(payment).subscribe((data: any) => {
+      // I use stripe to redirect To Checkout page of Stripe platform
+      console.log(data);
+      stripe.redirectToCheckout({
+        sessionId: data.id,
+      });
+    });
+    (async () => {
+      const { paymentIntent, error } = await stripe.confirmCardPayment(
+        environment.stripe
+      );
+      if (error) {
+        // Handle error here
+      } else if (paymentIntent && paymentIntent.status === 'succeeded') {
+        // Handle successful payment here
+        console.log(paymentIntent);
+        this.orderSummary.orderId = '12345';
+        this.orderSummary.dateOfOrder = 'October 16, 2:57 PM';
+        stepper.next();
+        this.editable = false;
+      }
+    })();
   }
 }
