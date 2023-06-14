@@ -221,6 +221,7 @@ export class CheckoutComponent implements OnInit {
     console.log(stepper);
     const payment = {
       name: 'Total Amount',
+      email: this.orderSummary.customerInfo.email,
       currency: 'inr',
       amount: this.orderSummary.netAmount,
       quantity: '1',
