@@ -28,4 +28,11 @@ export class OrderService {
     const url = urls.userUrls.pastOrders.replace('{userId}', userId);
     return this.http.get(url);
   }
+
+  updateOrderRating(orderId: string, rating: number): Observable<any> {
+    const url = urls.userUrls.updateRating
+      .replace('{id}', orderId)
+      .replace('{rating}', ''+rating);
+    return this.http.put(url,null);
+  }
 }

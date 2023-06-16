@@ -1,5 +1,6 @@
 const productserviceUrl = '/productserviceurl/api/v1';
 const userserviceUrl = '/userserviceurl/api/v1';
+const feedbackserviceUrl = '/feedbackserviceurl/api/v1';
 
 /* eslint-disable import/prefer-default-export */
 export const urls = {
@@ -15,6 +16,7 @@ export const urls = {
     byOrderId: `${userserviceUrl}/verify/order/retrieve/{id}`,
     activeOrders: `${userserviceUrl}/verify/order/{userId}/active`,
     pastOrders: `${userserviceUrl}/verify/order/{userId}/past`,
+    updateRating: `${userserviceUrl}/verify/order/{id}/update/rating/{rating}`,
   },
   productUrls: {
     all: `${productserviceUrl}/product/all`,
@@ -34,5 +36,9 @@ export const urls = {
   },
   couponUrls: {
     byCode: `${userserviceUrl}/verify/user/coupon/retrieve`,
+  },
+  feedbackUrls: {
+    add: `${feedbackserviceUrl}/feedback/add`,
+    testimony: `${feedbackserviceUrl}/customer/testimony`,
   },
 };

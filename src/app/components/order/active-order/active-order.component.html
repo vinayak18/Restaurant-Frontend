@@ -10,7 +10,7 @@
     <b>Active Orders</b>
   </h5>
   <div class="card mb-3"
-    *ngFor="let order of activeOrdersList | paginate: { id: 'page1', itemsPerPage: orderPerPage, currentPage: pageNo_ongoing }">
+    *ngFor="let order of activeOrdersList | paginate: { id: 'page1', itemsPerPage: orderPerPage, currentPage: pageNo_ongoing }; let j=index">
     <ul class="list-group list-group-flush">
       <li class="list-group-item">
         <div class="row">
@@ -39,8 +39,14 @@
       <li class="list-group-item">
         <div class="row">
           <div class="col-sm-8">
-            <span *ngFor="let rate of rating" (click)="setRating(rate)">
-              <mat-icon>star_border</mat-icon>
+            <span *ngFor="let rate of rating; let i=index;" (mouseover)="orderRating[j] = i+1"
+              (mouseout)="orderRating[j] = order.rating" (click)="setRating(order.orderId, rate)" style="color: #ffb633;">
+              <span *ngIf="i+1<=orderRating[j]">
+                <mat-icon>star</mat-icon>
+              </span>
+              <span *ngIf="i+1>orderRating[j]">
+                <mat-icon>star_border</mat-icon>
+              </span>
             </span>
           </div>
           <div class="col-sm-4">

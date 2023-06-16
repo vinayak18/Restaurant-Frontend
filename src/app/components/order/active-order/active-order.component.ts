@@ -16,7 +16,7 @@ export class ActiveOrderComponent {
   orderPerPage: number = 4;
   rating: number[] = [1, 2, 3, 4, 5];
   activeOrdersList: order[] = [];
-
+  orderRating = null;
   constructor(
     private orderService: OrderService,
     private userService: UserService
@@ -26,10 +26,20 @@ export class ActiveOrderComponent {
     const currUser = this.userService.getCurrentUserDetails();
     this.orderService.getActiveOrders(currUser.userId).subscribe((data) => {
       this.activeOrdersList = data;
+      this.orderRating = new Array(this.activeOrdersList.length);
+      for (let index = 0; index < this.activeOrdersList.length; index++) {
+        this.orderRating[index] = this.activeOrdersList[index].rating;
+      }
+      // this.orderRating.fill(0);
     });
   }
 
-  setRating(rate: number) {
+  setRating(orderId: string, rate: number) {
     console.log(rate);
+    console.log(orderId);
+    this.orderService.updateOrderRating(orderId, rate).subscribe((data) => {
+      this.ngOnInit();
+      // this.orderRating.fill(0);
+    });
   }
 }
