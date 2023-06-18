@@ -17,14 +17,20 @@ export class ActiveOrderComponent {
   rating: number[] = [1, 2, 3, 4, 5];
   activeOrdersList: order[] = [];
   orderRating = null;
+  orderStatusEnum = status;
+  currUser = null;
   constructor(
     private orderService: OrderService,
     private userService: UserService
   ) {}
 
   ngOnInit(): void {
-    const currUser = this.userService.getCurrentUserDetails();
-    this.orderService.getActiveOrders(currUser.userId).subscribe((data) => {
+    this.currUser = this.userService.getCurrentUserDetails();
+    this.getACtiveOrders();
+  }
+
+  getACtiveOrders() {
+    this.orderService.getActiveOrders(this.currUser.userId).subscribe((data) => {
       this.activeOrdersList = data;
       this.orderRating = new Array(this.activeOrdersList.length);
       for (let index = 0; index < this.activeOrdersList.length; index++) {
@@ -38,8 +44,15 @@ export class ActiveOrderComponent {
     console.log(rate);
     console.log(orderId);
     this.orderService.updateOrderRating(orderId, rate).subscribe((data) => {
-      this.ngOnInit();
-      // this.orderRating.fill(0);
+      this.getACtiveOrders();
     });
+  }
+
+  cancelOrder(orderId: string) {
+    this.orderService
+      .updateOrderStatus(orderId, this.orderStatusEnum.CANCELLED)
+      .subscribe((data) => {
+        this.getACtiveOrders();
+      });
   }
 }

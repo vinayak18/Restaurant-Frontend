@@ -30,9 +30,16 @@ export class OrderService {
   }
 
   updateOrderRating(orderId: string, rating: number): Observable<any> {
-    const url = urls.userUrls.updateRating
+    const url = urls.userUrls.updateOrderRating
       .replace('{id}', orderId)
-      .replace('{rating}', ''+rating);
-    return this.http.put(url,null);
+      .replace('{rating}', '' + rating);
+    return this.http.put(url, null);
+  }
+
+  updateOrderStatus(orderId: string, status: string): Observable<any> {
+    const url = urls.userUrls.updateOrderStatus
+      .replace('{id}', orderId)
+      .replace('{status}', '' + status);
+    return this.http.put(url, null);
   }
 }
