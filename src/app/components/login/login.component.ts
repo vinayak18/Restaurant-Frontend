@@ -22,6 +22,7 @@ import { EncryptDecryptService } from 'src/app/services/common/encrypt-decrypt.s
 import { secretKey } from '../models/secretKey';
 import { UserService } from 'src/app/services/user-coupon-order/user.service';
 import { product } from '../models/product';
+import { ScreenLoaderService } from 'src/app/services/common/screen-loader.service';
 
 @Component({
   selector: 'app-login',
@@ -39,6 +40,7 @@ import { product } from '../models/product';
 })
 export class LoginComponent implements OnInit {
   switch: boolean = true;
+  isLoaded: boolean = false;
   loginForm: FormGroup;
   registerForm: FormGroup;
   socialUser: SocialUser;
@@ -48,10 +50,14 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private socialAuthService: SocialAuthService,
     private encrypt_decrypt: EncryptDecryptService,
-    private router: Router
+    private router: Router,
+    private loader: ScreenLoaderService
   ) {}
 
   ngOnInit(): void {
+    this.loader.isLoading.subscribe((data) => {
+      this.isLoaded = data;
+    });
     this.loginForm = new FormGroup({
       email: new FormControl('', [
         Validators.required,
@@ -163,16 +169,12 @@ export class LoginComponent implements OnInit {
         .subscribe((user) => {
           this.userService.setUserDetails(user.body);
         });
-    }
-    else{
+    } else {
       sessionStorage.setItem(
         this.encrypt_decrypt.encryption('Cart', secretKey),
-        this.encrypt_decrypt.encryption(
-          JSON.stringify(user.cart),
-          secretKey
-        )
+        this.encrypt_decrypt.encryption(JSON.stringify(user.cart), secretKey)
       );
-    } 
+    }
   }
 
   registerUser() {

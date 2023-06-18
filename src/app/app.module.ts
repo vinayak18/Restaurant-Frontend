@@ -46,6 +46,8 @@ import { CoolSocialLoginButtonsModule } from '@angular-cool/social-login-buttons
 import { ToastrModule } from 'ngx-toastr';
 import { HttpHeaderInterceptor } from './interceptors/http-header.interceptor';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
+import { ScreenLoaderInterceptor } from './interceptors/screen-loader.interceptor';
+import { ScreenLoaderComponent } from './components/screen-loader/screen-loader.component';
 
 const fbLoginOptions = {
   scope: 'public_profile',
@@ -74,6 +76,7 @@ const fbLoginOptions = {
     ActiveOrderComponent,
     PastOrderComponent,
     CheckoutComponent,
+    ScreenLoaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -105,6 +108,11 @@ const fbLoginOptions = {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpHeaderInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ScreenLoaderInterceptor,
       multi: true,
     },
     {

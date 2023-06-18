@@ -4,6 +4,7 @@ import { order } from '../../models/order';
 import { status } from '../../models/status';
 import { OrderService } from 'src/app/services/user-coupon-order/order.service';
 import { UserService } from 'src/app/services/user-coupon-order/user.service';
+import { ScreenLoaderService } from 'src/app/services/common/screen-loader.service';
 
 @Component({
   selector: 'app-active-order',
@@ -17,12 +18,17 @@ export class ActiveOrderComponent {
   rating: number[] = [1, 2, 3, 4, 5];
   activeOrdersList: order[] = [];
   orderRating = null;
+  isLoaded = false;
   constructor(
     private orderService: OrderService,
-    private userService: UserService
+    private userService: UserService,
+    private loader: ScreenLoaderService
   ) {}
 
   ngOnInit(): void {
+    this.loader.isLoading.subscribe((data) => {
+      this.isLoaded = data;
+    });
     const currUser = this.userService.getCurrentUserDetails();
     this.orderService.getActiveOrders(currUser.userId).subscribe((data) => {
       this.activeOrdersList = data;

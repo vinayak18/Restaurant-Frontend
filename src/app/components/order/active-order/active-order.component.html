@@ -1,3 +1,4 @@
+<app-screen-loader *ngIf="isLoaded"></app-screen-loader>
 <div *ngIf="activeOrdersList.length===0" class="text-center mt-5 mb-5 pb-5">
   <a class="" [routerLink]="['menu']"><img src="../assets/img/empty-cart.jpeg" alt="" width="20%"></a>
   <h4><b>You don't have any orders yet</b></h4>
