@@ -1,3 +1,4 @@
+import { ReviewService } from './../../../services/product-review/review.service';
 import { UserService } from 'src/app/services/user-coupon-order/user.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
@@ -9,6 +10,7 @@ import { ProductService } from 'src/app/services/product-review/product.service'
 import { secretKey } from '../../models/secretKey';
 import { EncryptDecryptService } from 'src/app/services/common/encrypt-decrypt.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { userDetails } from '../../models/userDetails';
 
 @Component({
   selector: 'app-product-details',
@@ -17,49 +19,24 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class ProductDetailsComponent implements OnInit {
   pageNo: number = 1;
-  reviewPerPage: number = 2;
+  reviewPerPage: number = 3;
   productId: number;
   selectedImage: string = '';
   reviewFlag: boolean;
   reviewForm: userReview;
   isLoggedIn: boolean = false;
+  currUser: userDetails = {} as userDetails;
   bestseller: product[] = [];
   product: product = {} as product;
   productReview: review = {
-    reviewId: 1,
-    pid: 1,
-    totalRating: 9,
-    noOfRating: 2,
-    userReview: [
-      {
-        userId: 'vin123',
-        name: 'Vinayak Saraf',
-        img_url: '../../assets/img/chef-1.jpg',
-        userRating: 4,
-        dateOfReview: '3-21-2023',
-        review: 'Great food!',
-      },
-      {
-        userId: 'smn345',
-        name: 'Sumon Dey',
-        img_url: '../../assets/img/chef-2.jpg',
-        userRating: 5,
-        dateOfReview: '3-21-2023',
-        review: 'Supperrr!',
-      },
-      {
-        userId: 'bjt45',
-        name: 'Daniel Park',
-        img_url: '../../assets/img/chef-3.jpg',
-        userRating: 4.5,
-        dateOfReview: '3-21-2023',
-        review: 'Great Experience!',
-      },
-    ],
-  };
+    totalRating: 0,
+    noOfRating: 0,
+    userReview: []
+  } as review;
   constructor(
     private activeRoute: ActivatedRoute,
     private productService: ProductService,
+    private reviewService: ReviewService,
     private authService: AuthService,
     private userService: UserService,
     private encrypt_decrypt: EncryptDecryptService
@@ -68,11 +45,13 @@ export class ProductDetailsComponent implements OnInit {
     console.log(this.productId);
   }
   ngOnInit(): void {
+    this.currUser = this.userService.getCurrentUserDetails();
     this.authService.isLoggedIn.subscribe((data) => {
       this.isLoggedIn = data;
     });
     this.getProductById();
     this.getBestSellers();
+    this.getReviewByPID();
   }
   getProductById() {
     this.productService.getProductById(this.productId).subscribe((data) => {
@@ -83,6 +62,11 @@ export class ProductDetailsComponent implements OnInit {
   getBestSellers() {
     this.productService.getBestSellers(this.productId).subscribe((data) => {
       this.bestseller = data;
+    });
+  }
+  getReviewByPID() {
+    this.reviewService.getReviewByPID(this.productId).subscribe((data) => {
+      this.productReview = data;
     });
   }
   changeSelectedImage(url: string) {
@@ -96,11 +80,25 @@ export class ProductDetailsComponent implements OnInit {
   }
   reviewSection() {
     this.reviewFlag = !this.reviewFlag;
-    this.reviewForm = new userReview('SMN1', 'Sumon Dey', '', 0, '', '');
+    this.reviewForm = new userReview(
+      this.currUser.userId,
+      this.currUser.name,
+      this.currUser.img_url,
+      0,
+      '',
+      ''
+    );
   }
   addReview() {
-    alert(this.reviewForm.userRating);
-    this.reviewFlag = false;
+    if (this.reviewForm.userRating != 0 && this.reviewForm.review != '') {
+      this.reviewService.addNewReviewByPID(this.productId,this.reviewForm).subscribe((data) => {
+        console.log('Please add snackbar to display - review successfully added');
+        this.reviewFlag = false;
+        this.getReviewByPID();
+      });
+    }else{
+      console.log('Please add snackbar to display error to add msg and rating before proceeding');
+    }
   }
 
   addToCart() {

@@ -71,7 +71,7 @@
       </div>
       <div class="col-12 mb-3" *ngIf="reviewFlag">
         <div class="card p-3" style="background-color: #F7F7F7;">
-          <form method="post" name="contact-us" (ngSubmit)="addReview()">
+          <form name="contact-us" (ngSubmit)="addReview()">
             <div class="row">
               <div class="col-md-12 form-group">
                 <select class="form-control" id="rating" name="rating" [(ngModel)]="reviewForm.userRating" required>
@@ -86,7 +86,7 @@
 
               <div class="col-md-12 form-group">
                 <textarea class="form-control" id="message" name="message" rows="6" placeholder="Your Message ..."
-                  [(ngModel)]="reviewForm.review"></textarea>
+                  [(ngModel)]="reviewForm.review" required></textarea>
               </div>
               <div class="col-md-12">
                 <button type="submit" class="btn" style="background-color: #ffb633;">Post</button>
@@ -95,7 +95,17 @@
           </form>
         </div>
       </div>
-      <div class="col-12">
+      <div class="col-12" *ngIf="productReview.userReview.length === 0">
+        <div class="card mb-2">
+          <div class="card-header">
+            <p class="card-text">No Review Available!</p>
+          </div>
+          <!-- <div class="card-body">
+            <p class="card-text">No Review Available!</p>
+          </div> -->
+        </div>
+      </div>
+      <div class="col-12" *ngIf="productReview.userReview.length > 0">
         <div class="card mb-2"
           *ngFor="let review of productReview.userReview | paginate: { id: 'page', itemsPerPage: reviewPerPage, currentPage: pageNo }">
           <div class="card-header">
@@ -112,10 +122,12 @@
             </div>
           </div>
           <div class="card-body">
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <p class="card-text">{{review.review}}</p>
+            <!-- <hr> -->
+            <span style="float: right;"><strong>{{review.dateOfReview | date : "MMMM dd, hh:mm a"}}</strong></span>
           </div>
         </div>
-        <div class="text-right mt-4">
+        <div class="text-right mt-4" *ngIf="productReview.userReview.length > 3">
           <pagination-controls id="page" (pageChange)="pageNo = $event">
           </pagination-controls>
         </div>

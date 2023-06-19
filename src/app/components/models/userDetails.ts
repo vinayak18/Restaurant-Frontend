@@ -6,6 +6,7 @@ export class userDetails {
   email: string;
   phoneNo: string;
   password: string;
+  img_url: string;
   cart: product[];
   constructor(
     $userId: string,
@@ -13,6 +14,7 @@ export class userDetails {
     $email: string,
     $phoneNo: string,
     $password: string,
+    $img_url: string,
     $cart: product[]
   ) {
     this.userId = $userId;
@@ -20,6 +22,7 @@ export class userDetails {
     this.email = $email;
     this.phoneNo = $phoneNo;
     this.password = $password;
+    this.img_url = $img_url;
     this.cart = $cart;
   }
 }
