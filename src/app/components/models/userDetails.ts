@@ -1,3 +1,5 @@
+
+import { blobImage } from "./blobImage";
 import { product } from "./product";
 
 export class userDetails {
@@ -7,6 +9,7 @@ export class userDetails {
   phoneNo: string;
   password: string;
   img_url: string;
+  blobImage: blobImage;
   cart: product[];
   constructor(
     $userId: string,
@@ -15,6 +18,7 @@ export class userDetails {
     $phoneNo: string,
     $password: string,
     $img_url: string,
+    $blobImage: blobImage,
     $cart: product[]
   ) {
     this.userId = $userId;
@@ -23,6 +27,7 @@ export class userDetails {
     this.phoneNo = $phoneNo;
     this.password = $password;
     this.img_url = $img_url;
+    this.blobImage = $blobImage; 
     this.cart = $cart;
   }
 }

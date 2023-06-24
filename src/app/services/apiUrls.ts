@@ -11,6 +11,8 @@ export const urls = {
     register: `${userserviceUrl}/auth/user/register`,
     byEmail: `${userserviceUrl}/verify/user/email/{email}`,
     byId: `${userserviceUrl}/verify/user/id/{id}`,
+    uploadImage: `${userserviceUrl}/verify/user/upload/image/{userId}`,
+    getImage: `${userserviceUrl}/verify/user/get/image`,
     addToCart: `${userserviceUrl}/verify/user/update/cart/{email}`,
     initiateStripePayment: `${userserviceUrl}/verify/order/stripe/initialize`,
     initiateRazorPayPayment: `${userserviceUrl}/verify/order/razorpay/initialize`,

@@ -72,7 +72,14 @@ export class ProductDetailsComponent implements OnInit {
   }
   getReviewByPID() {
     this.reviewService.getReviewByPID(this.productId).subscribe((data) => {
+      console.log(data);
       this.productReview = data;
+      for (let index = 0; index < this.productReview.userReview.length; index++) {
+        if (null === this.productReview.userReview[index].img_url) {
+          let base64Data = this.productReview.userReview[index].blobImage.picByte;
+          this.productReview.userReview[index].img_url = 'data:image/jpeg;base64,' + base64Data;
+        }
+      }
     });
   }
   changeSelectedImage(url: string) {
@@ -90,6 +97,7 @@ export class ProductDetailsComponent implements OnInit {
       this.currUser.userId,
       this.currUser.name,
       this.currUser.img_url,
+      this.currUser.blobImage,
       0,
       '',
       ''

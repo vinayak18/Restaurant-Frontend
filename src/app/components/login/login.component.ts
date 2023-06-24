@@ -185,6 +185,7 @@ export class LoginComponent implements OnInit {
       this.registerForm.get('phoneNo').value,
       this.registerForm.get('password').value,
       '',
+      null,
       []
     );
     console.log(userObj);

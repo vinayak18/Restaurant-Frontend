@@ -13,6 +13,7 @@ import { PastOrderComponent } from './components/order/past-order/past-order.com
 import { SpecialDishesComponent } from './components/special-dishes/special-dishes.component';
 import { AuthGuard } from './guard/auth.guard';
 import { OrderConfirmationComponent } from './components/order/order-confirmation/order-confirmation.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
   {
@@ -58,6 +59,11 @@ const routes: Routes = [
   {
     path: 'order/confirmation',
     component: OrderConfirmationComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
     canActivate: [AuthGuard],
   },
   {

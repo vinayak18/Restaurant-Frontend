@@ -11,6 +11,7 @@ import { Observable, throwError } from 'rxjs';
 import { secretKey } from 'src/app/components/models/secretKey';
 import { product } from 'src/app/components/models/product';
 import { userDetails } from 'src/app/components/models/userDetails';
+import { blobImage } from 'src/app/components/models/blobImage';
 
 @Injectable({
   providedIn: 'root',
@@ -71,5 +72,15 @@ export class UserService {
       observe: 'response',
       params: new HttpParams().set('isLoggedIn', isLoggedIn),
     });
+  }
+
+  uploadUserImage(userId: string, imageData: FormData) {
+    const url = urls.userUrls.uploadImage.replace('{userId}', '' + userId);
+    return this.http.post<userDetails>(url, imageData);
+  }
+
+  getUserImage(image: blobImage) {
+    const url = urls.userUrls.getImage;
+    return this.http.post(url, image);
   }
 }
