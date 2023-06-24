@@ -10,13 +10,13 @@ import { order } from 'src/app/components/models/order';
 export class OrderService {
   constructor(private http: HttpClient) {}
 
-  initiatePayment(payment: any): Observable<any> {
-    const url = urls.userUrls.initiatePayment;
+  initiateStripePayment(payment: any): Observable<any> {
+    const url = urls.userUrls.initiateStripePayment;
     return this.http.post(url, payment);
   }
 
-  createOrder(payment: any): Observable<any> {
-    const url = '/userserviceurl/createOrder';
+  initiateRazorPayPayment(payment: any): Observable<any> {
+    const url = urls.userUrls.initiateRazorPayPayment;
     return this.http.post(url, payment);
   }
 

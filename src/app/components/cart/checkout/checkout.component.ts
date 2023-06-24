@@ -236,7 +236,7 @@ export class CheckoutComponent implements OnInit {
     };
     const stripe = await this.stripePromise;
 
-    this.orderService.initiatePayment(payment).subscribe((data: any) => {
+    this.orderService.initiateStripePayment(payment).subscribe((data: any) => {
       // I use stripe to redirect To Checkout page of Stripe platform
       console.log(data);
       stripe.redirectToCheckout({
@@ -282,7 +282,7 @@ export class CheckoutComponent implements OnInit {
     };
     let paymentId = '';
     let error = '';
-    this.orderService.createOrder(payment).subscribe(
+    this.orderService.initiateRazorPayPayment(payment).subscribe(
       (data) => {
         options.key = data.secretId;
         options.order_id = data.razorpayOrderId;
