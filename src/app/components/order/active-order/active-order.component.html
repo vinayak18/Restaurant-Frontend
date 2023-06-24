@@ -19,6 +19,7 @@
             <h6>Order Id: #{{order.orderId}}</h6>
           </div>
           <div class="col-sm-4">
+            <!-- <mat-icon class="float-right mb-2 ml-1" >close</mat-icon> -->
             <h6 class="float-right" style="color: #ffb633; font-weight: bold;">{{order.status}}</h6>
           </div>
         </div>
@@ -29,7 +30,7 @@
         </div>
         <div class="row mt-2">
           <div class="col-sm-8">
-            <h6>{{order.dateOfOrder | date : "MMMM dd, h:m a"}}</h6>
+            <h6>{{order.dateOfOrder | date : "MMMM dd, hh:mm a"}}</h6>
           </div>
           <div class="col-sm-4">
             <h6 class="float-right" style="color: #ffb633; font-weight: bold;">₹ {{order.netAmount}}</h6>
@@ -39,7 +40,7 @@
       </li>
       <li class="list-group-item">
         <div class="row">
-          <div class="col-sm-8">
+          <div class="col-sm-7">
             <span *ngFor="let rate of rating; let i=index;" (mouseover)="orderRating[j] = i+1"
               (mouseout)="orderRating[j] = order.rating" (click)="setRating(order.orderId, rate)" style="color: #ffb633;">
               <span *ngIf="i+1<=orderRating[j]">
@@ -50,10 +51,12 @@
               </span>
             </span>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-5">
             <button type="submit" class="btn float-right" [routerLink]="['/order/details',order.orderId]"
               style="background-color: #ffb633;">Order
               Details</button>
+            <button type="submit" class="btn btn-danger float-right mr-2" *ngIf="order.status === orderStatusEnum.PLACED"
+                (click)="cancelOrder(order.orderId)">Cancel</button>
           </div>
         </div>
       </li>

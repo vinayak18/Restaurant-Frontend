@@ -48,14 +48,16 @@
         <div class="footer-widget pl-lg-5 pl-0">
           <h4>Feedback</h4>
           <p>Please provide us your valuable feedback.</p>
-          <form id="newsletter">
+          <form [formGroup]="feedbackForm" id="newsletter">
             <div class="form-group">
-              <input type="email" class="form-control mb-2" id="email" aria-describedby="email"
+              <input type="text" formControlName="name" class="form-control mb-2" id="name" aria-describedby="text"
+                placeholder="Enter your name">
+              <input type="email" formControlName="email" class="form-control mb-2" id="email" aria-describedby="email"
                 placeholder="Enter your email">
-              <input type="text" class="form-control" id="text" aria-describedby="text"
+              <input type="text" formControlName="message" class="form-control" id="text" aria-describedby="text"
                 placeholder="Enter your message">
             </div>
-            <button type="submit" class="btn w-100" style="background-color: #ffb633;">Submit</button>
+            <button type="submit" (click)="sendFeedback()" class="btn w-100" style="background-color: #ffb633;">Submit</button>
           </form>
         </div>
 

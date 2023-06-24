@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { StepperOrientation, MatStepper } from '@angular/material/stepper';
@@ -19,6 +19,9 @@ import { OrderService } from 'src/app/services/user-coupon-order/order.service';
 import { ActivatedRoute } from '@angular/router';
 import { userDetails } from '../../models/userDetails';
 import { UserService } from 'src/app/services/user-coupon-order/user.service';
+import { EncryptDecryptService } from 'src/app/services/common/encrypt-decrypt.service';
+import { secretKey } from '../../models/secretKey';
+declare var Razorpay: any;
 
 /**
  * @title Stepper responsive
@@ -51,7 +54,8 @@ export class CheckoutComponent implements OnInit {
     private couponService: CouponService,
     private orderService: OrderService,
     private snackbarService: SnackbarService,
-    private userService: UserService
+    private userService: UserService,
+    private encrypt: EncryptDecryptService
   ) {
     this.stepperOrientation = this.breakpointObserver
       .observe('(min-width: 800px)')
@@ -216,8 +220,90 @@ export class CheckoutComponent implements OnInit {
     );
   }
 
-  async placeOrder(stepper: MatStepper) {
+  onPaymentViaRazorPay(stepper: MatStepper) {
+    sessionStorage.setItem(
+      this.encrypt.encryption('Order Summary', secretKey),
+      this.encrypt.encryption(JSON.stringify(this.orderSummary), secretKey)
+    );
+    console.log(stepper);
+    const payment = {
+      name: 'Total Amount',
+      currency: 'inr',
+      amount: this.orderSummary.netAmount,
+      quantity: '1',
+      cancelUrl: 'https://localhost:4200/cart/checkout',
+      successUrl: 'https://localhost:4200/order/confirmation',
+    };
+    let options = {
+      key: '',
+      amount: '',
+      name: 'AMMA KI KADAI',
+      description: 'Web Development',
+      image: '../../../assets/img/hero-1.jpg',
+      order_id: '',
+      handler: function (response) {
+        var event = new CustomEvent('payment.success', {
+          detail: response,
+          bubbles: true,
+          cancelable: true,
+        });
+        window.dispatchEvent(event);
+      },
+      prefill: {
+        name: '',
+        email: '',
+        contact: '',
+      },
+      notes: {
+        address: '',
+      },
+      theme: {
+        color: '#ffb633',
+      },
+    };
+    let paymentId = '';
+    let error = '';
+    this.orderService.createOrder(payment).subscribe(
+      (data) => {
+        options.key = data.secretId;
+        options.order_id = data.razorpayOrderId;
+        options.amount = data.applicationFee; //paise
+        options.prefill.name = 'SMN';
+        options.prefill.email = 'smn@gmail.com';
+        options.prefill.contact = '7980581501';
 
+        var rzp = new Razorpay(options);
+        rzp.open();
+
+        rzp.on('payment.failed', function (response) {
+          // Todo - store this information in the server
+          console.log(response);
+          console.log(response.error.code);
+          console.log(response.error.description);
+          console.log(response.error.source);
+          console.log(response.error.step);
+          console.log(response.error.reason);
+          console.log(response.error.metadata.order_id);
+          console.log(response.error.metadata.payment_id);
+          this.error = response.error.reason;
+        });
+      },
+      (err) => {
+        console.log(err.error.message);
+      }
+    );
+  }
+
+  @HostListener('window:payment.success', ['$event'])
+  onPaymentSuccess(event): void {
+    console.log('x');
+    console.log(event.detail);
+  }
+  async placeOrder(stepper: MatStepper) {
+    sessionStorage.setItem(
+      this.encrypt.encryption('Order Summary', secretKey),
+      this.encrypt.encryption(JSON.stringify(this.orderSummary), secretKey)
+    );
     console.log(stepper);
     const payment = {
       name: 'Total Amount',
@@ -228,29 +314,167 @@ export class CheckoutComponent implements OnInit {
       cancelUrl: 'https://localhost:4200/cart/checkout',
       successUrl: 'https://localhost:4200/order/confirmation',
     };
-    const stripe = await this.stripePromise;
+    let options = {
+      key: '',
+      amount: '',
+      name: 'AMMA KI KADAI',
+      description: 'Web Development',
+      image: '../../../assets/img/hero-1.jpg',
+      order_id: '',
+      handler: function (response) {
+        var event = new CustomEvent('payment.success', {
+          detail: response,
+          bubbles: true,
+          cancelable: true,
+        });
+        window.dispatchEvent(event);
+      },
+      prefill: {
+        name: '',
+        email: '',
+        contact: '',
+      },
+      notes: {
+        address: '',
+      },
+      theme: {
+        color: '#ffb633',
+      },
+    };
+    let paymentId = '';
+    let error = '';
+    this.orderService.createOrder(payment).subscribe((data) => {
+      options.key = data.secretId;
+      options.order_id = data.razorpayOrderId;
+      options.amount = data.applicationFee; //paise
+      options.prefill.name = 'SMN';
+      options.prefill.email = 'smn@gmail.com';
+      options.prefill.contact = '7980581501';
 
-    this.orderService.initiatePayment(payment).subscribe((data: any) => {
-      // I use stripe to redirect To Checkout page of Stripe platform
-      console.log(data);
-      stripe.redirectToCheckout({
-        sessionId: data.id,
+      let opts = {
+        key_id: 'rzp_test_iIK24lb6Jfiw1d',
+        key_secret: 'jPnZBzdunoEp3VGad6gbw2ft',
+      };
+      var rzp = new Razorpay(opts);
+      console.log(rzp);
+      var x = rzp.paymentLink.create({
+        upi_link: true,
+        amount: 500,
+        currency: 'INR',
+        accept_partial: false,
+        first_min_partial_amount: 100,
+        description: 'For XYZ purpose',
+        customer: {
+          name: 'Gaurav Kumar',
+          email: 'gaurav.kumar@example.com',
+          contact: '+919000090000',
+        },
+        notify: {
+          sms: true,
+          email: true,
+        },
+        reminder_enable: true,
+        notes: {
+          policy_name: 'Jeevan Bima',
+        },
       });
+
+      //     rzp.open();
+
+      //     rzp.on('payment.failed', function (response) {
+      //       // Todo - store this information in the server
+      //       console.log(response);
+      //       console.log(response.error.code);
+      //       console.log(response.error.description);
+      //       console.log(response.error.source);
+      //       console.log(response.error.step);
+      //       console.log(response.error.reason);
+      //       console.log(response.error.metadata.order_id);
+      //       console.log(response.error.metadata.payment_id);
+      //       this.error = response.error.reason;
+      //     });
+      //   },
+      //   (err) => {
+      //     console.log(err.error.message);
+      //   }
+      // );
+
+      //}
+
+      // @HostListener('window:payment.success', ['$event'])
+      // onPaymentSuccess(event): void {
+      //   console.log('x');
+      //   console.log(event.detail);
+      // }
+      // async placeOrder(stepper: MatStepper) {
+      //   sessionStorage.setItem(
+      //     this.encrypt.encryption('Order Summary', secretKey),
+      //     this.encrypt.encryption(JSON.stringify(this.orderSummary), secretKey)
+      //   );
+      //   console.log(stepper);
+      //   const payment = {
+      //     name: 'Total Amount',
+      //     email: this.orderSummary.customerInfo.email,
+      //     currency: 'inr',
+      //     amount: this.orderSummary.netAmount,
+      //     quantity: '1',
+      //     cancelUrl: 'https://localhost:4200/cart/checkout',
+      //     successUrl: 'https://localhost:4200/order/confirmation',
+      //   };
+      //   const stripe = await this.stripePromise;
+
+      //   this.orderService.initiatePayment(payment).subscribe((data: any) => {
+      //     // I use stripe to redirect To Checkout page of Stripe platform
+      //     console.log(data);
+      //     stripe.redirectToCheckout({
+      //       sessionId: data.id,
+      //     });
+      //   });
+      //   (async () => {
+      //     const { paymentIntent, error } = await stripe.confirmCardPayment(
+      //       environment.stripe
+      //     );
+      //     if (error) {
+      //       // Handle error here
+      //     } else if (paymentIntent && paymentIntent.status === 'succeeded') {
+      //       // Handle successful payment here
+      //       console.log(paymentIntent);
+      //       this.orderSummary.orderId = '12345';
+      //       // this.orderSummary.dateOfOrder = 'October 16, 2:57 PM';
+      //       stepper.next();
+      //       this.editable = false;
+      //     }
+      //   })();
+      /*
+    this.orderService.createOrder(payment).subscribe((data) => {
+      console.log(data);
+      var instance = new Razorpay({
+        key_id: data.secretId,
+        key_secret: data.secretKey,
+      });
+
+      var x = instance.paymentLink.create({
+        upi_link: true,
+        amount: 500,
+        currency: 'INR',
+        accept_partial: false,
+        first_min_partial_amount: 100,
+        description: 'For XYZ purpose',
+        customer: {
+          name: 'Gaurav Kumar',
+          email: 'gaurav.kumar@example.com',
+          contact: '+919000090000',
+        },
+        notify: {
+          sms: true,
+          email: true,
+        },
+        reminder_enable: true,
+        notes: {
+          policy_name: 'Jeevan Bima',
+        },
+      });
+      console.log(x);*/
     });
-    (async () => {
-      const { paymentIntent, error } = await stripe.confirmCardPayment(
-        environment.stripe
-      );
-      if (error) {
-        // Handle error here
-      } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-        // Handle successful payment here
-        console.log(paymentIntent);
-        this.orderSummary.orderId = '12345';
-        // this.orderSummary.dateOfOrder = 'October 16, 2:57 PM';
-        stepper.next();
-        this.editable = false;
-      }
-    })();
   }
 }

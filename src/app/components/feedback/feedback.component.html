@@ -12,19 +12,19 @@
               Customer Survey!
             </h2>
           </div>
-          <form method="post" name="contact-us" action="">
+          <form method="post" name="contact-us" [formGroup]="feedbackForm">
             <div class="row">
               <div class="col-md-12 form-group">
-                <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+                <input type="text" class="form-control" id="name" formControlName="name" placeholder="Name">
               </div>
               <div class="col-md-12 form-group">
-                <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+                <input type="email" class="form-control" id="email" formControlName="email" placeholder="Email">
               </div>
               <div class="col-md-12 form-group">
-                <input type="number" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Phone">
+                <input type="number" class="form-control" id="phoneNumber" formControlName="phoneNumber" placeholder="Phone">
               </div>
               <div class="col-md-12 form-group">
-                <select class="form-control" id="selectPerson">
+                <select class="form-control" formControlName="rating" id="selectRating">
                   <option selected disabled hidden>Rating</option>
                   <option>1</option>
                   <option>2</option>
@@ -35,11 +35,11 @@
               </div>
 
               <div class="col-md-12 form-group">
-                <textarea class="form-control" id="message" name="message" rows="6"
+                <textarea class="form-control" id="message" formControlName="message" rows="6"
                   placeholder="Your Message ..."></textarea>
               </div>
               <div class="col-md-12 text-center">
-                <button class="btn btn-warning btn-shadow btn-lg" type="submit" name="submit">Send Message</button>
+                <button class="btn btn-warning btn-shadow btn-lg" [disabled]="feedbackForm.invalid" type="submit" name="submit" (click)="sendFeedback()">Send Message</button>
               </div>
             </div>
           </form>

@@ -48,6 +48,7 @@ import { HttpHeaderInterceptor } from './interceptors/http-header.interceptor';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { ScreenLoaderInterceptor } from './interceptors/screen-loader.interceptor';
 import { ScreenLoaderComponent } from './components/screen-loader/screen-loader.component';
+import { OrderConfirmationComponent } from './components/order/order-confirmation/order-confirmation.component';
 
 const fbLoginOptions = {
   scope: 'public_profile',
@@ -77,6 +78,7 @@ const fbLoginOptions = {
     PastOrderComponent,
     CheckoutComponent,
     ScreenLoaderComponent,
+    OrderConfirmationComponent,
   ],
   imports: [
     BrowserModule,

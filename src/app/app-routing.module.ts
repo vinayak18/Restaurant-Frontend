@@ -12,6 +12,7 @@ import { OrderDetailsComponent } from './components/order/order-details/order-de
 import { PastOrderComponent } from './components/order/past-order/past-order.component';
 import { SpecialDishesComponent } from './components/special-dishes/special-dishes.component';
 import { AuthGuard } from './guard/auth.guard';
+import { OrderConfirmationComponent } from './components/order/order-confirmation/order-confirmation.component';
 
 const routes: Routes = [
   {
@@ -52,6 +53,11 @@ const routes: Routes = [
   {
     path: 'order/details/:orderId',
     component: OrderDetailsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'order/confirmation',
+    component: OrderConfirmationComponent,
     canActivate: [AuthGuard],
   },
   {

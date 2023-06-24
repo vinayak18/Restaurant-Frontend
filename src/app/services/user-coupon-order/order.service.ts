@@ -14,6 +14,11 @@ export class OrderService {
     return this.http.post(url, payment);
   }
 
+  createOrder(payment: any): Observable<any> {
+    const url = '/userserviceurl/createOrder';
+    return this.http.post(url, payment);
+  }
+
   getOrderById(orderId: string): Observable<any> {
     const url = urls.userUrls.byOrderId.replace('{id}', orderId);
     return this.http.get(url);
@@ -30,9 +35,16 @@ export class OrderService {
   }
 
   updateOrderRating(orderId: string, rating: number): Observable<any> {
-    const url = urls.userUrls.updateRating
+    const url = urls.userUrls.updateOrderRating
       .replace('{id}', orderId)
-      .replace('{rating}', ''+rating);
-    return this.http.put(url,null);
+      .replace('{rating}', '' + rating);
+    return this.http.put(url, null);
+  }
+
+  updateOrderStatus(orderId: string, status: string): Observable<any> {
+    const url = urls.userUrls.updateOrderStatus
+      .replace('{id}', orderId)
+      .replace('{status}', '' + status);
+    return this.http.put(url, null);
   }
 }

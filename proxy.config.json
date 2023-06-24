@@ -12,5 +12,12 @@
     "pathRewrite": { "^/userserviceurl": "" },
     "logLevel": "debug",
     "changeOrigin": true
+  },
+  "/feedbackserviceurl/*": {
+    "target": "http://localhost:8084",
+    "secure": false,
+    "pathRewrite": { "^/feedbackserviceurl": "" },
+    "logLevel": "debug",
+    "changeOrigin": true
   }
 }
