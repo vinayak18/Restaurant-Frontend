@@ -321,7 +321,6 @@ export class CheckoutComponent implements OnInit {
   }
   async placeOrder() {
     this.orderSummary.paymentType = this.paymentForm.get('paymentType').value;
-    alert(this.orderSummary.paymentType);
     sessionStorage.setItem(
       this.encrypt.encryption('Order Summary', secretKey),
       this.encrypt.encryption(JSON.stringify(this.orderSummary), secretKey)
