@@ -6,6 +6,7 @@ import { product } from '../models/product';
 import { secretKey } from '../models/secretKey';
 import { ProductService } from 'src/app/services/product-review/product.service';
 import { foodType } from '../models/foodType';
+import { ScreenLoaderService } from 'src/app/services/common/screen-loader.service';
 
 @Component({
   selector: 'app-special-dishes',
@@ -16,16 +17,21 @@ export class SpecialDishesComponent implements OnInit {
   pageNo: number = 1;
   productPerPage: number = 3;
   isLoggedIn: boolean = false;
+  isLoaded: boolean = false;
   @Input() homeRouteFlag: boolean;
   specialDishes: product[] = [];
   constructor(
     private productService: ProductService,
     private authService: AuthService,
     private userService: UserService,
-    private encrypt_decrypt: EncryptDecryptService
+    private encrypt_decrypt: EncryptDecryptService,
+    private loader: ScreenLoaderService
   ) {}
 
   ngOnInit(): void {
+    this.loader.isLoading.subscribe((data) => {
+      this.isLoaded = data;
+    });
     this.authService.isLoggedIn.subscribe((data) => {
       this.isLoggedIn = data;
     });

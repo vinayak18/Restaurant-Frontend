@@ -5,6 +5,7 @@ import { EncryptDecryptService } from 'src/app/services/common/encrypt-decrypt.s
 import { secretKey } from '../models/secretKey';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserService } from 'src/app/services/user-coupon-order/user.service';
+import { ScreenLoaderService } from 'src/app/services/common/screen-loader.service';
 
 @Component({
   selector: 'app-cart',
@@ -15,6 +16,7 @@ export class CartComponent implements OnInit {
   totalAmount: number = 0;
   cartItems: product[] = [];
   isLoggedIn: boolean = false;
+  isLoaded: boolean = false;
   isSaved: boolean = false;
   // cartItems: product[] = [
   //   {
@@ -123,10 +125,14 @@ export class CartComponent implements OnInit {
   constructor(
     private encrypt_decrypt: EncryptDecryptService,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private loader: ScreenLoaderService
   ) {}
 
   ngOnInit(): void {
+    this.loader.isLoading.subscribe((data) => {
+      this.isLoaded = data;
+    });
     this.authService.isLoggedIn.subscribe((data) => {
       this.isLoggedIn = data;
     });

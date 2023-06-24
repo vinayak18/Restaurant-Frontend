@@ -33,19 +33,22 @@ export class ActiveOrderComponent {
     });
     const currUser = this.userService.getCurrentUserDetails();
     this.orderService.getActiveOrders(currUser.userId).subscribe((data) => {
-    this.currUser = this.userService.getCurrentUserDetails();
-    this.getActiveOrders();
+      this.currUser = this.userService.getCurrentUserDetails();
+      this.getActiveOrders();
+    });
   }
 
   getActiveOrders() {
-    this.orderService.getActiveOrders(this.currUser.userId).subscribe((data) => {
-      this.activeOrdersList = data;
-      this.orderRating = new Array(this.activeOrdersList.length);
-      for (let index = 0; index < this.activeOrdersList.length; index++) {
-        this.orderRating[index] = this.activeOrdersList[index].rating;
-      }
-      // this.orderRating.fill(0);
-    });
+    this.orderService
+      .getActiveOrders(this.currUser.userId)
+      .subscribe((data) => {
+        this.activeOrdersList = data;
+        this.orderRating = new Array(this.activeOrdersList.length);
+        for (let index = 0; index < this.activeOrdersList.length; index++) {
+          this.orderRating[index] = this.activeOrdersList[index].rating;
+        }
+        // this.orderRating.fill(0);
+      });
   }
 
   setRating(orderId: string, rate: number) {

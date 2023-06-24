@@ -1,3 +1,4 @@
+<app-screen-loader *ngIf="isLoaded"></app-screen-loader>
 <section id="gtco-welcome" class="mt-5 mb-5 bg-white section-padding">
   <div class="container">
     <div class="section-content">
@@ -124,7 +125,7 @@
           <div class="card-body">
             <p class="card-text">{{review.review}}</p>
             <!-- <hr> -->
-            <span style="float: right;"><strong>{{review.dateOfReview | date : "MMMM dd, hh:mm a"}}</strong></span>
+            <span style="float: right;"><strong>{{review.dateOfReview | date: 'MMMM dd, y \'at\' h:mm a'}}</strong></span>
           </div>
         </div>
         <div class="text-right mt-4" *ngIf="productReview.userReview.length > 3">

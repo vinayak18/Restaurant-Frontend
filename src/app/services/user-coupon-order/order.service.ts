@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { urls } from '../apiUrls';
+import { order } from 'src/app/components/models/order';
 
 @Injectable({
   providedIn: 'root',
@@ -46,5 +47,10 @@ export class OrderService {
       .replace('{id}', orderId)
       .replace('{status}', '' + status);
     return this.http.put(url, null);
+  }
+
+  addNewOrder(order: order): Observable<any> {
+    const url = urls.userUrls.addNewOrder;
+    return this.http.post(url, order);
   }
 }

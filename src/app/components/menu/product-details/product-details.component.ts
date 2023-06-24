@@ -11,6 +11,7 @@ import { secretKey } from '../../models/secretKey';
 import { EncryptDecryptService } from 'src/app/services/common/encrypt-decrypt.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { userDetails } from '../../models/userDetails';
+import { ScreenLoaderService } from 'src/app/services/common/screen-loader.service';
 
 @Component({
   selector: 'app-product-details',
@@ -25,13 +26,14 @@ export class ProductDetailsComponent implements OnInit {
   reviewFlag: boolean;
   reviewForm: userReview;
   isLoggedIn: boolean = false;
+  isLoaded: boolean = false;
   currUser: userDetails = {} as userDetails;
   bestseller: product[] = [];
   product: product = {} as product;
   productReview: review = {
     totalRating: 0,
     noOfRating: 0,
-    userReview: []
+    userReview: [],
   } as review;
   constructor(
     private activeRoute: ActivatedRoute,
@@ -39,12 +41,16 @@ export class ProductDetailsComponent implements OnInit {
     private reviewService: ReviewService,
     private authService: AuthService,
     private userService: UserService,
-    private encrypt_decrypt: EncryptDecryptService
+    private encrypt_decrypt: EncryptDecryptService,
+    private loader: ScreenLoaderService
   ) {
     this.productId = this.activeRoute.snapshot.params['productId'];
     console.log(this.productId);
   }
   ngOnInit(): void {
+    this.loader.isLoading.subscribe((data) => {
+      this.isLoaded = data;
+    });
     this.currUser = this.userService.getCurrentUserDetails();
     this.authService.isLoggedIn.subscribe((data) => {
       this.isLoggedIn = data;
@@ -91,13 +97,19 @@ export class ProductDetailsComponent implements OnInit {
   }
   addReview() {
     if (this.reviewForm.userRating != 0 && this.reviewForm.review != '') {
-      this.reviewService.addNewReviewByPID(this.productId,this.reviewForm).subscribe((data) => {
-        console.log('Please add snackbar to display - review successfully added');
-        this.reviewFlag = false;
-        this.getReviewByPID();
-      });
-    }else{
-      console.log('Please add snackbar to display error to add msg and rating before proceeding');
+      this.reviewService
+        .addNewReviewByPID(this.productId, this.reviewForm)
+        .subscribe((data) => {
+          console.log(
+            'Please add snackbar to display - review successfully added'
+          );
+          this.reviewFlag = false;
+          this.getReviewByPID();
+        });
+    } else {
+      console.log(
+        'Please add snackbar to display error to add msg and rating before proceeding'
+      );
     }
   }
 

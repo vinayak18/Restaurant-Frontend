@@ -14,6 +14,7 @@ import { EncryptDecryptService } from 'src/app/services/common/encrypt-decrypt.s
 import { secretKey } from '../models/secretKey';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { SnackbarService } from 'src/app/services/common/snackbar.service';
+import { ScreenLoaderService } from 'src/app/services/common/screen-loader.service';
 
 @Component({
   selector: 'app-menu',
@@ -35,6 +36,7 @@ export class MenuComponent implements OnInit {
   dinnerList: product[] = [];
   value = 0;
   isLoggedIn: boolean = false;
+  isLoaded: boolean = false;
   allProducts: product[] = [];
   showOrHideFlag: boolean[] = [true, true, true];
   constructor(
@@ -42,10 +44,14 @@ export class MenuComponent implements OnInit {
     private snackbarSerivce: SnackbarService,
     private authService: AuthService,
     private userService: UserService,
-    private encrypt_decrypt: EncryptDecryptService
+    private encrypt_decrypt: EncryptDecryptService,
+    private loader: ScreenLoaderService
   ) {}
 
   ngOnInit(): void {
+    this.loader.isLoading.subscribe((data) => {
+      this.isLoaded = data;
+    });
     this.authService.isLoggedIn.subscribe((data) => {
       this.isLoggedIn = data;
     });

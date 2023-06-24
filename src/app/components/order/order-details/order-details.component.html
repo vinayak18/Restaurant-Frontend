@@ -1,3 +1,4 @@
+<app-screen-loader *ngIf="isLoaded"></app-screen-loader>
 <div class="container mb-2">
   <h5 style="color: #ffb633;" class="mt-2 border border-warning p-2 mb-3">
     <b>Order Details</b>
@@ -89,7 +90,7 @@
             <span>Discount ({{order.coupon.couponCode}})</span>
           </div>
           <div class="col-sm-4">
-            <span class="float-right">- ₹ {{order.coupon.discountAmount}}</span>
+            <span class="float-right">- ₹ {{order.coupon.discountAmount | number: '1.2-2'}}</span>
           </div>
         </div>
         <div class="row mt-2">
@@ -97,7 +98,7 @@
             <span>Tax Amount</span>
           </div>
           <div class="col-sm-4">
-            <span class="float-right">₹ {{order.tax}}</span>
+            <span class="float-right">₹ {{order.tax | number: '1.2-2'}}</span>
           </div>
         </div>
         <div class="row mt-2">
@@ -122,7 +123,7 @@
       <li class="list-group-item">
         <div class="row">
           <div class="col-sm-8 mt-2">
-            <h6>{{order.dateOfOrder | date : "MMMM dd, hh:mm a"}}</h6>
+            <h6>{{order.dateOfOrder | date: 'MMMM dd, y \'at\' h:mm a'}}</h6>
           </div>
           <div class="col-sm-4">
             <button type="submit" class="btn float-right" style="background-color: #ffb633;">Print Invoice</button>

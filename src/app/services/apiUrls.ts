@@ -18,6 +18,7 @@ export const urls = {
     pastOrders: `${userserviceUrl}/verify/order/{userId}/past`,
     updateOrderRating: `${userserviceUrl}/verify/order/{id}/update/rating/{rating}`,
     updateOrderStatus: `${userserviceUrl}/verify/order/{id}/update/status/{status}`,
+    addNewOrder: `${userserviceUrl}/verify/order/add`,
   },
   productUrls: {
     all: `${productserviceUrl}/product/all`,

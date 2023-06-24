@@ -29,7 +29,7 @@
         </div>
         <div class="row mt-2">
           <div class="col-sm-8">
-            <h6>{{order.dateOfOrder | date : "MMMM dd, hh:mm a"}}</h6>
+            <h6>{{order.dateOfOrder | date: 'MMM dd, y \'at\' h:mm a'}}</h6>
           </div>
           <div class="col-sm-4">
             <h6 class="float-right" style="color: #ffb633; font-weight: bold;">₹ {{order.netAmount}}</h6>

@@ -1,3 +1,4 @@
+<app-screen-loader *ngIf="isLoaded"></app-screen-loader>
 <div class="container">
     <div class="text-center p-4 ml-5 mr-5 mb-5 mt-2" style="border: 1px solid #ffb633;">
         <div>
@@ -11,14 +12,14 @@
           <div class="row">
             <div class="col-sm-12 col-md-6">
               <b>Order Id:</b>
-               <!-- {{orderSummary.orderId}} -->
+               {{orderSummary.orderId}}
             </div>
             <div class="col-sm-12 col-md-6">
               <b>Date:</b> 
-              <!-- {{orderSummary.dateOfOrder}} -->
+              {{orderSummary.dateOfOrder | date: 'MMMM dd, y \'at\' h:mm a'}}
             </div>
             <div class="col-12 text-center mt-3">
-              <button mat-button class="btn btn-warning" [routerLink]="['/menu']">Continue Shopping <i
+              <button mat-button class="btn btn-warning" (click)="goToMenu()">Continue Shopping <i
                   class="fa fa-angle-right"></i></button>
             </div>
           </div>
