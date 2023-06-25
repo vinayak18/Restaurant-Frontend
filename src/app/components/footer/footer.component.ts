@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { feedback } from '../models/feedback';
+import { feedback } from '../../models/feedback';
 import { FeedbackService } from 'src/app/services/feedback/feedback.service';
 
 @Component({

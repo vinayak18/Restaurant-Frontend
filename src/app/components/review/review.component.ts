@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FeedbackService } from 'src/app/services/feedback/feedback.service';
-import { feedback } from '../models/feedback';
+import { feedback } from '../../models/feedback';
 import { ScreenLoaderService } from 'src/app/services/common/screen-loader.service';
 
 @Component({

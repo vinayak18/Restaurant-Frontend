@@ -1,9 +1,9 @@
 import { urls } from './../apiUrls';
-import { review } from './../../components/models/review';
+import { review } from '../../models/review';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { userReview } from 'src/app/components/models/userReview';
+import { userReview } from 'src/app/models/userReview';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +18,6 @@ export class ReviewService {
 
   addNewReviewByPID(pid: number, review: userReview): Observable<review> {
     const url = urls.reviewUrls.add.replace('{pid}', '' + pid);
-    return this.http.post<review>(url,review);
+    return this.http.post<review>(url, review);
   }
 }

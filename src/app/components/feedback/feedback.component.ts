@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { feedback } from '../models/feedback';
+import { feedback } from '../../models/feedback';
 import { FeedbackService } from 'src/app/services/feedback/feedback.service';
 
 @Component({
@@ -43,7 +43,7 @@ export class FeedbackComponent {
       false
     );
     console.log(feedbackData);
-    this.feedbackService.addNewFeedback(feedbackData).subscribe((data)=>{
+    this.feedbackService.addNewFeedback(feedbackData).subscribe((data) => {
       console.log(data);
     });
   }

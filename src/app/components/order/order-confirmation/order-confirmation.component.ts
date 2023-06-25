@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { EncryptDecryptService } from 'src/app/services/common/encrypt-decrypt.service';
 import { ScreenLoaderService } from 'src/app/services/common/screen-loader.service';
 import { OrderService } from 'src/app/services/user-coupon-order/order.service';
-import { order } from '../../models/order';
-import { secretKey } from '../../models/secretKey';
+import { order } from '../../../models/order';
+import { secretKey } from '../../../models/secretKey';
 import { UserService } from 'src/app/services/user-coupon-order/user.service';
 import { Router } from '@angular/router';
 

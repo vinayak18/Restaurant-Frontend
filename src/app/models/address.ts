@@ -5,6 +5,7 @@ export class address {
   pincode: number;
   state: string;
   city: string;
+  active: boolean;
 
   constructor(
     $streetAddress: string,
@@ -12,7 +13,8 @@ export class address {
     $landmark: string,
     $pincode: number,
     $state: string,
-    $city: string
+    $city: string,
+    $active: boolean
   ) {
     this.streetAddress = $streetAddress;
     this.flatNo = $flatNo;
@@ -20,5 +22,6 @@ export class address {
     this.pincode = $pincode;
     this.state = $state;
     this.city = $city;
+    this.active = $active;
   }
 }

@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { urls } from 'src/app/services/apiUrls';
-import { product } from 'src/app/components/models/product';
+import { product } from 'src/app/models/product';
 @Injectable({
   providedIn: 'root',
 })
@@ -26,7 +26,10 @@ export class ProductService {
   }
 
   getProductByFoodType(foodType: string): Observable<product[]> {
-    const url = urls.productUrls.byFoodType.replace('{foodtype}', '' + foodType);
+    const url = urls.productUrls.byFoodType.replace(
+      '{foodtype}',
+      '' + foodType
+    );
     return this.http.get<product[]>(url);
   }
 }

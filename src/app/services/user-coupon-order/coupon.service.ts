@@ -3,7 +3,7 @@ import { AuthService } from '../auth/auth.service';
 import { EncryptDecryptService } from '../common/encrypt-decrypt.service';
 import { HttpClient } from '@angular/common/http';
 import { urls } from '../apiUrls';
-import { coupon } from 'src/app/components/models/coupon';
+import { coupon } from 'src/app/models/coupon';
 import { Observable } from 'rxjs';
 
 @Injectable({

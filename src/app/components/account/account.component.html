@@ -1,0 +1,77 @@
+<section style="background-color: #eee">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card mb-4">
+          <div class="card-body row">
+            <div class="avatar-upload col-xs-4">
+              <div class="avatar-edit">
+                <input
+                  type="file"
+                  id="imageUpload"
+                  accept=".png, .jpg, .jpeg"
+                  (change)="onFileChanged($event)"
+                />
+                <label for="imageUpload"></label>
+              </div>
+              <div class="avatar-preview text-center">
+                <img
+                  [src]="this.currUser.img_url"
+                  alt="avatar"
+                  class="rounded-circle img-fluid"
+                  id="imagePreview"
+                />
+              </div>
+              <!-- <input type="button" (click)="onUpload()" value="upload" /> -->
+            </div>
+            <div class="col-xs-8 ml-5 mt-4">
+              <h3 class="my-3">{{ currUser.name }}</h3>
+              <p class="text-muted mb-1">@{{ currUser.userId }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="card mb-4 mb-lg-0">
+          <div class="card-body p-0">
+            <ul class="list-group list-group-flush rounded-3">
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center p-3"
+              >
+                <i class="fas fa-globe fa-lg text-warning"></i>
+                <p class="mb-0" [routerLink]="['profile']">My Profile</p>
+              </li>
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center p-3"
+              >
+                <i class="fab fa-github fa-lg" style="color: #333333"></i>
+                <p class="mb-0">mdbootstrap</p>
+              </li>
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center p-3"
+              >
+                <i class="fab fa-twitter fa-lg" style="color: #55acee"></i>
+                <p class="mb-0">@mdbootstrap</p>
+              </li>
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center p-3"
+              >
+                <i class="fab fa-instagram fa-lg" style="color: #ac2bac"></i>
+                <p class="mb-0">mdbootstrap</p>
+              </li>
+              <li
+                class="list-group-item d-flex justify-content-between align-items-center p-3"
+              >
+                <i class="fab fa-facebook-f fa-lg" style="color: #3b5998"></i>
+                <p class="mb-0">mdbootstrap</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</section>

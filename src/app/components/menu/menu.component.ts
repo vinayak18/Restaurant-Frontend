@@ -6,12 +6,12 @@ import {
   trigger,
 } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { foodType } from '../models/foodType';
-import { product } from '../models/product';
+import { foodType } from '../../models/foodType';
+import { product } from '../../models/product';
 import { ProductService } from 'src/app/services/product-review/product.service';
 import { UserService } from 'src/app/services/user-coupon-order/user.service';
 import { EncryptDecryptService } from 'src/app/services/common/encrypt-decrypt.service';
-import { secretKey } from '../models/secretKey';
+import { secretKey } from '../../models/secretKey';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { SnackbarService } from 'src/app/services/common/snackbar.service';
 import { ScreenLoaderService } from 'src/app/services/common/screen-loader.service';

@@ -2,7 +2,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { urls } from '../apiUrls';
-import { feedback } from 'src/app/components/models/feedback';
+import { feedback } from 'src/app/models/feedback';
 
 @Injectable({
   providedIn: 'root',

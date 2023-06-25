@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { foodType } from '../models/foodType';
-import { product } from '../models/product';
+import { foodType } from '../../models/foodType';
+import { product } from '../../models/product';
 import { EncryptDecryptService } from 'src/app/services/common/encrypt-decrypt.service';
-import { secretKey } from '../models/secretKey';
+import { secretKey } from '../../models/secretKey';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserService } from 'src/app/services/user-coupon-order/user.service';
 import { ScreenLoaderService } from 'src/app/services/common/screen-loader.service';

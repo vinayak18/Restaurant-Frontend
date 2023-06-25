@@ -1,15 +1,18 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { userDetails } from '../../models/userDetails';
 import { UserService } from 'src/app/services/user-coupon-order/user.service';
-import { userDetails } from '../models/userDetails';
+import { SnackbarService } from 'src/app/services/common/snackbar.service';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css'],
+  selector: 'app-account',
+  templateUrl: './account.component.html',
+  styleUrls: ['./account.component.css'],
 })
-export class ProfileComponent {
-  constructor(private userService: UserService) {}
+export class AccountComponent {
+  constructor(
+    private userService: UserService,
+    private snacbar: SnackbarService
+  ) {}
 
   currUser: userDetails;
   selectedFile: File;
@@ -21,11 +24,13 @@ export class ProfileComponent {
 
   ngOnInit(): void {
     this.currUser = this.userService.getCurrentUserDetails();
+    if (null !== this.currUser.blobImage) this.getImage();
   }
   //Gets called when the user selects an image
   public onFileChanged(event) {
     //Select File
     this.selectedFile = event.target.files[0];
+    this.onUpload();
   }
 
   //Gets called when the user clicks on submit to upload the image
@@ -41,11 +46,20 @@ export class ProfileComponent {
     );
 
     //Make a call to the Spring Boot Application to save the image
-    this.userService.uploadUserImage(this.currUser.userId, uploadImageData).subscribe((response) => {
-      console.log(response);
-      this.currUser = response;
-      this.message = 'Image uploaded successfully';
-    });
+    this.userService
+      .uploadUserImage(this.currUser.userId, uploadImageData)
+      .subscribe(
+        (response) => {
+          console.log(response);
+          this.currUser = response;
+          this.userService.setUserDetails(this.currUser);
+          this.snacbar.success('Image uploaded successfully', '');
+          this.getImage();
+        },
+        (error) => {
+          this.snacbar.error('Image size must not exceed 1MB', '');
+        }
+      );
   }
 
   //Gets called when the user clicks on retieve image button to get the image from back end
@@ -55,6 +69,7 @@ export class ProfileComponent {
       this.retrieveResonse = res;
       this.base64Data = this.retrieveResonse.picByte;
       this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
+      this.currUser.img_url = this.retrievedImage;
     });
   }
 }

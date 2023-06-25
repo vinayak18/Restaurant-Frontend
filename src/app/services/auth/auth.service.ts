@@ -1,12 +1,12 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { loginCredentials } from 'src/app/components/models/loginCredentials';
+import { loginCredentials } from 'src/app/models/loginCredentials';
 import { EncryptDecryptService } from '../common/encrypt-decrypt.service';
 import { catchError } from 'rxjs/operators';
-import { userDetails } from 'src/app/components/models/userDetails';
+import { userDetails } from 'src/app/models/userDetails';
 import { urls } from '../apiUrls';
-import { secretKey } from 'src/app/components/models/secretKey';
+import { secretKey } from 'src/app/models/secretKey';
 
 @Injectable({
   providedIn: 'root',

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { foodType } from '../../models/foodType';
-import { order } from '../../models/order';
-import { status } from '../../models/status';
+import { foodType } from '../../../models/foodType';
+import { order } from '../../../models/order';
+import { status } from '../../../models/status';
 import { OrderService } from 'src/app/services/user-coupon-order/order.service';
 import { UserService } from 'src/app/services/user-coupon-order/user.service';
 import { ScreenLoaderService } from 'src/app/services/common/screen-loader.service';

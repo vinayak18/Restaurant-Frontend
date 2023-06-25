@@ -13,12 +13,20 @@ import { PastOrderComponent } from './components/order/past-order/past-order.com
 import { SpecialDishesComponent } from './components/special-dishes/special-dishes.component';
 import { AuthGuard } from './guard/auth.guard';
 import { OrderConfirmationComponent } from './components/order/order-confirmation/order-confirmation.component';
-import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileComponent } from './components/account/profile/profile.component';
+import { AccountComponent } from './components/account/account.component';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
+  },
+  {
+    path: 'account',
+    loadChildren: () =>
+      import(`./components/account/account.module`).then(
+        (m) => m.AccountModule
+      ), //lazy loading
   },
   {
     path: 'home',
@@ -59,11 +67,6 @@ const routes: Routes = [
   {
     path: 'order/confirmation',
     component: OrderConfirmationComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'profile',
-    component: ProfileComponent,
     canActivate: [AuthGuard],
   },
   {

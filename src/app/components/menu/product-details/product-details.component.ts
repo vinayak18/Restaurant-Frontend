@@ -2,15 +2,15 @@ import { ReviewService } from './../../../services/product-review/review.service
 import { UserService } from 'src/app/services/user-coupon-order/user.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { foodType } from 'src/app/components/models/foodType';
-import { product } from 'src/app/components/models/product';
-import { review } from 'src/app/components/models/review';
-import { userReview } from 'src/app/components/models/userReview';
+import { foodType } from 'src/app/models/foodType';
+import { product } from 'src/app/models/product';
+import { review } from 'src/app/models/review';
+import { userReview } from 'src/app/models/userReview';
 import { ProductService } from 'src/app/services/product-review/product.service';
-import { secretKey } from '../../models/secretKey';
+import { secretKey } from '../../../models/secretKey';
 import { EncryptDecryptService } from 'src/app/services/common/encrypt-decrypt.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { userDetails } from '../../models/userDetails';
+import { userDetails } from '../../../models/userDetails';
 import { ScreenLoaderService } from 'src/app/services/common/screen-loader.service';
 
 @Component({
@@ -74,10 +74,16 @@ export class ProductDetailsComponent implements OnInit {
     this.reviewService.getReviewByPID(this.productId).subscribe((data) => {
       console.log(data);
       this.productReview = data;
-      for (let index = 0; index < this.productReview.userReview.length; index++) {
+      for (
+        let index = 0;
+        index < this.productReview.userReview.length;
+        index++
+      ) {
         if (null === this.productReview.userReview[index].img_url) {
-          let base64Data = this.productReview.userReview[index].blobImage.picByte;
-          this.productReview.userReview[index].img_url = 'data:image/jpeg;base64,' + base64Data;
+          let base64Data =
+            this.productReview.userReview[index].blobImage.picByte;
+          this.productReview.userReview[index].img_url =
+            'data:image/jpeg;base64,' + base64Data;
         }
       }
     });

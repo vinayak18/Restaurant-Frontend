@@ -4,23 +4,23 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { StepperOrientation, MatStepper } from '@angular/material/stepper';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { order } from 'src/app/components/models/order';
-import { status } from 'src/app/components/models/status';
-import { foodType } from 'src/app/components/models/foodType';
-import { address } from 'src/app/components/models/address';
-import { customerInfo } from 'src/app/components/models/customerInfo';
-import { product } from 'src/app/components/models/product';
+import { order } from 'src/app/models/order';
+import { status } from 'src/app/models/status';
+import { foodType } from 'src/app/models/foodType';
+import { address } from 'src/app/models/address';
+import { customerInfo } from 'src/app/models/customerInfo';
+import { product } from 'src/app/models/product';
 import { CouponService } from 'src/app/services/user-coupon-order/coupon.service';
-import { coupon } from '../../models/coupon';
+import { coupon } from '../../../models/coupon';
 import { SnackbarService } from 'src/app/services/common/snackbar.service';
 import { loadStripe } from '@stripe/stripe-js';
 import { environment } from 'src/environments/environment';
 import { OrderService } from 'src/app/services/user-coupon-order/order.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { userDetails } from '../../models/userDetails';
+import { userDetails } from '../../../models/userDetails';
 import { UserService } from 'src/app/services/user-coupon-order/user.service';
 import { EncryptDecryptService } from 'src/app/services/common/encrypt-decrypt.service';
-import { secretKey } from '../../models/secretKey';
+import { secretKey } from '../../../models/secretKey';
 declare var Razorpay: any;
 
 /**
@@ -145,7 +145,8 @@ export class CheckoutComponent implements OnInit {
       'Akash Sutra Lane',
       700055,
       'West Bengal',
-      'Kolkata'
+      'Kolkata',
+      false
     );
     return defaultAddress;
   }
@@ -162,7 +163,8 @@ export class CheckoutComponent implements OnInit {
         this.secondFormGroup.value.landmark,
         this.secondFormGroup.value.pincode,
         this.secondFormGroup.value.state,
-        this.secondFormGroup.value.city
+        this.secondFormGroup.value.city,
+        false
       );
     } else {
       deliveryAddress = this.setDefaultAddress();

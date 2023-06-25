@@ -11,7 +11,7 @@ import { UserService } from '../services/user-coupon-order/user.service';
 import { AuthService } from '../services/auth/auth.service';
 import { SnackbarService } from '../services/common/snackbar.service';
 import { EncryptDecryptService } from '../services/common/encrypt-decrypt.service';
-import { secretKey } from '../components/models/secretKey';
+import { secretKey } from '../models/secretKey';
 
 @Injectable({
   providedIn: 'root',

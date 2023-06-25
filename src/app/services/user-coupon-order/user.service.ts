@@ -8,10 +8,10 @@ import { EncryptDecryptService } from '../common/encrypt-decrypt.service';
 import { urls } from '../apiUrls';
 import { AuthService } from '../auth/auth.service';
 import { Observable, throwError } from 'rxjs';
-import { secretKey } from 'src/app/components/models/secretKey';
-import { product } from 'src/app/components/models/product';
-import { userDetails } from 'src/app/components/models/userDetails';
-import { blobImage } from 'src/app/components/models/blobImage';
+import { secretKey } from 'src/app/models/secretKey';
+import { product } from 'src/app/models/product';
+import { userDetails } from 'src/app/models/userDetails';
+import { blobImage } from 'src/app/models/blobImage';
 
 @Injectable({
   providedIn: 'root',

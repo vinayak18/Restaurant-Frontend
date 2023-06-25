@@ -2,10 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { EncryptDecryptService } from 'src/app/services/common/encrypt-decrypt.service';
 import { UserService } from 'src/app/services/user-coupon-order/user.service';
-import { product } from '../models/product';
-import { secretKey } from '../models/secretKey';
+import { product } from '../../models/product';
+import { secretKey } from '../../models/secretKey';
 import { ProductService } from 'src/app/services/product-review/product.service';
-import { foodType } from '../models/foodType';
+import { foodType } from '../../models/foodType';
 import { ScreenLoaderService } from 'src/app/services/common/screen-loader.service';
 
 @Component({

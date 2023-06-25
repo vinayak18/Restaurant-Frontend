@@ -9,7 +9,7 @@ import {
 } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { loginCredentials } from '../models/loginCredentials';
+import { loginCredentials } from '../../models/loginCredentials';
 import { AuthService } from '../../services/auth/auth.service';
 import {
   FacebookLoginProvider,
@@ -17,11 +17,11 @@ import {
   SocialUser,
 } from '@abacritt/angularx-social-login';
 import { Router } from '@angular/router';
-import { userDetails } from '../models/userDetails';
+import { userDetails } from '../../models/userDetails';
 import { EncryptDecryptService } from 'src/app/services/common/encrypt-decrypt.service';
-import { secretKey } from '../models/secretKey';
+import { secretKey } from '../../models/secretKey';
 import { UserService } from 'src/app/services/user-coupon-order/user.service';
-import { product } from '../models/product';
+import { product } from '../../models/product';
 import { ScreenLoaderService } from 'src/app/services/common/screen-loader.service';
 
 @Component({
@@ -186,6 +186,7 @@ export class LoginComponent implements OnInit {
       this.registerForm.get('password').value,
       '',
       null,
+      [],
       []
     );
     console.log(userObj);

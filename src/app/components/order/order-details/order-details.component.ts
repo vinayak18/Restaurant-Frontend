@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { foodType } from 'src/app/components/models/foodType';
-import { order } from 'src/app/components/models/order';
-import { product } from 'src/app/components/models/product';
+import { foodType } from 'src/app/models/foodType';
+import { order } from 'src/app/models/order';
+import { product } from 'src/app/models/product';
 import { ScreenLoaderService } from 'src/app/services/common/screen-loader.service';
 import { OrderService } from 'src/app/services/user-coupon-order/order.service';
 
