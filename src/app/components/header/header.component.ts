@@ -1,6 +1,7 @@
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { userDetails } from 'src/app/models/userDetails';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserService } from 'src/app/services/user-coupon-order/user.service';
 
@@ -12,6 +13,7 @@ import { UserService } from 'src/app/services/user-coupon-order/user.service';
 export class HeaderComponent implements OnInit {
   isLoggedIn: boolean = false;
   firstName: string = '';
+  currUser: userDetails = {} as userDetails;
   constructor(
     private authService: AuthService,
     private socialAuthService: SocialAuthService,
@@ -23,8 +25,8 @@ export class HeaderComponent implements OnInit {
     this.authService.isLoggedIn.subscribe((value) => {
       this.isLoggedIn = value;
       if (this.isLoggedIn) {
-        const currUser = this.userService.getCurrentUserDetails();
-        this.firstName = currUser.name.split(' ')[0];
+        this.currUser = this.userService.getCurrentUserDetails();
+        this.firstName = this.currUser.name.split(' ')[0];
       }
     });
   }

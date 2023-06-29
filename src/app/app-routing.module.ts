@@ -22,7 +22,7 @@ const routes: Routes = [
     component: HomeComponent,
   },
   {
-    path: 'account',
+    path: 'account/:id',
     loadChildren: () =>
       import(`./components/account/account.module`).then(
         (m) => m.AccountModule

@@ -107,7 +107,7 @@
           Hi {{ firstName }}!
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" [routerLink]="['/account']">My Account</a>
+          <a class="dropdown-item" [routerLink]="['/account/',currUser.userId]">My Account</a>
           <a class="dropdown-item">Payments</a>
           <a class="dropdown-item" (click)="logout()">Logout</a>
         </div>

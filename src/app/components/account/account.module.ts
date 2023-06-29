@@ -6,14 +6,17 @@ import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AddressComponent } from './address/address.component';
+import { PaymentComponent } from './payment/payment.component';
 
 @NgModule({
-  declarations: [AccountComponent, ProfileComponent],
+  declarations: [AccountComponent, ProfileComponent, AddressComponent, PaymentComponent],
   imports: [
     AccountRoutingModule,
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,

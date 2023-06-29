@@ -18,7 +18,7 @@
                 <img
                   [src]="this.currUser.img_url"
                   alt="avatar"
-                  class="rounded-circle img-fluid"
+                  class="circle"
                   id="imagePreview"
                 />
               </div>
@@ -31,45 +31,39 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-4">
+      <div class="col-lg-3">
         <div class="card mb-4 mb-lg-0">
           <div class="card-body p-0">
             <ul class="list-group list-group-flush rounded-3">
               <li
                 class="list-group-item d-flex justify-content-between align-items-center p-3"
+                [routerLink]="['profile']"
+                routerLinkActive="active"
               >
-                <i class="fas fa-globe fa-lg text-warning"></i>
-                <p class="mb-0" [routerLink]="['profile']">My Profile</p>
+                <i class="fas fa-user fa-lg"></i>
+                <p class="mb-0">My Profile</p>
               </li>
               <li
                 class="list-group-item d-flex justify-content-between align-items-center p-3"
+                [routerLink]="['address']"
+                routerLinkActive="active"
               >
-                <i class="fab fa-github fa-lg" style="color: #333333"></i>
-                <p class="mb-0">mdbootstrap</p>
+                <i class="fas fa-address-card fa-lg"></i>
+                <p class="mb-0">Addresses</p>
               </li>
               <li
                 class="list-group-item d-flex justify-content-between align-items-center p-3"
+                [routerLink]="['payment']"
+                routerLinkActive="active"
               >
-                <i class="fab fa-twitter fa-lg" style="color: #55acee"></i>
-                <p class="mb-0">@mdbootstrap</p>
-              </li>
-              <li
-                class="list-group-item d-flex justify-content-between align-items-center p-3"
-              >
-                <i class="fab fa-instagram fa-lg" style="color: #ac2bac"></i>
-                <p class="mb-0">mdbootstrap</p>
-              </li>
-              <li
-                class="list-group-item d-flex justify-content-between align-items-center p-3"
-              >
-                <i class="fab fa-facebook-f fa-lg" style="color: #3b5998"></i>
-                <p class="mb-0">mdbootstrap</p>
+                <i class="fas fa-credit-card fa-lg"></i>
+                <p class="mb-0">Payments</p>
               </li>
             </ul>
           </div>
         </div>
       </div>
-      <div class="col-lg-8">
+      <div class="col-lg-9">
         <router-outlet></router-outlet>
       </div>
     </div>
