@@ -86,6 +86,7 @@ export class CheckoutComponent implements OnInit {
       state: ['', Validators.required],
       pincode: ['', Validators.required],
     });
+    this.setDeliveryAddress();
     this.orderSummary = {
       orderId: null,
       userId: null,
@@ -118,6 +119,26 @@ export class CheckoutComponent implements OnInit {
     this.specialDishList = this.orderSummary.orderDetails.filter(
       (value) => value.type === foodType.SPECIAL_DISH
     );
+  }
+  setDeliveryAddress() {
+    if (0 !== this.currUser.address.length) {
+      for (let address of this.currUser.address) {
+        if (address.active) {
+          this.secondFormGroup.setValue({
+            deliveryType: 'Delivery',
+            streetAddress: address.streetAddress,
+            flatNo: address.flatNo,
+            landmark: address.landmark,
+            pincode: address.pincode,
+            state: address.state,
+            city: address.city,
+          });
+          break;
+        }
+      }
+    }
+    console.log('x');
+    console.log(this.secondFormGroup);
   }
   toggleDeliverySwitch(deliveryType: string) {
     if (deliveryType === 'Pick-Up') {

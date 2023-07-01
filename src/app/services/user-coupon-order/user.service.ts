@@ -53,7 +53,10 @@ export class UserService {
     }
     return currUser;
   }
-
+  updateUser(user: userDetails): Observable<userDetails> {
+    const url = urls.userUrls.updateUser;
+    return this.http.put<userDetails>(url, user);
+  }
   setUserDetails(user: userDetails): void {
     sessionStorage.setItem(
       this.encrypt_decrypt.encryption('UserDetails', secretKey),

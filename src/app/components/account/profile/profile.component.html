@@ -26,11 +26,10 @@
         <input
           type="text"
           class="form-control"
-          value="{{
-            '0' != currUser.phoneNo ? '(+91) ' + currUser.phoneNo : ''
-          }}"
+          value="{{ '0' != currUser.phoneNo ? currUser.phoneNo : '' }}"
           placeholder="please add your phone number"
           [disabled]="!isEditable"
+          #phoneNo
         />
       </div>
     </div>
@@ -40,18 +39,25 @@
         <p class="mb-0">Address</p>
       </div>
       <div class="col-sm-9">
-        <mat-form-field class="form-control" [ngClass]="{'readonly-wrapper': !isEditable}">
+        <mat-form-field
+          class="form-control"
+          [ngClass]="{ 'readonly-wrapper': !isEditable }"
+        >
           <mat-label>Primary Address</mat-label>
           <mat-select
             [(ngModel)]="primaryAddress"
-            [ngClass]="{'readonly-block': !isEditable}"
+            [ngClass]="{ 'readonly-block': !isEditable }"
             name="primaryAddress"
             disableOptionCentering
             [disabled]="!isEditable"
           >
-          <mat-option *ngIf="currUser.address.length===0" value="No Address Available" disabled="true">
-            No Address Available
-          </mat-option>
+            <mat-option
+              *ngIf="currUser.address.length === 0"
+              value="No Address Available"
+              disabled="true"
+            >
+              No Address Available
+            </mat-option>
             <mat-option
               *ngFor="let address of currUser.address"
               [value]="address"

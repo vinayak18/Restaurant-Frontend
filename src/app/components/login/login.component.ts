@@ -184,7 +184,7 @@ export class LoginComponent implements OnInit {
       this.registerForm.get('email').value,
       this.registerForm.get('phoneNo').value,
       this.registerForm.get('password').value,
-      '',
+      '../../../assets/img/user.jpeg',
       null,
       [],
       []

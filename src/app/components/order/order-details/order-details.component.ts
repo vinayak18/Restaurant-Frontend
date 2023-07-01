@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { foodType } from 'src/app/models/foodType';
 import { order } from 'src/app/models/order';
 import { product } from 'src/app/models/product';
@@ -25,7 +25,8 @@ export class OrderDetailsComponent implements OnInit {
   constructor(
     private orderService: OrderService,
     private activeRoute: ActivatedRoute,
-    private loader: ScreenLoaderService
+    private loader: ScreenLoaderService,
+    private router: Router
   ) {
     this.orderId = this.activeRoute.snapshot.params['orderId'];
     console.log(this.orderId);
@@ -51,5 +52,13 @@ export class OrderDetailsComponent implements OnInit {
         (value) => value.type === foodType.SPECIAL_DISH
       );
     });
+  }
+
+  backToPrevPage() {
+    if (this.activeRoute.snapshot.routeConfig.path.includes('/past/')) {
+      this.router.navigateByUrl('/order/past');
+    } else {
+      this.router.navigateByUrl('/order/active');
+    }
   }
 }

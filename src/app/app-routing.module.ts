@@ -60,7 +60,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'order/details/:orderId',
+    path: 'order/active/details/:orderId',
+    component: OrderDetailsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'order/past/details/:orderId',
     component: OrderDetailsComponent,
     canActivate: [AuthGuard],
   },

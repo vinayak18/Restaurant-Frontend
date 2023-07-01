@@ -12,6 +12,7 @@ export const urls = {
     byEmail: `${userserviceUrl}/verify/user/email/{email}`,
     byId: `${userserviceUrl}/verify/user/id/{id}`,
     uploadImage: `${userserviceUrl}/verify/user/upload/image/{userId}`,
+    updateUser: `${userserviceUrl}/verify/update/user`,
     getImage: `${userserviceUrl}/verify/user/get/image`,
     addToCart: `${userserviceUrl}/verify/user/update/cart/{email}`,
     initiateStripePayment: `${userserviceUrl}/verify/order/stripe/initialize`,
