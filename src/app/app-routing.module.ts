@@ -15,6 +15,8 @@ import { AuthGuard } from './guard/auth.guard';
 import { OrderConfirmationComponent } from './components/order/order-confirmation/order-confirmation.component';
 import { ProfileComponent } from './components/account/profile/profile.component';
 import { AccountComponent } from './components/account/account.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { ForgetPasswordComponent } from './components/login/forget-password/forget-password.component';
 
 const routes: Routes = [
   {
@@ -85,6 +87,14 @@ const routes: Routes = [
   {
     path: 'menu/product/:productId',
     component: ProductDetailsComponent,
+  },
+  {
+    path: 'change-password',
+    component: ChangePasswordComponent,
+  },
+  {
+    path: 'forget-password',
+    component: ForgetPasswordComponent,
   },
   {
     path: '**',

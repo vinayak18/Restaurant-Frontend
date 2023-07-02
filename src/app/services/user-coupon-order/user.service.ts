@@ -57,6 +57,11 @@ export class UserService {
     const url = urls.userUrls.updateUser;
     return this.http.put<userDetails>(url, user);
   }
+  resetPassword(resetPwdObj: any) {
+    const url = urls.userUrls.resetPassword;
+    console.log(resetPwdObj);
+    return this.http.put(url, resetPwdObj);
+  }
   setUserDetails(user: userDetails): void {
     sessionStorage.setItem(
       this.encrypt_decrypt.encryption('UserDetails', secretKey),

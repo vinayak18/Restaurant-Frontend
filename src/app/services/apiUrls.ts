@@ -1,6 +1,7 @@
 const productserviceUrl = '/productserviceurl/api/v1';
 const userserviceUrl = '/userserviceurl/api/v1';
 const feedbackserviceUrl = '/feedbackserviceurl/api/v1';
+const messageserviceUrl = './messageserviceurl/api/v1';
 
 /* eslint-disable import/prefer-default-export */
 export const urls = {
@@ -23,6 +24,7 @@ export const urls = {
     updateOrderRating: `${userserviceUrl}/verify/order/{id}/update/rating/{rating}`,
     updateOrderStatus: `${userserviceUrl}/verify/order/{id}/update/status/{status}`,
     addNewOrder: `${userserviceUrl}/verify/order/add`,
+    resetPassword: `${userserviceUrl}/public/user/reset/password`,
   },
   productUrls: {
     all: `${productserviceUrl}/product/all`,
@@ -46,5 +48,9 @@ export const urls = {
   feedbackUrls: {
     add: `${feedbackserviceUrl}/feedback/add`,
     testimony: `${feedbackserviceUrl}/customer/testimony`,
+  },
+  messageUrls: {
+    forget: `${messageserviceUrl}/auth/user/forgetpassword`,
+    validate: `${messageserviceUrl}/auth/user/validate/{email}/otp/{otp}`,
   },
 };
