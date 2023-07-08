@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UrlTree } from '@angular/router';
+import { Observable } from 'rxjs';
+import { CanComponentDeactivate } from 'src/app/guard/de-active.guard';
 import { address } from 'src/app/models/address';
 import { userDetails } from 'src/app/models/userDetails';
 import { SnackbarService } from 'src/app/services/common/snackbar.service';
@@ -10,11 +13,12 @@ import { UserService } from 'src/app/services/user-coupon-order/user.service';
   templateUrl: './address.component.html',
   styleUrls: ['./address.component.css'],
 })
-export class AddressComponent {
+export class AddressComponent implements OnInit, CanComponentDeactivate {
   isEditable: boolean = false;
   addressFormGroup: FormGroup;
   currUser: userDetails;
   presentAddress: address;
+  currentAddress: address;
   presentIndex: number;
   msg: string;
   constructor(
@@ -22,6 +26,29 @@ export class AddressComponent {
     private snackbar: SnackbarService,
     private formBuilder: FormBuilder
   ) {}
+  canDeactivate():
+    | boolean
+    | UrlTree
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree> {
+    console.log(this.currentAddress);
+    console.log(this.presentAddress);
+    if (
+      undefined !== this.currentAddress &&
+      undefined !== this.presentAddress &&
+      (this.currentAddress.streetAddress !==
+        this.presentAddress.streetAddress ||
+        this.currentAddress.flatNo !== this.presentAddress.flatNo ||
+        this.currentAddress.landmark !== this.presentAddress.landmark ||
+        this.currentAddress.pincode !== this.presentAddress.pincode ||
+        this.currentAddress.state !== this.presentAddress.state ||
+        this.currentAddress.city !== this.presentAddress.city)
+    ) {
+      return confirm('Do you want to discard the changes?');
+    } else {
+      return true;
+    }
+  }
 
   ngOnInit(): void {
     this.presentIndex = -1;
@@ -39,6 +66,7 @@ export class AddressComponent {
     this.userService.updateUser(this.currUser).subscribe(
       (data: userDetails) => {
         this.userService.setUserDetails(data);
+        this.currentAddress = this.presentAddress;
         this.snackbar.success(this.msg, '');
       },
       (error) => {
@@ -46,9 +74,26 @@ export class AddressComponent {
       }
     );
   }
-  editAddressDetails(address: address, id: number) {
+  editAddressDetails(addressDetails: address, id: number) {
     if (!this.isEditable) this.isEditable = !this.isEditable;
-    this.presentAddress = address;
+    this.presentAddress = new address(
+      addressDetails.streetAddress,
+      addressDetails.flatNo,
+      addressDetails.landmark,
+      addressDetails.pincode,
+      addressDetails.state,
+      addressDetails.city,
+      addressDetails.active
+    );
+    this.currentAddress = new address(
+      addressDetails.streetAddress,
+      addressDetails.flatNo,
+      addressDetails.landmark,
+      addressDetails.pincode,
+      addressDetails.state,
+      addressDetails.city,
+      addressDetails.active
+    );
     this.presentIndex = id;
     console.log(this.presentAddress);
   }
@@ -77,11 +122,13 @@ export class AddressComponent {
   addNewAddress() {
     if (!this.isEditable) this.isEditable = !this.isEditable;
     this.presentAddress = new address('', '', '', null, '', '', false);
+    this.currentAddress = new address('', '', '', null, '', '', false);
     this.presentIndex = -1;
   }
 
   cancel() {
     this.presentAddress = new address('', '', '', null, '', '', false);
+    this.currentAddress = new address('', '', '', null, '', '', false);
     this.isEditable = !this.isEditable;
     this.presentIndex = -1;
   }

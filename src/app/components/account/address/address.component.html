@@ -104,6 +104,11 @@
         </div>
       </div>
       <div class="col-12">
+        <ul class="list-group mt-2">
+          <li class="list-group-item" *ngIf="currUser.address.length === 0">
+            No Address Available
+          </li>
+        </ul>
         <ul
           class="list-group mt-2"
           *ngFor="let address of currUser.address; let id = index"

@@ -122,20 +122,19 @@ export class CheckoutComponent implements OnInit {
   }
   setDeliveryAddress() {
     if (0 !== this.currUser.address.length) {
-      for (let address of this.currUser.address) {
-        if (address.active) {
-          this.secondFormGroup.setValue({
-            deliveryType: 'Delivery',
-            streetAddress: address.streetAddress,
-            flatNo: address.flatNo,
-            landmark: address.landmark,
-            pincode: address.pincode,
-            state: address.state,
-            city: address.city,
-          });
-          break;
-        }
-      }
+      let activeAddress: address = this.currUser.address.filter(
+        (value) => value.active
+      )[0];
+
+      this.secondFormGroup.setValue({
+        deliveryType: 'Delivery',
+        streetAddress: activeAddress.streetAddress,
+        flatNo: activeAddress.flatNo,
+        landmark: activeAddress.landmark,
+        pincode: activeAddress.pincode,
+        state: activeAddress.state,
+        city: activeAddress.city,
+      });
     }
     console.log('x');
     console.log(this.secondFormGroup);
@@ -310,9 +309,9 @@ export class CheckoutComponent implements OnInit {
         options.key = data.secretId;
         options.order_id = data.razorpayOrderId;
         options.amount = data.applicationFee; //paise
-        options.prefill.name = 'SMN';
-        options.prefill.email = 'smn@gmail.com';
-        options.prefill.contact = '7980581501';
+        options.prefill.name = this.orderSummary.customerInfo.name;
+        options.prefill.email = this.orderSummary.customerInfo.email;
+        options.prefill.contact = '' + this.orderSummary.customerInfo.phoneNo;
 
         var rzp = new Razorpay(options);
         rzp.open();

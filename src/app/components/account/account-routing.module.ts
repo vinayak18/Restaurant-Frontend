@@ -5,6 +5,7 @@ import { AccountComponent } from './account.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AddressComponent } from './address/address.component';
 import { PaymentComponent } from './payment/payment.component';
+import { DeActiveGuard } from 'src/app/guard/de-active.guard';
 const routes: Routes = [
   {
     path: '',
@@ -23,6 +24,7 @@ const routes: Routes = [
       {
         path: 'address',
         component: AddressComponent,
+        canDeactivate: [DeActiveGuard],
       },
       {
         path: 'payment',
