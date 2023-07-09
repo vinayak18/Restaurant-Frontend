@@ -187,7 +187,8 @@ export class LoginComponent implements OnInit {
       '../../../assets/img/user.jpeg',
       null,
       [],
-      []
+      [],
+      ['ROLE_USER']
     );
     console.log(userObj);
     this.authService.registerUser(userObj).subscribe((data) => {

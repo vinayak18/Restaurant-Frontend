@@ -12,6 +12,7 @@ export class userDetails {
   blobImage: blobImage;
   cart: product[];
   address: address[];
+  role: string[];
   constructor(
     $userId: string,
     $name: string,
@@ -21,7 +22,8 @@ export class userDetails {
     $img_url: string,
     $blobImage: blobImage,
     $cart: product[],
-    $address: address[]
+    $address: address[],
+    $role: string[]
   ) {
     this.userId = $userId;
     this.name = $name;
@@ -32,5 +34,6 @@ export class userDetails {
     this.blobImage = $blobImage;
     this.cart = $cart;
     this.address = $address;
+    this.role = $role;
   }
 }
