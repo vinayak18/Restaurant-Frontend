@@ -17,6 +17,7 @@ export class order {
   customerInfo: customerInfo;
   status: status;
   paymentType: string;
+  paymentId: string;
   rating: number;
   constructor(
     $orderId: string,
@@ -32,6 +33,7 @@ export class order {
     $customerInfo: customerInfo,
     $status: status,
     $paymentType: string,
+    $paymentId: string,
     $rating: number
   ) {
     this.orderId = $orderId;
@@ -47,6 +49,7 @@ export class order {
     this.customerInfo = $customerInfo;
     this.status = $status;
     this.paymentType = $paymentType;
+    this.paymentId = $paymentId;
     this.rating = $rating;
   }
 }

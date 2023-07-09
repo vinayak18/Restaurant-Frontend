@@ -105,6 +105,7 @@ export class CheckoutComponent implements OnInit {
       customerInfo: null,
       status: status.PLACED,
       paymentType: 'UPI',
+      paymentId: null,
       rating: 0,
     };
     this.breakfastList = this.orderSummary.orderDetails.filter(
@@ -170,12 +171,12 @@ export class CheckoutComponent implements OnInit {
     );
     return defaultAddress;
   }
-  updateAddress() {
+  updateAddress(): Promise<any> {
     if (this.secondFormGroup.valid) {
       this.deliverySwitch = false;
     }
     this.orderSummary.deliveryType = this.secondFormGroup.value.deliveryType;
-    let deliveryAddress = null;
+    let deliveryAddress: address = null;
     if (this.orderSummary.deliveryType === 'Delivery') {
       deliveryAddress = new address(
         this.secondFormGroup.value.streetAddress,
@@ -190,16 +191,46 @@ export class CheckoutComponent implements OnInit {
       deliveryAddress = this.setDefaultAddress();
     }
     this.orderSummary.customerInfo.deliveryAddress = deliveryAddress;
-    console.log(this.orderSummary);
+    return new Promise((resolve, reject) => {
+      if (this.orderSummary.deliveryType === 'Delivery') {
+        let matrixObject = {
+          source:
+            '207, Bangur Avenue, Block - B, Akash Sutra Lane, Kolkata - 700055, West Bengal.',
+          destination: this.orderSummary.customerInfo.getAddress(),
+        };
+        console.log(matrixObject);
+        this.orderService
+          .calculateDistanceMatrix(matrixObject)
+          .subscribe((data) => {
+            console.log(data);
+            let element = data.rows[0].elements[0];
+            this.calulateDeliveryFee(element.distance.value);
+            resolve(true);
+          });
+      }
+      else{
+        resolve(true);
+      }
+    });
   }
-  selectionChange(event: any) {
+  calulateDeliveryFee(distance) {
+    distance = Math.ceil(distance / 1000);
+    if (distance <= 2) {
+      this.orderSummary.deliveryFee = 50;
+    } else if (distance > 2 && distance <= 7) {
+      this.orderSummary.deliveryFee = 50 + (distance - 2) * 15;
+    } else {
+      this.orderSummary.deliveryFee = 125 + (distance - 7) * 20;
+    }
+  }
+  async selectionChange(event: any) {
     if (event.selectedIndex == 1) {
       if (this.secondFormGroup.value.deliveryType === 'Delivery') {
         this.deliverySwitch = true;
       }
       this.updatePersonalInfo();
     } else if (event.selectedIndex == 2) {
-      this.updateAddress();
+      await this.updateAddress();
       this.getTotalAmount();
     }
     if (event.selectedIndex != 1 && this.secondFormGroup.valid) {
@@ -261,6 +292,11 @@ export class CheckoutComponent implements OnInit {
     this.orderService.initiateStripePayment(payment).subscribe((data: any) => {
       // I use stripe to redirect To Checkout page of Stripe platform
       console.log(data);
+      this.orderSummary.paymentId = data.id;
+      sessionStorage.setItem(
+        this.encrypt.encryption('Order Summary', secretKey),
+        this.encrypt.encryption(JSON.stringify(this.orderSummary), secretKey)
+      );
       stripe.redirectToCheckout({
         sessionId: data.id,
       });
@@ -337,8 +373,12 @@ export class CheckoutComponent implements OnInit {
 
   @HostListener('window:payment.success', ['$event'])
   onPaymentSuccess(event): void {
-    console.log('x');
     console.log(event.detail);
+    this.orderSummary.paymentId = event.detail.razorpay_payment_id;
+    sessionStorage.setItem(
+      this.encrypt.encryption('Order Summary', secretKey),
+      this.encrypt.encryption(JSON.stringify(this.orderSummary), secretKey)
+    );
     this.router.navigateByUrl('/order/confirmation');
   }
   async placeOrder() {

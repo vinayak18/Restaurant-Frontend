@@ -53,4 +53,9 @@ export class OrderService {
     const url = urls.userUrls.addNewOrder;
     return this.http.post(url, order);
   }
+
+  calculateDistanceMatrix(distanceMatrix: any): Observable<any> {
+    const url = urls.userUrls.calculateDistance;
+    return this.http.post(url, distanceMatrix);
+  }
 }

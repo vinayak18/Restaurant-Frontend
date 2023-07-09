@@ -24,6 +24,7 @@ export const urls = {
     updateOrderRating: `${userserviceUrl}/verify/order/{id}/update/rating/{rating}`,
     updateOrderStatus: `${userserviceUrl}/verify/order/{id}/update/status/{status}`,
     addNewOrder: `${userserviceUrl}/verify/order/add`,
+    calculateDistance: `${userserviceUrl}/verify/order/calculate/distance`,
     resetPassword: `${userserviceUrl}/public/user/reset/password`,
   },
   productUrls: {
