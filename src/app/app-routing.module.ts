@@ -21,7 +21,8 @@ import { ForgetPasswordComponent } from './components/login/forget-password/forg
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
+    redirectTo: 'login',
+    pathMatch: 'full'
   },
   {
     path: 'account/:id',
