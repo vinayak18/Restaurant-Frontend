@@ -62,28 +62,22 @@
           </p>
         </div>
         <hr style="height: 5px; color: black" />
-        <section>
+        <div class="row">
+          <div class="ml-2" style="width: 44%;">
           <asl-google-signin-button
-            style="width: 500px;"
             type="standard"
             size="medium"
             text="signin_with"
           ></asl-google-signin-button>
-        </section>
-        <section class="mt-1">
-          <button
-            class="btn text-left"
-            style="background-color: #3b5998; color: white"
-            width="400"
-            type="standard"
-            size="medium"
-            text="signin_with"
-            (click)="signInWithFacebook()"
-          >
-            <i class="bx bxl-facebook-circle" style="margin-left: 2.5%"></i>
-            <span style="margin-left: 28%">Sign in with Facebook</span>
-          </button>
-        </section>
+          </div>
+          <div class="ml-2 col-6">
+            <button class="btn text-left" style="background-color: #3b5998; color: white; height: 32px;" width="180" type="standard" size="medium"
+              text="signin_with" (click)="signInWithFacebook()">
+              <i class="bx bxl-facebook-circle" style="margin-left: 2.5%"></i>
+              <span style="margin-left: 4%">Sign in with Facebook</span>
+            </button>
+          </div>
+        </div>
         <!-- <section class="row">
           <div class="col-6">
             <cool-google-button color="dark">
@@ -149,33 +143,25 @@
           </p>
         </div>
         <hr style="height: 5px; color: black" />
-        <section>
+        <div class="row">
+          <div class="ml-2" style="width: 44%;">
+            <asl-google-signin-button type="standard" size="medium" text="signup_with"></asl-google-signin-button>
+          </div>
+          <div class="ml-2 col-6">
+            <button class="btn text-left" style="background-color: #3b5998; color: white; height: 32px;" width="180"
+              type="standard" size="medium" text="signin_with" (click)="signInWithFacebook()">
+              <i class="bx bxl-facebook-circle" style="margin-left: 2.5%"></i>
+              <span style="margin-left: 4%">Sign up with Facebook</span>
+            </button>
+          </div>
+        </div>
           <!-- <cool-google-button color="dark" (click)="signInWithGoogle()">
               Login with Google
             </cool-google-button> -->
-          <asl-google-signin-button
-            type="standard"
-            size="medium"
-            text="signup_with"
-          ></asl-google-signin-button>
+          
           <!-- <cool-facebook-button color="dark" (click)="signInWithFacebook()">
               Login with Facebook
             </cool-facebook-button> -->
-        </section>
-        <section class="mt-1">
-          <button
-            class="btn text-left"
-            style="background-color: #3b5998; color: white"
-            width="400"
-            type="standard"
-            size="medium"
-            text="signup_with"
-            (click)="signInWithFacebook()"
-          >
-            <i class="bx bxl-facebook-circle" style="margin-left: 2.5%"></i>
-            <span style="margin-left: 28%">Sign up with Facebook</span>
-          </button>
-        </section>
       </form>
     </div>
   </div>
