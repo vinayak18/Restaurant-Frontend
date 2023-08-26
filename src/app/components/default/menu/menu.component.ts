@@ -15,6 +15,7 @@ import { ScreenLoaderService } from 'src/app/services/common/screen-loader.servi
 import { product } from 'src/app/models/product';
 import { foodType } from 'src/app/models/foodType';
 import { secretKey } from 'src/app/models/secretKey';
+import { CartItemsInfo } from 'src/app/models/cartItemsInfo';
 
 @Component({
   selector: 'app-menu',
@@ -46,7 +47,7 @@ export class MenuComponent implements OnInit {
     private userService: UserService,
     private encrypt_decrypt: EncryptDecryptService,
     private loader: ScreenLoaderService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loader.isLoading.subscribe((data) => {
@@ -62,13 +63,13 @@ export class MenuComponent implements OnInit {
       this.allProducts = data;
       console.log(data);
       this.breakfastList = this.allProducts.filter(
-        (value) => value.type === foodType.BREAKFAST
+        (value) => value.type === foodType.BREAKFAST && value.live
       );
       this.lunchList = this.allProducts.filter(
-        (value) => value.type === foodType.LUNCH
+        (value) => value.type === foodType.LUNCH && value.live
       );
       this.dinnerList = this.allProducts.filter(
-        (value) => value.type === foodType.DINNER
+        (value) => value.type === foodType.DINNER && value.live
       );
     });
   }
@@ -83,7 +84,7 @@ export class MenuComponent implements OnInit {
   }
   addToCart(item: product) {
     // let currentProduct: product = JSON.parse(JSON.stringify(item));
-    let cart: product[] = [];
+    let cart: CartItemsInfo[] = [];
     let data = sessionStorage.getItem(
       this.encrypt_decrypt.encryption('Cart', secretKey)
     );
@@ -96,7 +97,8 @@ export class MenuComponent implements OnInit {
         return;
       }
     }
-    cart.push(item);
+    cart.push({ pid: item.pid, quantity: item.quantity });
+    // console.log(this.encrypt_decrypt.encryption(JSON.stringify(cart), secretKey));
     sessionStorage.setItem(
       this.encrypt_decrypt.encryption('Cart', secretKey),
       this.encrypt_decrypt.encryption(JSON.stringify(cart), secretKey)

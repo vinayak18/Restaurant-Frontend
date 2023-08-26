@@ -12,6 +12,7 @@ import { secretKey } from 'src/app/models/secretKey';
 import { product } from 'src/app/models/product';
 import { userDetails } from 'src/app/models/userDetails';
 import { blobImage } from 'src/app/models/blobImage';
+import { CartItemsInfo } from 'src/app/models/cartItemsInfo';
 
 @Injectable({
   providedIn: 'root',
@@ -70,7 +71,7 @@ export class UserService {
     console.log(this.getCurrentUserDetails());
   }
 
-  addToCartProducts(email: string, items: product[]): Observable<any> {
+  addToCartProducts(email: string, items: CartItemsInfo[]): Observable<any> {
     const url = urls.userUrls.addToCart.replace('{email}', '' + email);
     let isLoggedIn = false;
     this.auth.isLoggedIn.subscribe((data) => {

@@ -23,6 +23,8 @@ import { loginCredentials } from 'src/app/models/loginCredentials';
 import { userDetails } from 'src/app/models/userDetails';
 import { product } from 'src/app/models/product';
 import { secretKey } from 'src/app/models/secretKey';
+import { CartItemsInfo } from 'src/app/models/cartItemsInfo';
+import { ProductService } from 'src/app/services/product-review/product.service';
 
 @Component({
   selector: 'app-login',
@@ -48,11 +50,12 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private userService: UserService,
+    private productService: ProductService,
     private socialAuthService: SocialAuthService,
     private encrypt_decrypt: EncryptDecryptService,
     private router: Router,
     private loader: ScreenLoaderService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loader.isLoading.subscribe((data) => {
@@ -158,17 +161,19 @@ export class LoginComponent implements OnInit {
   }
 
   checkCartItems(user: userDetails) {
-    let cartItems: product[] = [];
+    let cartItemsInfo: CartItemsInfo[] = [];
     let data = sessionStorage.getItem(
       this.encrypt_decrypt.encryption('Cart', secretKey)
     );
     if (data !== null && data !== undefined) {
-      cartItems = JSON.parse(this.encrypt_decrypt.decryption(data, secretKey));
+      cartItemsInfo = JSON.parse(this.encrypt_decrypt.decryption(data, secretKey));
+
       this.userService
-        .addToCartProducts(user.userId, cartItems)
+        .addToCartProducts(user.userId, cartItemsInfo)
         .subscribe((user) => {
           this.userService.setUserDetails(user.body);
         });
+
     } else {
       sessionStorage.setItem(
         this.encrypt_decrypt.encryption('Cart', secretKey),

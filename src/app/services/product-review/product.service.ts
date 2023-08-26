@@ -3,11 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { urls } from 'src/app/services/apiUrls';
 import { product } from 'src/app/models/product';
+import { CartItemsInfo } from 'src/app/models/cartItemsInfo';
 @Injectable({
   providedIn: 'root',
 })
 export class ProductService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   //product service apis
   getBestSellers(pid: number): Observable<product[]> {
@@ -31,5 +32,10 @@ export class ProductService {
       '' + foodType
     );
     return this.http.get<product[]>(url);
+  }
+
+  getMultiProductById(cartItemsInfo: CartItemsInfo[]): Observable<product[]> {
+    const url = urls.productUrls.multipleProducts;
+    return this.http.post<product[]>(url, cartItemsInfo);
   }
 }

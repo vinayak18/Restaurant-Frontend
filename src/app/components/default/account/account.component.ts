@@ -12,7 +12,7 @@ export class AccountComponent {
   constructor(
     private userService: UserService,
     private snacbar: SnackbarService
-  ) {}
+  ) { }
 
   currUser: userDetails;
   selectedFile: File;

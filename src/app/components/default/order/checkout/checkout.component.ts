@@ -21,6 +21,7 @@ import { EncryptDecryptService } from 'src/app/services/common/encrypt-decrypt.s
 import { userDetails } from 'src/app/models/userDetails';
 import { coupon } from 'src/app/models/coupon';
 import { secretKey } from 'src/app/models/secretKey';
+import { ProductService } from 'src/app/services/product-review/product.service';
 declare var Razorpay: any;
 
 /**
@@ -56,6 +57,7 @@ export class CheckoutComponent implements OnInit {
     private orderService: OrderService,
     private snackbarService: SnackbarService,
     private userService: UserService,
+    private productService: ProductService,
     private encrypt: EncryptDecryptService,
     private router: Router
   ) {
@@ -91,7 +93,7 @@ export class CheckoutComponent implements OnInit {
       orderId: null,
       userId: null,
       dateOfOrder: null,
-      orderDetails: this.currUser.cart,
+      orderDetails: null,
       actualAmount: 0,
       tax: 0,
       deliveryFee: 0,
@@ -108,18 +110,22 @@ export class CheckoutComponent implements OnInit {
       paymentId: null,
       rating: 0,
     };
-    this.breakfastList = this.orderSummary.orderDetails.filter(
-      (value) => value.type === foodType.BREAKFAST
-    );
-    this.lunchList = this.orderSummary.orderDetails.filter(
-      (value) => value.type === foodType.LUNCH
-    );
-    this.dinnerList = this.orderSummary.orderDetails.filter(
-      (value) => value.type === foodType.DINNER
-    );
-    this.specialDishList = this.orderSummary.orderDetails.filter(
-      (value) => value.type === foodType.SPECIAL_DISH
-    );
+    this.productService.getMultiProductById(this.currUser.cart).subscribe((data) => {
+      this.orderSummary.orderDetails = data;
+      this.breakfastList = this.orderSummary.orderDetails.filter(
+        (value) => value.type === foodType.BREAKFAST
+      );
+      this.lunchList = this.orderSummary.orderDetails.filter(
+        (value) => value.type === foodType.LUNCH
+      );
+      this.dinnerList = this.orderSummary.orderDetails.filter(
+        (value) => value.type === foodType.DINNER
+      );
+      this.specialDishList = this.orderSummary.orderDetails.filter(
+        (value) => value.type === foodType.SPECIAL_DISH
+      );
+    });
+
   }
   setDeliveryAddress() {
     if (0 !== this.currUser.address.length) {
@@ -208,7 +214,7 @@ export class CheckoutComponent implements OnInit {
             resolve(true);
           });
       }
-      else{
+      else {
         resolve(true);
       }
     });

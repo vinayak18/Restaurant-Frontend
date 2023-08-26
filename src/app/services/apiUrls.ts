@@ -32,6 +32,7 @@ export const urls = {
     byId: `${productserviceUrl}/product/{pid}`,
     byFoodType: `${productserviceUrl}/product/type/{foodtype}`,
     bestseller: `${productserviceUrl}/product/bestseller/{pid}`,
+    multipleProducts: `${productserviceUrl}/product/multiple`,
     // add: `${productserviceUrl}/verify/product/add`,
     // update: `${productserviceUrl}/verify/product/update`,
     // delete: `${productserviceUrl}/verify/product/delete/{pid}`,

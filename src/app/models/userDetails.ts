@@ -1,6 +1,6 @@
 import { address } from './address';
 import { blobImage } from './blobImage';
-import { product } from './product';
+import { CartItemsInfo } from './cartItemsInfo';
 
 export class userDetails {
   userId: string;
@@ -10,7 +10,7 @@ export class userDetails {
   password: string;
   img_url: string;
   blobImage: blobImage;
-  cart: product[];
+  cart: CartItemsInfo[];
   address: address[];
   role: string[];
   constructor(
@@ -21,7 +21,7 @@ export class userDetails {
     $password: string,
     $img_url: string,
     $blobImage: blobImage,
-    $cart: product[],
+    $cart: CartItemsInfo[],
     $address: address[],
     $role: string[]
   ) {
