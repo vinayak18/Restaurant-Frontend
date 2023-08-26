@@ -1,6 +1,6 @@
 import { UserService } from 'src/app/services/user-coupon-order/user.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { foodType } from 'src/app/models/foodType';
 import { product } from 'src/app/models/product';
 import { review } from 'src/app/models/review';
@@ -44,7 +44,7 @@ export class ProductDetailsComponent implements OnInit {
     private encrypt_decrypt: EncryptDecryptService,
     private loader: ScreenLoaderService
   ) {
-    this.productId = this.activeRoute.snapshot.params['productId'];
+    
     console.log(this.productId);
   }
   ngOnInit(): void {
@@ -55,9 +55,12 @@ export class ProductDetailsComponent implements OnInit {
     this.authService.isLoggedIn.subscribe((data) => {
       this.isLoggedIn = data;
     });
-    this.getProductById();
-    this.getBestSellers();
-    this.getReviewByPID();
+    this.activeRoute.params.subscribe((val: Params) => {
+      this.productId = val['productId'];
+      this.getProductById();
+      this.getBestSellers();
+      this.getReviewByPID();
+    });
   }
   getProductById() {
     this.productService.getProductById(this.productId).subscribe((data) => {
