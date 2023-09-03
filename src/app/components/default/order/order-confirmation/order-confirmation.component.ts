@@ -55,9 +55,9 @@ export class OrderConfirmationComponent implements OnInit {
     let currUser = this.userService.getCurrentUserDetails();
     currUser.cart = [];
     this.userService
-      .addToCartProducts(currUser.userId, currUser.cart)
+      .updateUser(currUser)
       .subscribe((user) => {
-        this.userService.setUserDetails(user.body);
+        this.userService.setUserDetails(user);
       });
     sessionStorage.removeItem(
       this.encrypt_decrypt.encryption('Cart', secretKey)

@@ -124,6 +124,9 @@ export class CheckoutComponent implements OnInit {
       this.specialDishList = this.orderSummary.orderDetails.filter(
         (value) => value.type === foodType.SPECIAL_DISH
       );
+      for(let product of this.orderSummary.orderDetails){
+        product.img_url = null;
+      }
     });
 
   }
