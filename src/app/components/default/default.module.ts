@@ -152,4 +152,4 @@ const fbLoginOptions = {
     },
   ]
 })
-export class DefaultModule {}
+export class DefaultModule { }
