@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
     private socialAuthService: SocialAuthService,
     private router: Router,
     private userService: UserService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.authService.isLoggedIn.subscribe((value) => {
@@ -34,7 +34,11 @@ export class HeaderComponent implements OnInit {
   async logout(): Promise<void> {
     // For app-user sign out logic we have used try-catch to prevent getting error from social-login-user sign out
     try {
-      await this.socialAuthService.signOut(true);
+      await this.socialAuthService.signOut().then(() => {
+        console.log('User signed out');
+      }).catch((error) => {
+        console.log('Error occured in sign out');
+      });
     } catch (error) {
       console.log(error);
     }

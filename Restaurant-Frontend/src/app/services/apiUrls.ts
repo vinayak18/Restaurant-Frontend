@@ -1,7 +1,7 @@
-const productserviceUrl = '/productserviceurl/api/v1';
-const userserviceUrl = '/userserviceurl/api/v1';
-const feedbackserviceUrl = '/feedbackserviceurl/api/v1';
-const messageserviceUrl = './messageserviceurl/api/v1';
+const productserviceUrl = '/productserviceurl/api/v1/productservice';
+const userserviceUrl = '/userserviceurl/api/v1/userservice';
+const feedbackserviceUrl = '/feedbackserviceurl/api/v1/feedbackservice';
+const messageserviceUrl = '/messageserviceurl/api/v1/messageservice';
 
 /* eslint-disable import/prefer-default-export */
 export const urls = {
