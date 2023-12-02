@@ -134,7 +134,7 @@ const fbLoginOptions = {
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              '459334269929-69k1rfm2snegoeparfavhfkof5gg3l0j.apps.googleusercontent.com'
+              '84327651763-g6d73dojmkdb24qcnl9pniq0dd5rc5o8.apps.googleusercontent.com'
             ),
           },
           {
@@ -150,6 +150,6 @@ const fbLoginOptions = {
         },
       } as SocialAuthServiceConfig,
     },
-  ],
+  ]
 })
 export class DefaultModule { }
