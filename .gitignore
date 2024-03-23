@@ -8,7 +8,7 @@
 /bazel-out
 
 # dependencies
-/Restaurant-Frontend/node_modules
+/node_modules
 
 # profiling files
 chrome-profiler-events*.json
@@ -44,4 +44,4 @@ testem.log
 .DS_Store
 Thumbs.db
 
-/Restaurant-Frontend/.angular/cache/
+/.angular/cache/
