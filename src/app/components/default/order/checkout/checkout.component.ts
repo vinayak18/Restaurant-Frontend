@@ -293,8 +293,8 @@ export class CheckoutComponent implements OnInit {
       currency: 'inr',
       amount: this.orderSummary.netAmount,
       quantity: '1',
-      cancelUrl: 'https://localhost:4200/cart/checkout',
-      successUrl: 'https://localhost:4200/order/confirmation',
+      cancelUrl: 'https://amma-ki-kadai.vercel.app/cart/checkout',
+      successUrl: 'https://amma-ki-kadai.vercel.app/order/confirmation',
     };
     const stripe = await this.stripePromise;
 
@@ -317,8 +317,8 @@ export class CheckoutComponent implements OnInit {
       currency: 'inr',
       amount: this.orderSummary.netAmount,
       quantity: '1',
-      cancelUrl: 'https://localhost:4200/cart/checkout',
-      successUrl: 'https://localhost:4200/order/confirmation',
+      cancelUrl: 'https://amma-ki-kadai.vercel.app/cart/checkout',
+      successUrl: 'https://amma-ki-kadai.vercel.app/order/confirmation',
     };
     let options = {
       key: '',
