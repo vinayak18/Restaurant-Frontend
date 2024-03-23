@@ -1,4 +1,5 @@
-const productserviceUrl = '/productserviceurl/api/v1/productservice';
+const productserviceUrl = 'https://restaurant-app.up.railway.app/api/v1/productservice';
+//'/productserviceurl/api/v1/productservice';
 const userserviceUrl = '/userserviceurl/api/v1/userservice';
 const feedbackserviceUrl = '/feedbackserviceurl/api/v1/feedbackservice';
 const messageserviceUrl = '/messageserviceurl/api/v1/messageservice';
