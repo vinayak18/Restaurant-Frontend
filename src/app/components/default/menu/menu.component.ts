@@ -109,6 +109,7 @@ export class MenuComponent implements OnInit {
         .addToCartProducts(currUser.userId, cart)
         .subscribe((data) => {
           this.userService.setUserDetails(data.body);
+          this.snackbarSerivce.success('Product added to your cart.', '');
         });
     }
   }

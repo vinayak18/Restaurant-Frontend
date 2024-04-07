@@ -7,6 +7,8 @@ import { ScreenLoaderService } from 'src/app/services/common/screen-loader.servi
 import { product } from 'src/app/models/product';
 import { secretKey } from 'src/app/models/secretKey';
 import { foodType } from 'src/app/models/foodType';
+import { SnackbarService } from 'src/app/services/common/snackbar.service';
+import { CartItemsInfo } from 'src/app/models/cartItemsInfo';
 
 @Component({
   selector: 'app-special-dishes',
@@ -22,6 +24,7 @@ export class SpecialDishesComponent implements OnInit {
   specialDishes: product[] = [];
   constructor(
     private productService: ProductService,
+    private snackbarSerivce: SnackbarService,
     private authService: AuthService,
     private userService: UserService,
     private encrypt_decrypt: EncryptDecryptService,
@@ -47,7 +50,7 @@ export class SpecialDishesComponent implements OnInit {
   }
 
   addToCart(dish: product) {
-    let cart: product[] = [];
+    let cart: CartItemsInfo[] = [];
     let data = sessionStorage.getItem(
       this.encrypt_decrypt.encryption('Cart', secretKey)
     );
@@ -56,11 +59,11 @@ export class SpecialDishesComponent implements OnInit {
     }
     for (let x of cart) {
       if (dish.pid === x.pid) {
-        console.log('Product already exists!');
+        this.snackbarSerivce.info('Product already exists in your cart.', '');
         return;
       }
     }
-    cart.push(dish);
+    cart.push({ pid: dish.pid, quantity: dish.quantity });
     sessionStorage.setItem(
       this.encrypt_decrypt.encryption('Cart', secretKey),
       this.encrypt_decrypt.encryption(JSON.stringify(cart), secretKey)
@@ -71,6 +74,7 @@ export class SpecialDishesComponent implements OnInit {
         .addToCartProducts(currUser.userId, cart)
         .subscribe((data) => {
           this.userService.setUserDetails(data.body);
+          this.snackbarSerivce.success('Product added to your cart.', '');
         });
     }
   }
