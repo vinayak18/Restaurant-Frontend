@@ -20,9 +20,13 @@ export class ReviewComponent {
     this.loader.isLoading.subscribe((data) => {
       this.isLoaded = data;
     });
-    this.feedbackService.getCustomerTestimony().subscribe((data) => {
-      this.customerTestimony = data;
-      console.log(this.customerTestimony);
-    });
+    this.customerTestimony = JSON.parse(sessionStorage.getItem('feedback')??'[]');
+    if (null === this.customerTestimony || this.customerTestimony.length === 0) {
+      this.feedbackService.getCustomerTestimony().subscribe((data) => {
+        this.customerTestimony = data;
+        console.log(this.customerTestimony);
+        sessionStorage.setItem('feedback', JSON.stringify(this.customerTestimony));
+      });
+    }
   }
 }

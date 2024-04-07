@@ -107,7 +107,7 @@ export class CartComponent implements OnInit {
   checkout() {
     let isCheckoutPossible = true;
     this.productService.getAllProducts().subscribe((data) => {
-      for (let product of data) {
+      for (let product of data.body) {
         this.cartItems.forEach(cartItem => {
           if (product.pid === cartItem.pid && !product.live) {
             this.snackbar.error("<b>" + cartItem.name + "</b> is currently not available. </br>Please remove to proceed.", '', { enableHtml: true });

@@ -42,7 +42,7 @@ export class SpecialDishesComponent implements OnInit {
     this.productService
       .getProductByFoodType(foodType.SPECIAL_DISH)
       .subscribe((data) => {
-        this.specialDishes = data;
+        this.specialDishes = data.body;
       });
   }
 

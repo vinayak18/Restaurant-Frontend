@@ -64,13 +64,13 @@ export class ProductDetailsComponent implements OnInit {
   }
   getProductById() {
     this.productService.getProductById(this.productId).subscribe((data) => {
-      this.product = data;
+      this.product = data.body;
       this.selectedImage = this.product.img_url[0];
     });
   }
   getBestSellers() {
     this.productService.getBestSellers(this.productId).subscribe((data) => {
-      this.bestseller = data;
+      this.bestseller = data.body;
     });
   }
   getReviewByPID() {

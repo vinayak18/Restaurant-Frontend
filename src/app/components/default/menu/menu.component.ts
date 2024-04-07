@@ -60,7 +60,7 @@ export class MenuComponent implements OnInit {
   }
   getAllProducts() {
     this.productService.getAllProducts().subscribe((data) => {
-      this.allProducts = data;
+      this.allProducts = data.body;
       console.log(data);
       this.breakfastList = this.allProducts.filter(
         (value) => value.type === foodType.BREAKFAST && value.live
