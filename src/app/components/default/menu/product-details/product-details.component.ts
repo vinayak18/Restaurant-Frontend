@@ -12,6 +12,8 @@ import { ScreenLoaderService } from 'src/app/services/common/screen-loader.servi
 import { userDetails } from 'src/app/models/userDetails';
 import { ReviewService } from 'src/app/services/product-review/review.service';
 import { secretKey } from 'src/app/models/secretKey';
+import { SnackbarService } from 'src/app/services/common/snackbar.service';
+import { CartItemsInfo } from 'src/app/models/cartItemsInfo';
 
 @Component({
   selector: 'app-product-details',
@@ -38,13 +40,13 @@ export class ProductDetailsComponent implements OnInit {
   constructor(
     private activeRoute: ActivatedRoute,
     private productService: ProductService,
+    private snackbarSerivce: SnackbarService,
     private reviewService: ReviewService,
     private authService: AuthService,
     private userService: UserService,
     private encrypt_decrypt: EncryptDecryptService,
     private loader: ScreenLoaderService
   ) {
-    
     console.log(this.productId);
   }
   ngOnInit(): void {
@@ -64,13 +66,13 @@ export class ProductDetailsComponent implements OnInit {
   }
   getProductById() {
     this.productService.getProductById(this.productId).subscribe((data) => {
-      this.product = data;
+      this.product = data.body;
       this.selectedImage = this.product.img_url[0];
     });
   }
   getBestSellers() {
     this.productService.getBestSellers(this.productId).subscribe((data) => {
-      this.bestseller = data;
+      this.bestseller = data.body;
     });
   }
   getReviewByPID() {
@@ -131,7 +133,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addToCart() {
-    let cart: product[] = [];
+    let cart: CartItemsInfo[] = [];
     let data = sessionStorage.getItem(
       this.encrypt_decrypt.encryption('Cart', secretKey)
     );
@@ -140,11 +142,11 @@ export class ProductDetailsComponent implements OnInit {
     }
     for (let x of cart) {
       if (this.product.pid === x.pid) {
-        console.log('Product already exists!');
+        this.snackbarSerivce.info('Product already exists in your cart.', '');
         return;
       }
     }
-    cart.push(this.product);
+    cart.push({ pid: this.product.pid, quantity: this.product.quantity });
     sessionStorage.setItem(
       this.encrypt_decrypt.encryption('Cart', secretKey),
       this.encrypt_decrypt.encryption(JSON.stringify(cart), secretKey)
@@ -155,6 +157,7 @@ export class ProductDetailsComponent implements OnInit {
         .addToCartProducts(currUser.userId, cart)
         .subscribe((data) => {
           this.userService.setUserDetails(data.body);
+          this.snackbarSerivce.success('Product added to your cart.', '');
         });
     }
   }

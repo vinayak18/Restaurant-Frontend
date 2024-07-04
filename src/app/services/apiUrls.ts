@@ -1,14 +1,17 @@
-const productserviceUrl = '/productserviceurl/api/v1/productservice';
-const userserviceUrl = '/userserviceurl/api/v1/userservice';
-const feedbackserviceUrl = '/feedbackserviceurl/api/v1/feedbackservice';
-const messageserviceUrl = '/messageserviceurl/api/v1/messageservice';
+const productserviceUrl = '/restaurantApp/api/v1/productservice';
+const userserviceUrl = '/restaurantApp/api/v1/userservice';
+const authserviceUrl = '/restaurantApp/api/v1/authservice';
+const feedbackserviceUrl = '/restaurantApp/api/v1/feedbackservice';
+const messageserviceUrl = '/restaurantApp/api/v1/messageservice';
 
 /* eslint-disable import/prefer-default-export */
 export const urls = {
+  authUrls: {
+    login: `${authserviceUrl}/auth/user/login`,
+    socialFbLogin: `${authserviceUrl}/auth/facebook/login/{id}`,
+    socialGoogleLogin: `${authserviceUrl}/auth/google/login`
+  },
   userUrls: {
-    login: `${userserviceUrl}/auth/user/login`,
-    socialFbLogin: `${userserviceUrl}/auth/facebook/login/{id}`,
-    socialGoogleLogin: `${userserviceUrl}/auth/google/login`,
     register: `${userserviceUrl}/auth/user/register`,
     byEmail: `${userserviceUrl}/verify/user/email/{email}`,
     byId: `${userserviceUrl}/verify/user/id/{id}`,

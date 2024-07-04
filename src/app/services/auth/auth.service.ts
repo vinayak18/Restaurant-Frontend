@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { loginCredentials } from 'src/app/models/loginCredentials';
 import { EncryptDecryptService } from '../common/encrypt-decrypt.service';
-import { catchError } from 'rxjs/operators';
 import { userDetails } from 'src/app/models/userDetails';
 import { urls } from '../apiUrls';
 import { secretKey } from 'src/app/models/secretKey';
@@ -24,7 +23,7 @@ export class AuthService {
   }
 
   authenticate(loginObj: loginCredentials): Observable<any> {
-    const url = urls.userUrls.login;
+    const url = urls.authUrls.login;
     return this.http.get(url, {
       headers: {
         authorization: this.createBasicAuthToken(
@@ -43,12 +42,12 @@ export class AuthService {
   }
 
   googleAuthentication(token: any): Observable<any> {
-    const url = urls.userUrls.socialGoogleLogin;
+    const url = urls.authUrls.socialGoogleLogin;
     return this.http.post(url, token);
   }
 
   fbAuthentication(id: string, token: any): Observable<any> {
-    const url = urls.userUrls.socialFbLogin.replace('{id}', '' + id);
+    const url = urls.authUrls.socialFbLogin.replace('{id}', '' + id);
     return this.http.post(url, token);
   }
 
