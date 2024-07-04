@@ -1,29 +1,8 @@
 {
-  "/productserviceurl/*": {
+  "/restaurantApp/*": {
     "target": "https://restaurant-app.up.railway.app",
     "secure": false,
-    "pathRewrite": { "^/productserviceurl": "" },
-    "logLevel": "debug",
-    "changeOrigin": true
-  },
-  "/userserviceurl/*": {
-    "target": "https://restaurant-app.up.railway.app",
-    "secure": false,
-    "pathRewrite": { "^/userserviceurl": "" },
-    "logLevel": "debug",
-    "changeOrigin": true
-  },
-  "/feedbackserviceurl/*": {
-    "target": "https://restaurant-app.up.railway.app",
-    "secure": false,
-    "pathRewrite": { "^/feedbackserviceurl": "" },
-    "logLevel": "debug",
-    "changeOrigin": true
-  },
-  "/messageserviceurl/*": {
-    "target": "https://restaurant-app.up.railway.app",
-    "secure": false,
-    "pathRewrite": { "^/messageserviceurl": "" },
+    "pathRewrite": { "^/restaurantApp": "" },
     "logLevel": "debug",
     "changeOrigin": true
   }

@@ -1,19 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/productserviceurl/:match*",
-      "destination": "https://restaurant-app.up.railway.app/:match*"
-    },
-    {
-      "source": "/userserviceurl/:match*",
-      "destination": "https://restaurant-app.up.railway.app/:match*"
-    },
-    {
-      "source": "/feedbackserviceurl/:match*",
-      "destination": "https://restaurant-app.up.railway.app/:match*"
-    },
-    {
-      "source": "/messageserviceurl/:match*",
+      "source": "/restaurantApp/:match*",
       "destination": "https://restaurant-app.up.railway.app/:match*"
     }
   ],
